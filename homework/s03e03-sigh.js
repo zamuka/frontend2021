@@ -8,9 +8,15 @@ let sighMessage = 'О';
 
 // Здесь напишите ваш цикл, который добавляет '-хо'
 // к sighMessage за каждый оставшийся день
-
+for (let i = 0; i < daysTillWeekend; i++) {
+	sighMessage = sighMessage + '-xo';
+}
 
 // Здесь напишите условие, которое добавит к результату радостный
 // восклицательный знак, если выходные уже наступили
+if (daysTillWeekend === 0) {
+	sighMessage = sighMessage + '!';
+}
 
 // выведите результат с помощью alert
+alert(sighMessage);
