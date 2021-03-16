@@ -12,10 +12,16 @@ const messageLength = message.length;
 
 
 // начнем считать с ноля
-const aLetterCount = 0;
+let aLetterCount = 0;
 
 
 // А тут можно написать цикл, который переберет все буквы по очереди и если это 'i' - увеличит счетчик.
+
+for (counter = 0; counter <= messageLength; counter = counter + 1) {
+    if (message[counter] === 'i') {
+        aLetterCount += 1;
+    }
+}
 
 
 // вывод результата

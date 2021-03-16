@@ -2,8 +2,8 @@
 // Чем больше дней осталось - тем более горестный должен быть вздох.
 
 // ввод данных пользователем
-let daysTillWeekend = Number(prompt('Сколько дней до выходных?'));
-let sighMessage = 'О';
+const daysTillWeekend = Number(prompt('Сколько дней до выходных?'));
+const sighMessage = 'О';
 // Здесь напишите ваш цикл, который добавляет '-хо'
 // к sighMessage за каждый оставшийся день
 
