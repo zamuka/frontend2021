@@ -10,7 +10,7 @@ const factorialBase = Number(prompt('Введите число'));
 // Ваш код тут
 let result = 1;
 
-for (let i = 2; i <= factorialBase; i++) {
+for (let i = 1; i <= factorialBase; i++) {
 	result = result * i;
 }
 
