@@ -6,11 +6,24 @@ const daysTillWeekend = Number(prompt('Сколько дней до выходн
 
 let sighMessage = 'О';
 
+let i = daysTillWeekend;
+
 // Здесь напишите ваш цикл, который добавляет '-хо'
 // к sighMessage за каждый оставшийся день
+
+while (i > 0) {
+    sighMessage = sighMessage + '-xo';
+    i = i - 1;
+}
+
 
 
 // Здесь напишите условие, которое добавит к результату радостный
 // восклицательный знак, если выходные уже наступили
+if (i === 0) {
+    sighMessage = sighMessage + '!';
+}
+
 
 // выведите результат с помощью alert
+alert(sighMessage);
