@@ -24,12 +24,12 @@
 
 const message = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 const messageLength = message.length;
-const aLetterCount = 0;
+let aLetterCount = 0;
 
-
-for (let char[i] of message) {
-    aLetterCount = char + 1;
-    
-    console.log(`Нашлось ${aLetterCount} букв 'i'.`);
+for (let i = 0; i < messageLength; i++) {
+    if(message[i] === 'i') {
+        aLetterCount = aLetterCount + 1;
+    }
 }
 
+console.log(`Нашлось ${aLetterCount} букв 'i'.`);
