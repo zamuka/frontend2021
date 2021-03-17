@@ -1,16 +1,35 @@
-// Написать программу, которая будет вздыхать, после того как пользователь введет количество дней, оставшееся до выходных.
-// Чем больше дней осталось - тем более горестный должен быть вздох.
+//With 'Do/While' loop:
+let daysTillWeekend = Number(prompt('Сколько дней до выходных?')); //Переделала на let вместо const чтобы убрать ошибку в браузере при повторном кеше Uncaught SyntaxError: Identifier 'daysTillWeekend' has already been declared
+let sighMessage = 'О';
+let i = 0;
 
-// ввод данных пользователем
-const daysTillWeekend = Number(prompt('Сколько дней до выходных?'));
+if(daysTillWeekend > 0) {
+   do {
+    i = i + 1;
+    sighMessage = sighMessage + '-xo';
+   } while (i < daysTillWeekend)  
+    
+    alert(sighMessage);
+}
+else if(daysTillWeekend === 0) {
+    alert(sighMessage + '!');
+} 
+else if(daysTillWeekend < 0) {
+    alert('Please enter a number >= 0');
 
+//With 'For' loop: 
+let daysTillWeekend = Number(prompt('Сколько дней до выходных?'));
 let sighMessage = 'О';
 
-// Здесь напишите ваш цикл, который добавляет '-хо'
-// к sighMessage за каждый оставшийся день
-
-
-// Здесь напишите условие, которое добавит к результату радостный
-// восклицательный знак, если выходные уже наступили
-
-// выведите результат с помощью alert
+if(daysTillWeekend > 0) {
+        for (let i = 0; i < daysTillWeekend; i++) {
+            sighMessage = sighMessage + '-xo';
+        }
+        alert(sighMessage);
+    }
+    else if(daysTillWeekend === 0) {
+        alert(sighMessage + '!');
+    } 
+    else if(daysTillWeekend < 0) {
+        alert('Please enter a number >= 0');
+    }   
