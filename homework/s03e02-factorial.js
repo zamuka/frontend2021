@@ -8,6 +8,24 @@ const factorialBase = Number(prompt('Введите число'));
 
 
 // Ваш код тут
+let i = factorialBase;
+let result = 1;
+while (i > 0){
+    result = result * i;
+    i = i - 1;
+}
+//Если необходимо с проверкой на целые неотрицательные числа:
+let i = factorialBase;
+let result = 1;
+
+if (i >= 0 && Number.isInteger(i)) {
+while (i > 0) {
+result = result * i;
+i = i - 1;
+}
+} else {
+    result = 'For factorial counting, please enter a positive integer';
+}
 
 
 // вывод для пользователя с помощью alert;
