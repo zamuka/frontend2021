@@ -4,7 +4,15 @@
 // ввод данных пользователем
 const daysTillWeekend = Number(prompt('Сколько дней до выходных?'));
 
-let sighMessage = 'О';
+let sighMessage = 'O';
+
+for (let i = 0; i < daysTillWeekend; i++) {
+    sighMessage = sighMessage + '-xo';
+}
+if ( daysTillWeekend == 0 ) {
+    sighMessage = sighMessage + '!';
+}
+alert(sighMessage);
 
 // Здесь напишите ваш цикл, который добавляет '-хо'
 // к sighMessage за каждый оставшийся день
