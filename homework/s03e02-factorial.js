@@ -5,10 +5,12 @@
 
 // ввод данных
 const factorialBase = Number(prompt('Введите число'));
-
+let result = 1;
 
 // Ваш код тут
-
+for (i = factorialBase; i > 0 ; i = i - 1) {
+    result = result * i;
+}
 
 // вывод для пользователя с помощью alert;
 alert(result);

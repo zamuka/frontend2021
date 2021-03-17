@@ -9,8 +9,21 @@ let sighMessage = 'О';
 // Здесь напишите ваш цикл, который добавляет '-хо'
 // к sighMessage за каждый оставшийся день
 
+let sadSigh = '';
+let inhaleCounter = 0;
+
+while (inhaleCounter < daysTillWeekend) {
+    sadSigh = sadSigh + '-хо';
+    inhaleCounter = inhaleCounter + 1;
+}
 
 // Здесь напишите условие, которое добавит к результату радостный
 // восклицательный знак, если выходные уже наступили
+
+if (daysTillWeekend > 0) {
+    alert (sighMessage + sadSigh)
+} else {
+    alert (sighMessage + '!')
+}
 
 // выведите результат с помощью alert
