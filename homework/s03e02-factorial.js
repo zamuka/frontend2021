@@ -8,7 +8,10 @@ const factorialBase = Number(prompt('Введите число'));
 
 
 // Ваш код тут
-
+let fact = 1;
+for (let i = factorialBase; i > 1; i--) {
+  fact = fact * i;
+}
 
 // вывод для пользователя с помощью alert;
 alert(result);
