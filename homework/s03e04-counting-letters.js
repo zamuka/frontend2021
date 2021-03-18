@@ -12,11 +12,15 @@ const messageLength = message.length;
 
 
 // начнем считать с ноля
-const aLetterCount = 0;
+let aLetterCount = 0;
 
 
 // А тут можно написать цикл, который переберет все буквы по очереди и если это 'i' - увеличит счетчик.
-
+for(let i = 0; i < messageLength; i = i +1) {
+    if(message[i] === 'i') {
+        aLetterCount = aLetterCount + 1;
+    }
+}
 
 // вывод результата
 console.log(`Нашлось ${aLetterCount} букв 'i'.`);
