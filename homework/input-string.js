@@ -7,21 +7,23 @@
 
 const inputString = 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...';
 
-const vowelsArr = [ 'A', 'E', 'I', 'O', 'U', 'Y' ];
 
-const counter = [];
+// variant-1
+let newInputString = inputString.replace(/[aeiouyAEIOUY]/g, "")
 
+console.log(`Variant-1 result is: ${newInputString}`);
 
-for (let j = 0; j < vowelsArr.length; j++) {
-    let letter = vowelsArr[j].toLowerCase();
+// variant-2
 
-    for (let i = 0; i < inputString.length; i++) {
-        let elem = inputString[i].toLowerCase();
-        
-        if (letter === elem) {
-            counter.push(elem);
-        }
-    }
+const vowelsArr = ['A', 'E', 'I', 'O', 'U', 'Y'];
+
+let cloneString = inputString;
+
+let newString;
+
+for (let i = 0; i < vowelsArr.length; i++) {
+    newString = cloneString.split(vowelsArr[i].toLowerCase());
+    cloneString = newString.join('');
 }
 
-console.log(counter.length);
+console.log(`Variant-2 result is: ${cloneString}`);
