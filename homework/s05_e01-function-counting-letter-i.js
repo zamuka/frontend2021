@@ -2,7 +2,7 @@
 
 function getILetterCount(str) {
     let aLetterCount = 0;
-    const lowerCaseMessage = message.toLowerCase();
+    const lowerCaseMessage = str.toLowerCase();
 
     for (let counter = 0; counter <= lowerCaseMessage.length; counter = counter + 1) {
         if (lowerCaseMessage[counter] === 'i') {
