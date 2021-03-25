@@ -1,8 +1,4 @@
-'use strict';
-
-
-console.log('before declaration');
-
+// Объявление функции - декларация - declaration
 function multiply(a, b) {
   console.log('multiply started');
   const result = a * b;
@@ -10,6 +6,7 @@ function multiply(a, b) {
   return result;
 }
 
+// объявление функции, как выражение. function expression
 const square = function (x) {
   console.log('square started');
   const result = multiply(x, x);
@@ -20,10 +17,11 @@ const square = function (x) {
 
 const y = square(10);
 
+// без скобок функция не вызывается.
 console.log(multiply);
-// console.log('after', y);
 
-// return multiple values wrapped in object
+// Функция возвращает только одно значение.
+// Если надо вернуть несколько значений они оборачиваются. return multiple values wrapped in object
 function getUserData() {
   const result = {
     itemCount: 10,
@@ -35,7 +33,7 @@ function getUserData() {
 
 const userName = getUserData();
 
-const userVasya = { // 0x1aba102
+const userVasya = {
   name: 'Vasya',
   age: 20,
   isAdmin: false,
@@ -43,13 +41,12 @@ const userVasya = { // 0x1aba102
 
 
 function showUserAge(user) {
-
   user.isAdmin = true; // input object mutation is NOT recommended
   console.log(user.age);
 }
 
+// передается ссылка на объект и внутри функции объект может быть изменен
 showUserAge(userVasya);
-
 
 
 function countLetters(inputString) {
@@ -61,13 +58,13 @@ function countLetters(inputString) {
 
 }
 
-
 function isLetterAtIndexIsI(index) {
   return inputString[index] === targetLetter;
 }
 
 console.log('-----');
 
+// Можно получить доступ в аргументам даже без прописывания их заранее
 function accessArgs() {
 
   console.log(arguments[4]);
