@@ -9,6 +9,20 @@ const factorialBase = Number(prompt('Введите число'));
 
 // Ваш код тут
 
+if (factorialBase !== 0) {
+    factorial(factorialBase)
+}
+
+function factorial (num) {
+    let result = 1
+    
+    for (i = 1; i <= num; i++) {
+        result = result * i
+    }
+    alert(result);
+}
+
 
 // вывод для пользователя с помощью alert;
-alert(result);
+// alert(result);
+ 
