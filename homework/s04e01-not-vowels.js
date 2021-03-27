@@ -36,7 +36,7 @@ function returnOfConsonants(inputString) {
             result2 = result2 + letter;
         }
     }
-    return result2;
+    return result2;   
 }
 
 function isVowel(letter) {
