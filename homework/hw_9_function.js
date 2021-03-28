@@ -27,3 +27,10 @@ const getLetterCount = function (str, x) {
 }
 const aLetterCount = getLetterCount(message, 'a');
 console.log(aLetterCount);
+
+let company = promt ('Какая компания создала JS?','')
+if (company == 'Java') {
+    alert('Верно!')
+} else {
+    alert('Неверно!')
+}
