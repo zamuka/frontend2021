@@ -2,7 +2,7 @@
 function buttonClick() {
 	// ваш код тут
 
-	// const result = document.querySelector('#result');
+	const result = document.querySelector('#result');
 	const width = document.querySelectorAll('input')[0].value;
 
 	// const width = document.forms['cardForm'].elements['gridWidth'].value;
