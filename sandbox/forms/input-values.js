@@ -12,3 +12,4 @@ function buttonClick() {
 	result.innerText = width * height;
 
 	// alert('Button clicked');
+}
