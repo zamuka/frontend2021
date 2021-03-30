@@ -30,3 +30,4 @@ const startUp = () => {
 // все, что написали выше мы хотим выполнить после загрузки и обработки HTML
 // говорим об этом браузеру, добавляя событие на глобальный объект window
 window.addEventListener('DOMContentLoaded', startUp);
+setTimeout()

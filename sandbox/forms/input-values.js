@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 function buttonClick() {
   const result = document.querySelector('#result');
   const width = document.querySelector('[name = "gridWidth"]').value;
