@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 function buttonClick() {
 	// ваш код тут
 
@@ -11,4 +12,3 @@ function buttonClick() {
 	result.innerText = width * height;
 
 	// alert('Button clicked');
-}
