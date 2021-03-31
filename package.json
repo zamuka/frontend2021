@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "live-server sandbox"
+    "server": "live-server sandbox",
+    "start": "npm run server",
+    "lint": "eslint {sandbox/**/*,homework/**/*,classwork/**/*}"
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,10 @@
   "homepage": "https://github.com/zamuka/frontend2021#readme",
   "dependencies": {
     "live-server": "1.2.1"
+  },
+  "devDependencies": {
+    "eslint": "7.23.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-plugin-import": "2.22.1"
   }
 }
