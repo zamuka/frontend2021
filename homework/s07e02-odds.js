@@ -7,6 +7,7 @@
  * @returns {number[]}
  */
 
+//1
 function getOdds(inputNumbers) {
   let arrayOdds = [];
   for (let i = 0; i < inputNumbers.length; i++) {
@@ -19,3 +20,9 @@ function getOdds(inputNumbers) {
 
 let someArray = [1, 324, 435, 3453, 435, 88];
 let newArray = getOdds(someArray);
+
+//2
+let someArray = [1, 324, 435, 3453, 435, 88];
+let arrayOdds = someArray.filter(function(elem) {
+	return elem % 2 !== 0;
+});
