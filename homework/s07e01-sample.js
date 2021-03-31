@@ -65,7 +65,19 @@ function sampleProperty(yourObject) {
   const newArray = [];
   newArray.push(randomElement);
   const randomProperty = Object.fromEntries(newArray);
-  
+
+  return randomProperty;
+}
+sampleProperty(person);
+
+// и еще так:
+
+function sampleProperty (yourObject) {
+  const objectSize = Object.keys(yourObject).length;
+  const randomIndex = Math.floor(Math.random() * objectSize);
+  const randomKey = Object.keys(yourObject)[randomIndex];
+  const randomProperty = Object.assign({}, {[randomKey]: yourObject[randomKey]});
+
   return randomProperty;
 }
 sampleProperty(person);
