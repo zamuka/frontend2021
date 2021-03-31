@@ -1,7 +1,7 @@
 // 1. напишите функцию, которая вернет случайный элемент массива.
 
 function sample(items) {
-    const randomNumber = Math.floor(Math.random()*items.length);
+    const randomNumber = Math.floor(Math.random() * items.length);
     
     return items[randomNumber];
 }
@@ -15,7 +15,7 @@ console.log(randomColor);
 function getRandomLetters(text, quantity) {
     let newString = ''
     for (let i = 0; i < quantity; i = i + 1) {
-        const randomNumber = Math.floor(Math.random()*text.length);
+        const randomNumber = Math.floor(Math.random() * text.length);
         newString = newString + text[randomNumber];
     }
     
@@ -41,7 +41,7 @@ const person = {
 
 function sampleProperty(person) {
     const propertyKeys = Object.keys(person);
-    const randomPropertyNumber = Math.floor(Math.random()*propertyKeys.length)
+    const randomPropertyNumber = Math.floor(Math.random() * propertyKeys.length);
     const property = propertyKeys[randomPropertyNumber];
     return  { [property] : person[property] };
 }
