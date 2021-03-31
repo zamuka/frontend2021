@@ -36,4 +36,4 @@ function buttonClick() {
   const calculate = width + height;
 
   document.getElementById('result').innerText = String(calculate);
-}
+
