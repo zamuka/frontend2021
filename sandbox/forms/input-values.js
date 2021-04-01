@@ -1,3 +1,4 @@
+
 //Вариант №1
 function buttonClick() {
   const width = document.querySelector('[name="gridWidth"]').value;
@@ -7,4 +8,5 @@ function buttonClick() {
 
   document.getElementById('result').innerText = multiplication;
 }
+
 
