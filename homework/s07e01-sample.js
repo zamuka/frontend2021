@@ -44,8 +44,9 @@ function sampleProperty (yourObject) {
   const objectSize = Object.keys(yourObject).length;
   const randomIndex = Math.floor(Math.random() * objectSize);
   const randomKey = Object.keys(yourObject)[randomIndex];
-  const randomValue = Object.values(yourObject)[randomIndex];
-  const randomProperty = Object.assign({}, {[randomKey]: randomValue});
+  const randomProperty = {
+    [randomKey]: yourObject[randomKey],
+  };
 
   return randomProperty;
 }
@@ -70,16 +71,5 @@ function sampleProperty(yourObject) {
 }
 sampleProperty(person);
 
-// и еще так:
-
-function sampleProperty (yourObject) {
-  const objectSize = Object.keys(yourObject).length;
-  const randomIndex = Math.floor(Math.random() * objectSize);
-  const randomKey = Object.keys(yourObject)[randomIndex];
-  const randomProperty = Object.assign({}, {[randomKey]: yourObject[randomKey]});
-
-  return randomProperty;
-}
-sampleProperty(person);
 // sampleProperty(person) вернет, например,
 // { age: 20 } или { height: 170 }
