@@ -6,6 +6,7 @@
  * @param {number[]} inputNumbers
  * @returns {number[]}
  */
+<<<<<<< HEAD
 
 //1
 function getOdds(inputNumbers) {
@@ -26,3 +27,8 @@ let someArray = [1, 324, 435, 3453, 435, 88];
 let arrayOdds = someArray.filter(function(elem) {
 	return elem % 2 !== 0;
 });
+=======
+function getOdds(inputNumbers) {
+  // ВАШ КОД ТУТ
+}
+>>>>>>> main

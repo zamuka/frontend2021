@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 window.addEventListener('DOMContentLoaded', DOMContentLoaded);
 let inputWidth;
 let inputHeight;
@@ -21,6 +22,10 @@ function buttonClick() {
 =======
 // eslint-disable-next-line no-unused-vars
 function buttonClick() {
+=======
+// eslint-disable-next-line no-unused-vars
+function buttonClick() {
+>>>>>>> main
   /** @type {HTMLInputElement} */
   const widthElement = document.querySelector('[name="gridWidth"]');
   /** @type {HTMLInputElement} */
@@ -33,4 +38,7 @@ function buttonClick() {
 
   document.getElementById('result').innerText = String(calculate);
 }
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main

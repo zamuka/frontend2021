@@ -15,5 +15,12 @@ module.exports = {
     'no-console': ['off'],
     'operator-assignment': ['error', 'never'],
     'prefer-object-spread': ['off'],
+<<<<<<< HEAD
+=======
+    'no-restricted-syntax': ['off'],
+    strict: ['off'],
+    'prefer-arrow-callback': ['off'],
+    'func-names': ['off'],
+>>>>>>> main
   },
 };
