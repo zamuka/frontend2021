@@ -6,12 +6,12 @@
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 100, 151];
 const evenNumbers = [];
 
-// for (ВАШ) {
-//      КОД
-//      ТУТ
-// }
+for (number of numbers) {
+  if( number % 2 === 0 ) {
+    evenNumbers.push(number);
+  }
+}
 
-// [ 2, 4, 6, 8, 100 ]
 console.log(evenNumbers);
 
 // 2. В новом массиве wordsWithO должны быть только слова, в которых есть буква 'o'
@@ -22,12 +22,12 @@ const words = ['grocery', 'sister', 'dirt', 'history', 'opinion', 'payment',
 
 const wordsWithO = [];
 
-// for (ВАШ) {
-//      КОД
-//      ТУТ
-// }
+for ( let i = 0; i < words.length; i++ ) {
+  if ( words[i].includes('o')) {
+    wordsWithO.push(words[i]);
+  }
+}
 
-// ['grocery', 'history', 'opinion', 'movie', 'selection', 'coffee']
 console.log(wordsWithO);
 
 // В.
@@ -42,7 +42,7 @@ console.log(wordsWithO);
  */
 
 // [ 2, 4, 6, 8, 100 ]
-console.log(numbers.filter((num) => num/** ваш код тут */));
+console.log(numbers.filter((num) => num % 2 === 0));
 
 // ['grocery', 'history', 'opinion', 'movie', 'selection', 'coffee']
-console.log(words.filter((word) => word/** ваш код тут */));
+console.log(words.filter((word) => word.includes('o')));
