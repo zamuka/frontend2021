@@ -6,10 +6,11 @@
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 100, 151];
 const evenNumbers = [];
 
-// for (ВАШ) {
-//      КОД
-//      ТУТ
-// }
+for (let key of numbers) {
+  if(key%2 === 0){
+    evenNumbers.push(key);
+  }
+}
 
 // [ 2, 4, 6, 8, 100 ]
 console.log(evenNumbers);
@@ -22,27 +23,28 @@ const words = ['grocery', 'sister', 'dirt', 'history', 'opinion', 'payment',
 
 const wordsWithO = [];
 
-// for (ВАШ) {
-//      КОД
-//      ТУТ
-// }
+for(let key of words) {
+  if(key.includes('o')) {
+    wordsWithO.push(key);
+  }
+}
 
 // ['grocery', 'history', 'opinion', 'movie', 'selection', 'coffee']
 console.log(wordsWithO);
 
-// В.
-/**
- * Читаем про метод массива .filter
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
- *
- * Повторяем предыдущие задания используя .filter
- * Функция, переданная в .filter не обязательно должна возвращать true или
- * false, но выражение все равно будет использовано как boolean, точно также,
- * как в конструкции if ()
- */
+// // В.
+// /**
+//  * Читаем про метод массива .filter
+//  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+//  *
+//  * Повторяем предыдущие задания используя .filter
+//  * Функция, переданная в .filter не обязательно должна возвращать true или
+//  * false, но выражение все равно будет использовано как boolean, точно также,
+//  * как в конструкции if ()
+//  */
 
-// [ 2, 4, 6, 8, 100 ]
-console.log(numbers.filter((num) => num/** ваш код тут */));
+// // [ 2, 4, 6, 8, 100 ]
+console.log(numbers.filter((num) => num%2 === 0));
 
-// ['grocery', 'history', 'opinion', 'movie', 'selection', 'coffee']
-console.log(words.filter((word) => word/** ваш код тут */));
+// // ['grocery', 'history', 'opinion', 'movie', 'selection', 'coffee']
+console.log(words.filter((word) => word.includes('o')));
