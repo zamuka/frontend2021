@@ -14,10 +14,18 @@
  * @returns {ItemType[]}
  * @template ItemType
  */
-function copy(inputArray) {
-  const result = [];
+
+const inputArray = [1, 65, 5, 76];
+
+function copy(arrayOfNumbers) {
+  let result = [];
+  for(number of arrayOfNumbers) {
+    result += number + ' ';
+  }
+  return result;
 }
 
+let newArray = [copy(inputArray)];
 /**
  * Напишите улучшенную версию функции copy, которая вместо копирования
  * будет умножать все элементы на 2 и в массив-результат записывать
@@ -26,8 +34,13 @@ function copy(inputArray) {
  * @param {number[]} inputArray - входящий массив
  * @returns {number[]}
  */
-function copyAndMultiply(inputArray) {
 
+ function copyAndMultiply(arrayOfNumbers) {
+  let result = [];
+  for(number of arrayOfNumbers) {
+    result += (number * 2) + ' ';
+  }
+  return result;
 }
 
 /**
@@ -44,16 +57,35 @@ function copyAndMultiply(inputArray) {
  * @returns {ItemType[]}
  * @template ItemType
  */
+
+let cityList = ['Paris', 'Amsterdam', 'Singapore'];
+
 function map(inputArray, operation) {
-
+  let result = [];
+  for (let element of inputArray) {
+    result.push(operation(element));
+  }
+  return result;
 }
 
-// Пример использования функции map, после того, как она будет готова:
-function square(x) {
-  return x * x;
+function addValue (element) {
+  element += ' is my beloved place';
+  return element;
 }
-const numbers = [1, 5, 10];
-const squares = map(numbers, square);
 
-// результат [1, 25, 100];
-console.log(squares);
+let newString = map(cityList, addValue);
+
+
+//with .map method
+let cityList = ['Paris', 'Amsterdam', 'Singapore'];
+
+function map(inputArray, operation) {
+  return inputArray.map(operation);
+}
+
+function addValue (element) {
+  element += ' is my beloved place';
+  return element;
+}
+
+let newString = map(cityList, addValue);
