@@ -83,5 +83,5 @@ function map(InputArray, operation) {
   return result3;
 }
 
-const doubleArr = map(arrMap, multiplying);
-console.log(doubleArr);
+const multiplyArr = map(arrMap, multiplying);
+console.log(multiplyArr);
