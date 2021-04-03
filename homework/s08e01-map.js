@@ -16,7 +16,13 @@
  */
 function copy(inputArray) {
   const result = [];
+  inputArray.forEach(function(element) {
+    result.push(element);
+  });
+  return result;
 }
+const sampleArray = [5, 4, 7, 26, 53, 6];
+copy(sampleArray);
 
 /**
  * Напишите улучшенную версию функции copy, которая вместо копирования
@@ -27,8 +33,15 @@ function copy(inputArray) {
  * @returns {number[]}
  */
 function copyAndMultiply(inputArray) {
-
+  const result = [];
+  inputArray.forEach(function(element) {
+    element = element * 2;
+    result.push(element);
+  });
+  return result;
 }
+const sampleArray = [5, 4, 7, 26, 53, 6];
+copyAndMultiply(sampleArray);
 
 /**
  * Функция - это значение, и его тоже можно передавать.
@@ -45,7 +58,10 @@ function copyAndMultiply(inputArray) {
  * @template ItemType
  */
 function map(inputArray, operation) {
-
+  const newArray = inputArray.map(function(element) {
+    return operation(element);
+  })
+  return newArray;
 }
 
 // Пример использования функции map, после того, как она будет готова:
