@@ -20,7 +20,7 @@ const inputArray = [1, 65, 5, 76];
 function copy(arrayOfNumbers) {
   let result = [];
   for(number of arrayOfNumbers) {
-    result += number + ' ';
+    result.push(number);
   }
   return result;
 }
@@ -38,7 +38,7 @@ let newArray = [copy(inputArray)];
  function copyAndMultiply(arrayOfNumbers) {
   let result = [];
   for(number of arrayOfNumbers) {
-    result += (number * 2) + ' ';
+    result.push(number * 2);
   }
   return result;
 }
@@ -69,7 +69,7 @@ function map(inputArray, operation) {
 }
 
 function addValue (element) {
-  element += ' is my beloved place';
+  element = element + ' is my beloved place';
   return element;
 }
 
@@ -84,7 +84,7 @@ function map(inputArray, operation) {
 }
 
 function addValue (element) {
-  element += ' is my beloved place';
+  element = element + ' is my beloved place';
   return element;
 }
 
