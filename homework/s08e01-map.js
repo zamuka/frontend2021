@@ -18,9 +18,9 @@ const arr = [3, 5, 10];
 
 function copy(inputArray) {
   const result = [];
-  for(inputArray of arr){
-    result.push(inputArray);
-  }
+  inputArray.forEach(item => {
+    result.push(item);
+  })
   return result;
 }
 const copyArr = copy(arr);
@@ -37,10 +37,9 @@ console.log(copyArr);
 function copyAndMultiply(inputArray) {
   const result1 = [];
   let doubleElements;
-  for(inputArray of arr){
-    doubleElements = inputArray * 2;
-    result1.push(doubleElements);
-  }
+  inputArray.forEach(item => {
+    result1.push(item * 2);
+  })
   return result1;
 }
 const copyArr1 = copyAndMultiply(arr);
@@ -77,11 +76,13 @@ console.log(copyArr1);
 function multiplying(x) {
   return x * 4;
 }
-const arrMap = [3, 5, 10];
-function map(InputArray, operation) {
-  const result3 = InputArray.map(operation);
+function map(numbers, operation) {
+  const result3 = [];
+  numbers.forEach(item => {
+    result3.push(operation(item));
+  })
   return result3;
 }
 
-const multiplyArr = map(arrMap, multiplying);
+const multiplyArr = map(arr, multiplying);
 console.log(multiplyArr);
