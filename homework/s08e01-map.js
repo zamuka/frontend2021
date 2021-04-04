@@ -36,7 +36,6 @@ console.log(copyArr);
  */
 function copyAndMultiply(inputArray) {
   const result1 = [];
-  let doubleElements;
   inputArray.forEach(item => {
     result1.push(item * 2);
   })
