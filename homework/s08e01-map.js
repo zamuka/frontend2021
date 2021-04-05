@@ -14,8 +14,17 @@
  * @returns {ItemType[]}
  * @template ItemType
  */
+
+const numbers = [3, 5, 10, 20, 40];
+
 function copy(inputArray) {
   const result = [];
+
+  inputArray.forEach((item) => {
+    result.push(item);
+  });
+
+  return result;
 }
 
 /**
@@ -26,8 +35,17 @@ function copy(inputArray) {
  * @param {number[]} inputArray - входящий массив
  * @returns {number[]}
  */
-function copyAndMultiply(inputArray) {
 
+const numbers = [3, 5, 10, 20, 40];
+
+function copyAndMultiply(inputArray) {
+  const result = [];
+
+  inputArray.forEach((item) => {
+    result.push(item*2);
+  });
+
+  return result;
 }
 
 /**
@@ -44,8 +62,17 @@ function copyAndMultiply(inputArray) {
  * @returns {ItemType[]}
  * @template ItemType
  */
-function map(inputArray, operation) {
 
+const inputArray = [3, 5, 10, 20, 40];
+
+function map(inputArray, operation) {
+  const result = [];
+
+  inputArray.forEach((item) => {
+    result.push(operation(item))
+  });
+
+  return result;
 }
 
 // Пример использования функции map, после того, как она будет готова:
