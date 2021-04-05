@@ -1,0 +1,16 @@
+.grid {
+  display: flex;
+  border: 1px solid black;
+  margin: 20px;
+  padding: 0;
+  width: auto;
+  flex-wrap: wrap;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+
+}
