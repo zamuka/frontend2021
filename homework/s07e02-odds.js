@@ -6,6 +6,9 @@
  * @param {number[]} inputNumbers
  * @returns {number[]}
  */
+
+const numbers = []
+
 function getOdds(inputNumbers) {
-  // ВАШ КОД ТУТ
+  
 }
