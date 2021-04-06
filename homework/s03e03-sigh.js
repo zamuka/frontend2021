@@ -9,6 +9,20 @@ let sighMessage = 'О';
 // Здесь напишите ваш цикл, который добавляет '-хо'
 // к sighMessage за каждый оставшийся день
 
+if (daysTillWeekend !== 0) {
+    yep(daysTillWeekend)
+} else {
+    alert(sighMessage + '!')
+}
+
+function yep(n) {
+    let sigh = '-ho';
+    for (i = 1; i <= n; i++) {
+        sighMessage = sighMessage + sigh;
+    }
+    alert(sighMessage);
+}
+
 
 // Здесь напишите условие, которое добавит к результату радостный
 // восклицательный знак, если выходные уже наступили
