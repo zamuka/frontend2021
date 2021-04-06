@@ -1,7 +1,7 @@
-const GRID_WIDTH = 10;
-const GRID_HEIGHT = 10;
-const CELL_WIDTH_PX = 20;
-const CELL_HEIGHT_PX = 20;
+const GRID_WIDTH = 8;
+const GRID_HEIGHT = 8;
+const CELL_WIDTH_PX = 40;
+const CELL_HEIGHT_PX = 40;
 
 function main() {
   const mainContainer = document.createElement('div');
@@ -17,11 +17,17 @@ function main() {
       cell.classList.add('cell');
       cell.style.width = `${CELL_WIDTH_PX}px`;
       cell.style.height = `${CELL_HEIGHT_PX}px`;
+      
+      let r;
+      let g;
+      let b;
 
-      const r = 25 * y;
-      const g = 25 * x;
-
-      cell.style.backgroundColor = `rgb(${r}, ${g}, 0)`;
+      if (y % 2 == 0 && x % 2 !== 0 || y % 2 !== 0 && x % 2 == 0) {
+        r = g = b = 0;
+      } else {
+        r = g = b = 'f';
+      }
+      cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
       mainContainer.appendChild(cell);
     }
   }
