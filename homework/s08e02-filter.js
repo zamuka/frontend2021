@@ -6,10 +6,11 @@
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 100, 151];
 const evenNumbers = [];
 
-// for (ВАШ) {
-//      КОД
-//      ТУТ
-// }
+for (const num of numbers) {
+  if (!(num % 2)) {
+    evenNumbers.push(num);
+  }
+}
 
 // [ 2, 4, 6, 8, 100 ]
 console.log(evenNumbers);
@@ -22,10 +23,11 @@ const words = ['grocery', 'sister', 'dirt', 'history', 'opinion', 'payment',
 
 const wordsWithO = [];
 
-// for (ВАШ) {
-//      КОД
-//      ТУТ
-// }
+for (const word of words) {
+  if (word.toLowerCase().includes('o')) {
+    wordsWithO.push(word);
+  }
+}
 
 // ['grocery', 'history', 'opinion', 'movie', 'selection', 'coffee']
 console.log(wordsWithO);
@@ -42,7 +44,7 @@ console.log(wordsWithO);
  */
 
 // [ 2, 4, 6, 8, 100 ]
-console.log(numbers.filter((num) => num/** ваш код тут */));
+console.log(numbers.filter((num) => !(num % 2)));
 
 // ['grocery', 'history', 'opinion', 'movie', 'selection', 'coffee']
-console.log(words.filter((word) => word/** ваш код тут */));
+console.log(words.filter((word) => word.toLowerCase().includes('o')));
