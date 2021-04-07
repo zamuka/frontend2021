@@ -31,21 +31,20 @@ console.log(result);
 // объект, в котором только одно случайное свойство из оригинального
 // например для объекта:
 const person = {
-  name: 'Vasya',
-  age: 20,
-  occupation: 'student',
-  height: 170,
+    name: 'Vasya',
+    age: 20,
+    occupation: 'student',
+    height: 170,
 };
 
-const randomProperty  = function(obj) {
-    const newObject = Object.assign({}, obj);
-    const newKeys = Object.keys(newObject);
-    const randomKey = Math.floor(Math.random() * newKeys.length);
-    const property = newKeys[randomKey];
+const randomProperty = function(obj) {
+    const keys = Object.keys(obj);
+    const randomKeyIndex = Math.floor(Math.random() * keys.length);
+    const key = keys[randomKeyIndex];
     return {
-        [property]: newObject[property]
+        [key]: obj[key],
     };
-}
+};
 const result = randomProperty(person);
 console.log(result);
 

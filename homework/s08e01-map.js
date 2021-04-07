@@ -14,22 +14,43 @@
  * @returns {ItemType[]}
  * @template ItemType
  */
+// Вариант 1:
 function copy(inputArray) {
   const result = [];
+  Array.prototype.push.apply(result, inputArray);
+  return result;
+}
+// Вариант 2:
+function copy(inputArray) {
+  const result = [];
+  inputArray.forEach(function(element) {
+    result.push(element);
+  });
+  return result;
 }
 
+const inputArray = [3, 5, 10, 15];
+const output = copy(inputArray);
+console.log(output);
 /**
  * Напишите улучшенную версию функции copy, которая вместо копирования
  * будет умножать все элементы на 2 и в массив-результат записывать
  * удвоенные числа.
  *
- * @param {number[]} inputArray - входящий массив
- * @returns {number[]}
- */
+//  * @param {number[]} inputArray - входящий массив
+//  * @returns {number[]}
+//  */
 function copyAndMultiply(inputArray) {
-
+  const result = [];
+  inputArray.forEach(function(element) {
+    result.push(element * 2);
+  });
+  return result;
 }
 
+const inputArray = [3, 5, 10, 15];
+const output = copyAndMultiply(inputArray);
+console.log(output);
 /**
  * Функция - это значение, и его тоже можно передавать.
  * Это как набор инструкций, который можно будет выполнить позже.
@@ -45,13 +66,14 @@ function copyAndMultiply(inputArray) {
  * @template ItemType
  */
 function map(inputArray, operation) {
-
+  return inputArray.map(operation);
 }
 
 // Пример использования функции map, после того, как она будет готова:
 function square(x) {
   return x * x;
 }
+
 const numbers = [1, 5, 10];
 const squares = map(numbers, square);
 
