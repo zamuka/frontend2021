@@ -1,5 +1,5 @@
-const GRID_WIDTH = 10;
-const GRID_HEIGHT = 10;
+const GRID_WIDTH = 8;
+const GRID_HEIGHT = 8;
 const CELL_WIDTH_PX = 20;
 const CELL_HEIGHT_PX = 20;
 
@@ -18,10 +18,12 @@ function main() {
       cell.style.width = `${CELL_WIDTH_PX}px`;
       cell.style.height = `${CELL_HEIGHT_PX}px`;
 
-      const r = 25 * y;
-      const g = 25 * x;
+      if (y % 2 === x % 2) {
+        cell.style.backgroundColor = 'white';
+      } else {
+        cell.style.backgroundColor = 'black';
+      }
 
-      cell.style.backgroundColor = `rgb(${r}, ${g}, 0)`;
       mainContainer.appendChild(cell);
     }
   }
