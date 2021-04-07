@@ -18,6 +18,14 @@
  */
 function every(arr, validator) {
   // ВАШ КОД ТУТ
+  for (let index of arr) {
+    let trueIndex = validator(index);
+    if (!trueIndex) {
+      return false;
+    }
+    
+  }
+  return true;
 }
 
 const numbers = [1, 4, 16, 10, 33, 20, 0];

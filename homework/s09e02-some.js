@@ -20,11 +20,18 @@
  */
 function some(arr, validator) {
   // ВАШ КОД ТУТ
+  for( const index of arr ) {
+    const trueIndex = validator(index); 
+    if ( trueIndex ){
+      return true;
+    }
+  }
+  return false;
 }
 
 const numbers = [1, 4, 16, 10, 33, 20, 0];
 const hasMultipleOfTree = some(numbers, (num) => !(num % 3));
-
+console.log(hasMultipleOfTree);
 if (hasMultipleOfTree) {
   console.log('Число, нацело делящееся на 3 в массиве есть');
 } else {

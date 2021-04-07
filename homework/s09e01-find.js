@@ -21,7 +21,12 @@
  * @returns ItemType
  */
 function find(arr, validator) {
-  // ВАШ КОД ТУТ
+  for( const index of arr ) {
+    const trueIndex = validator(index); 
+    if ( trueIndex ){
+      return index;
+    }
+  }
 }
 
 const numbers = [1, 4, 16, 10, 33, 20, 0];

@@ -1,5 +1,5 @@
-const GRID_WIDTH = 10;
-const GRID_HEIGHT = 10;
+const GRID_WIDTH = 8;
+const GRID_HEIGHT = 8;
 const CELL_WIDTH_PX = 20;
 const CELL_HEIGHT_PX = 20;
 
@@ -17,11 +17,21 @@ function main() {
       cell.classList.add('cell');
       cell.style.width = `${CELL_WIDTH_PX}px`;
       cell.style.height = `${CELL_HEIGHT_PX}px`;
+      let r, g, b;
+    if ((y + x) % 2 === 0) {
+      r = 0;
+      g = 0;
+      b = 0;
+      // или просто cell.style.backgroundColor = `rgb(0, 0, 0)`;
+    } else {
+      r = 255;
+      g = 255;
+      b = 255;
+      // или так cell.style.backgroundColor = `rgb(255, 255, 255)`; но тогда 
+      // в конце убираем cell.style.backgroundColor = `rgb(${r}, ${g}, ${g})`; 
+    }
 
-      const r = 25 * y;
-      const g = 25 * x;
-
-      cell.style.backgroundColor = `rgb(${r}, ${g}, 0)`;
+      cell.style.backgroundColor = `rgb(${r}, ${g}, ${g})`;
       mainContainer.appendChild(cell);
     }
   }
