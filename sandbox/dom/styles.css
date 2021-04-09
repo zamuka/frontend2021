@@ -11,9 +11,11 @@
   height: 20px;
   margin: 0;
   padding: 0;
-
 }
 
 .grass {
   background-color: green;
+}
+.wall {
+  background-color: coral;
 }
