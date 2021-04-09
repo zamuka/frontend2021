@@ -8,7 +8,13 @@
  * @returns {boolean}
  */
 function includes(array, item) {
+  for (let i = 0; i < array.length; i = i + 1) {
+    if (array[i] === item) {
+      return true;
+    }
+  }
 
+  return false;
 }
 
 console.log(includes([1, 2, 3], 2));
