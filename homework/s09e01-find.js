@@ -21,10 +21,14 @@
  * @returns ItemType
  */
 function find(arr, validator) {
-  // ВАШ КОД ТУТ
+  for (const i of arr) {
+    if (validator(i)) {
+      return i;
+    }
+  }
 }
 
-const numbers = [1, 4, 16, 10, 33, 20, 0];
+const numbers = [1, 4, 16, 10, 16, 31, 20, 2];
 const multipleOfTree = find(numbers, (num) => !(num % 3));
 
 // 33

@@ -17,7 +17,12 @@
  * @returns boolean
  */
 function every(arr, validator) {
-  // ВАШ КОД ТУТ
+  for (const i of arr) {
+    if (!(validator(i))) {
+      return false;
+    }
+  }
+  return true;
 }
 
 const numbers = [1, 4, 16, 10, 33, 20, 0];
@@ -31,7 +36,7 @@ if (allNumbersGreaterThanZero) {
 
 const users = [
   { name: 'Adam', age: 20, id: '4598' },
-  { name: 'Bill', age: 22, id: 'AE46' },
+  { name: 'Bill', age: 19, id: 'AE46' },
   { name: 'Carol', age: 32, id: 'CC10' },
   { name: 'Denis', age: 18, id: '3109' },
   { name: 'Eric', age: 40, id: '880A' },
