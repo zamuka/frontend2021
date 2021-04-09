@@ -17,3 +17,7 @@
 .grass {
   background-color: green;
 }
+
+.wall {
+  border: 20px solid lime;
+}

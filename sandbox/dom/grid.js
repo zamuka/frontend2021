@@ -35,6 +35,15 @@ const createGrid = function () {
   }
 };
 
+function createWall() {
+  const mainContainer = document.querySelector('.grid');
+  mainContainer.classList.add('wall');
+  console.log(mainContainer);
+}
+
+
 export {
   createGrid,
+  createWall,
 };
+
