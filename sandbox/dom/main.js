@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const GRID_WIDTH = 8;
 const GRID_HEIGHT = 8;
 const CELL_WIDTH_PX = 40;
@@ -36,6 +37,12 @@ function main() {
       mainContainer.appendChild(cell);
     }
   }
+=======
+import { createGrid } from './grid.js';
+
+function main() {
+  createGrid();
+>>>>>>> hm_10_dm_ch
 }
 
 window.addEventListener('load', main);

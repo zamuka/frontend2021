@@ -13,6 +13,7 @@ module.exports = {
 		indent: ['off'],
 		'no-tabs': ['off'],
     'func-names': ['off'],
+<<<<<<< HEAD
 		'no-console': ['off'],
 		'no-plusplus': ['off'],
 		'linebreak-style': ['off'],
@@ -21,4 +22,9 @@ module.exports = {
     'prefer-arrow-callback': ['off'],
 		'operator-assignment': ['error', 'never'],
 	},
+=======
+    'import/prefer-default-export': ['off'],
+    'import/extensions': ['off'],
+  },
+>>>>>>> hm_10_dm_ch
 };
