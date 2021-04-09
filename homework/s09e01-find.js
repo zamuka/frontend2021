@@ -20,12 +20,17 @@
  * @param {(item: ItemType) => boolean} validator
  * @returns ItemType
  */
-function find(arr, validator) {
-  // ВАШ КОД ТУТ
-}
 
 const numbers = [1, 4, 16, 10, 33, 20, 0];
 const multipleOfTree = find(numbers, (num) => !(num % 3));
+
+function find(arr, validator) {
+  for (const item of arr) {
+    if (validator(item)) {
+      return item;
+    }
+  }
+}
 
 // 33
 console.log('Первое кратное трем в массиве:', multipleOfTree);

@@ -19,7 +19,12 @@
  * @returns boolean
  */
 function some(arr, validator) {
-  // ВАШ КОД ТУТ
+for (const item of arr){
+  if (validator(item)){
+    return true;
+  }
+}
+return false;
 }
 
 const numbers = [1, 4, 16, 10, 33, 20, 0];
