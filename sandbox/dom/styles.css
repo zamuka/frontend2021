@@ -1,6 +1,5 @@
 .grid {
   display: flex;
-  border: 1px solid black;
   margin: 20px;
   padding: 0;
   width: auto;
@@ -13,4 +12,8 @@
   margin: 0;
   padding: 0;
 
+}
+
+.grass {
+  background-color: green;
 }
