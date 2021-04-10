@@ -19,5 +19,7 @@ module.exports = {
     strict: ['off'],
     'prefer-arrow-callback': ['off'],
     'func-names': ['off'],
+    'import/prefer-default-export': ['off'],
+    'import/extensions': ['off'],
   },
 };
