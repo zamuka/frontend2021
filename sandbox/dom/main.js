@@ -27,6 +27,10 @@ function main() {
       mainContainer.appendChild(cell);
     }
   }
+import { createGrid } from './grid.js';
+
+function main() {
+  createGrid();
 }
 
 window.addEventListener('load', main);
