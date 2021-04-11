@@ -18,18 +18,16 @@ function createCell(className = '') {
   return cell;
 }
 
-function changeBorderColor(y, x, width, height) {
-  let color = 'grass';
-
+function isCellEdge(y, x, width, height) {
   if (y === 0
         || x === 0
         || x === width - 1
         || y === height - 1
   ) {
-    color = 'wall';
+    return true;
   }
 
-  return color;
+  return false;
 }
 
 const createGrid = function () {
@@ -42,7 +40,8 @@ const createGrid = function () {
 
   for (let y = 0; y < GRID_HEIGHT; y = y + 1) {
     for (let x = 0; x < GRID_WIDTH; x = x + 1) {
-      const colorClass = changeBorderColor(y, x, GRID_WIDTH, GRID_HEIGHT);
+      const isEdge = isCellEdge(y, x, GRID_WIDTH, GRID_HEIGHT);
+      const colorClass = isEdge ? 'wall': 'grass';
       const cell = createCell(colorClass);
 
       mainContainer.appendChild(cell);
