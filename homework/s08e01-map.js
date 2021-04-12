@@ -17,10 +17,9 @@
 
 function copy(inputArray) {
   const result = [];
-  inputArray.forEach(item => {
-    result.push(item)
-  })
-  
+  inputArray.forEach((item) => {
+    result.push(item);
+  });
   return result;
 }
 
@@ -35,10 +34,9 @@ function copy(inputArray) {
 
 function copyAndMultiply(inputArray) {
   const result = [];
-  inputArray.forEach(item => {
-    result.push(item * 2)
-  })
-  
+  inputArray.forEach((item) => {
+    result.push(item * 2);
+  });
   return result;
 }
 
@@ -59,9 +57,9 @@ function copyAndMultiply(inputArray) {
 
 function map(inputArray, operation) {
   const newResult = [];
-  inputArray.forEach(elem => {
-    newResult.push(operation(elem))
-  })
+  inputArray.forEach((elem) => {
+    newResult.push(operation(elem));
+  });
 
   return newResult;
 }
