@@ -8,7 +8,6 @@
  */
 
 const numbersArray = [1, 2, 3, 4, 5, 6, 7, 9];
-const result = getOdds(numbersArray);
 
 function getOdds(inputNumbers) {
   const oddNumbers = [];
@@ -20,5 +19,6 @@ function getOdds(inputNumbers) {
   }
   return oddNumbers;
 }
+const result = getOdds(numbersArray);
 
 console.log(result);

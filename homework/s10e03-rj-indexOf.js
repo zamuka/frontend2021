@@ -8,7 +8,11 @@
  * @returns {number}
  */
 function indexOf(array, item) {
-
+  for (let i = 1; i < array.length; i = i + 1) {
+    if (array[i] === item)
+      return i;
+  }
+  return -1;
 }
 
 const beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];

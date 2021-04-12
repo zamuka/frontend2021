@@ -25,7 +25,8 @@
  * @returns {number} плотность населения на квадратный км
  */
 function getPopulationDensity(country) {
-
+  const result = Math.floor(country.population / country.area);
+  return ('~ ' + result + ' чел / кв. км');
 }
 
 /**
@@ -35,13 +36,11 @@ function getPopulationDensity(country) {
  */
 const france = {
   area: 640_679,
-  population: 67_067_000,
+  population: 670_670_00,
   capital: 'Paris',
-}
-
+};
 // Плотность населения Франции ~104 чел / кв. км
 console.log('Плотность населения Франции:', getPopulationDensity(france));
-
 
 /**
  * 2. calcFreeFallTime
@@ -53,12 +52,11 @@ console.log('Плотность населения Франции:', getPopulati
  * @returns {number} free-fall time
  */
 function calcFreeFallTime(height) {
-
+  return ('примерно ' + (Math.sqrt(2 * height / 9.8)).toFixed(3));
 }
 
 // Для высоты 100м должно вывести примерно 4.516сек
 console.log(`Время свободного падения с высоты 100 метров: ${calcFreeFallTime(100)} сек`);
-
 
 /**
  * 3. calcTriangleAreaFromEdges
@@ -73,7 +71,13 @@ console.log(`Время свободного падения с высоты 100 
  * @returns {number} triangle area
  */
 function calcTriangleAreaFromEdges(a, b, c) {
-
+  const p = (a + b + c) / 2;
+  const area = Math.sqrt(p * (p - a) * (p - b) * (p - c));
+  if ((area - Math.floor(area)) > 0) {
+    return area.toFixed(3);
+  } else {
+    return area;
+  }
 }
 
 // для равностороннего треугольника со стороной 3 площадь ~3.897
