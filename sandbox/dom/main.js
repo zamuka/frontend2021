@@ -37,11 +37,10 @@
 //     }
 //   }
 
-import { createGrid, createWall } from './grid.js';
+import { createGrid } from './grid.js';
 
 function main() {
   createGrid();
-  createWall();
 }
 
 window.addEventListener('load', main);

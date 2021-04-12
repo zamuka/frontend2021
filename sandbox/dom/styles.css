@@ -21,10 +21,5 @@
 }
 
 .wall {
-  width: 780px;
-  height: 480px;
-  position: absolute;
-  top: 20px;
-  left: 28px;
-  border: 10px solid brown;
+ background-color: brown;
 }

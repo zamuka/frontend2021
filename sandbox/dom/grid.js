@@ -27,22 +27,20 @@ const createGrid = function () {
 
   document.body.appendChild(mainContainer);
 
-  for (let y = 0; y < GRID_WIDTH; y = y + 1) {
-    for (let x = 0; x < GRID_HEIGHT; x = x + 1) {
-      const cell = createCell('grass');
-      mainContainer.appendChild(cell);
+  for (let y = 0; y < GRID_HEIGHT; y = y + 1) {
+    for (let x = 0; x < GRID_WIDTH; x = x + 1) {
+      
+      if (y === 0 || x === 0 || y === GRID_HEIGHT - 1 || x === GRID_WIDTH - 1) {
+        const cell = createCell('wall');
+        mainContainer.appendChild(cell);
+      } else {
+        const cell = createCell('grass');
+        mainContainer.appendChild(cell);
+      }
     }
   }
 };
-const createWall = function() {
-  const wall = document.createElement('div');
-  wall.className = 'wall';
-
-  document.body.appendChild(wall);
-
-}
 
 export {
   createGrid,
-  createWall,
 };
