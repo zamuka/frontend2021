@@ -17,7 +17,13 @@
  * @returns boolean
  */
 function every(arr, validator) {
-  // ВАШ КОД ТУТ
+  for (arrayIndex = 0; arrayIndex < arr.length; arrayIndex = arrayIndex + 1) {
+    const compare = validator(arr[arrayIndex]);
+    if (compare === false) {
+      return false;
+    }
+  }
+  return true;
 }
 
 const numbers = [1, 4, 16, 10, 33, 20, 0];

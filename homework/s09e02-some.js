@@ -19,7 +19,13 @@
  * @returns boolean
  */
 function some(arr, validator) {
-  // ВАШ КОД ТУТ
+  for (arrayIndex = 0; arrayIndex < arr.length; arrayIndex = arrayIndex + 1) {
+    const compare = validator(arr[arrayIndex]);
+    if (compare) {
+      return true;
+    }
+  }
+  return false;
 }
 
 const numbers = [1, 4, 16, 10, 33, 20, 0];
