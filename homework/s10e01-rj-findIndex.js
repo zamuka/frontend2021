@@ -8,9 +8,18 @@
  * @param {function} qualifier
  * @returns {number}
  */
-function findIndex(array, qualifier) {
 
+function findIndex(array, qualifier) {
+  for (let i = 0; i < array.length; i = i + 1){
+    if (qualifier(array[i])) {
+      return i;
+    }
+  }
   return -1;
+}
+
+function findIndex(array, qualifier) {
+  return array.findIndex(qualifier);
 }
 
 const array1 = [5, 12, 8, 130, 44];

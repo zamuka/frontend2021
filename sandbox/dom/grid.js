@@ -27,23 +27,18 @@ const createGrid = function () {
 
   document.body.appendChild(mainContainer);
 
-  for (let y = 0; y < GRID_WIDTH; y = y + 1) {
-    for (let x = 0; x < GRID_HEIGHT; x = x + 1) {
+  for (let x = 0; x < GRID_HEIGHT; x = x + 1) {
+    for (let y = 0; y < GRID_WIDTH; y = y + 1) {
       const cell = createCell('grass');
       mainContainer.appendChild(cell);
+      if ( y === 0 || x === 0 || y === (GRID_WIDTH - 1) || x === (GRID_HEIGHT - 1) ) {
+        cell.classList.add('wall');
+      }
     }
   }
 };
 
-function createWall() {
-  const mainContainer = document.querySelector('.grid');
-  mainContainer.classList.add('wall');
-  console.log(mainContainer);
-}
-
-
 export {
   createGrid,
-  createWall,
 };
 

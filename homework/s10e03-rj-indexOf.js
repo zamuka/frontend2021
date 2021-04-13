@@ -8,7 +8,16 @@
  * @returns {number}
  */
 function indexOf(array, item) {
+    for (let i = 0; i < array.length; i = i + 1) {
+        if (array[i] === item) {
+            return i;
+        }
+    }
+    return -1;
+}
 
+function indexOf(array, item) {
+    return array.indexOf(item);
 }
 
 const beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
