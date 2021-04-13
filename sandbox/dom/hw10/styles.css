@@ -1,0 +1,23 @@
+.grid {
+    display: flex;
+    margin: 20px;
+    padding: 0;
+    width: auto;
+    flex-wrap: wrap;
+    background-color: green;
+  }
+  
+  .grid * {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .grass {
+    background-color: green;
+  }
+  
+  .wall {
+    background-color: brown;
+  }
