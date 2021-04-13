@@ -1,12 +1,9 @@
 // Tренируемся использовать деструктуризацию
 
 const vegetable = {
-/**
- * 1.
- * TODO:
- * добавьте свойства в объект vegetable так, чтобы в консоль вывелось
- * onions are usually white
- */
+  name: 'onion',
+  color: 'white',
+  shape: 'round',
 };
 
 const { name, color } = vegetable;
@@ -55,7 +52,7 @@ console.log(`${cucumber.name} and ${onion.name}`);
  */
 
 const [, , pumpkin] = vegetables;
-// выведется cucumber and onion
+// выведется pumpkin
 console.log(`${pumpkin.name}s are usually ${pumpkin.color}`);
 
 /**
@@ -64,7 +61,7 @@ console.log(`${pumpkin.name}s are usually ${pumpkin.color}`);
  * Добавьте запятых в выражение ниже, чтобы отобразилось
  * tomatoes are usually red and round
  */
-const [tomato] = vegetables;
+const [,,, tomato] = vegetables;
 
 console.log(`${tomato.name}es are usually ${tomato.color} and ${tomato.shape}`);
 
@@ -83,4 +80,4 @@ console.log(`a ${firstVegetable.name} and ${otherVegetables.length} other vegeta
 
 // На эту строку сильно не смотрите =). Без нее нам не дадут создать
 // переменную name из-за конфликта со свойством window.name
-export {};
+// export {};
