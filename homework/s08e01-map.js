@@ -16,7 +16,20 @@
  */
 function copy(inputArray) {
   const result = [];
+  inputArray.forEach(function (item) {
+    result.push(item)
+  })
+  return result;
 }
+const arrayIncoming = [3, 5, 10, 22, 2, 3, 8, 3, 1];
+
+const copyByMap = arrayIncoming.map(function (item) {
+  return item
+})
+
+
+//console.log(copy(arrayIncoming))
+//console.log(copyByMap);
 
 /**
  * Напишите улучшенную версию функции copy, которая вместо копирования
@@ -27,8 +40,20 @@ function copy(inputArray) {
  * @returns {number[]}
  */
 function copyAndMultiply(inputArray) {
-
+  const resultOfCopyAndMultuply = [];
+  inputArray.forEach(function (item) {
+    resultOfCopyAndMultuply.push(item * 2)
+  })
+  return resultOfCopyAndMultuply
 }
+
+//console.log(copyAndMultiply(arrayIncoming))
+
+
+const copyAndMultiplyByMap = arrayIncoming.map(function (item) {
+  return item * 2;
+})
+console.log(copyAndMultiplyByMap)
 
 /**
  * Функция - это значение, и его тоже можно передавать.
@@ -45,15 +70,21 @@ function copyAndMultiply(inputArray) {
  * @template ItemType
  */
 function map(inputArray, operation) {
-
+  const resultOfMap = [];
+  inputArray.forEach(function (item) {
+    resultOfMap.push(operation(item))
+  })
+  return resultOfMap;
 }
 
 // Пример использования функции map, после того, как она будет готова:
 function square(x) {
   return x * x;
 }
-const numbers = [1, 5, 10];
+const numbers = [1, 5, 10, 4];
 const squares = map(numbers, square);
 
 // результат [1, 25, 100];
-console.log(squares);
+//console.log(squares);
+
+

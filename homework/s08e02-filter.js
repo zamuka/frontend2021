@@ -6,13 +6,14 @@
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 100, 151];
 const evenNumbers = [];
 
-// for (ВАШ) {
-//      КОД
-//      ТУТ
-// }
+for (indexOfNumber = 0; indexOfNumber < numbers.length; indexOfNumber = indexOfNumber + 1) {
+  if (numbers[indexOfNumber] % 2 === 0) {
+    evenNumbers.push(numbers[indexOfNumber])
+  }
+}
 
-// [ 2, 4, 6, 8, 100 ]
-console.log(evenNumbers);
+//[ 2, 4, 6, 8, 100 ]
+//console.log(evenNumbers);
 
 // 2. В новом массиве wordsWithO должны быть только слова, в которых есть буква 'o'
 // используйте метод строки - .includes для поиска 'o'
@@ -21,14 +22,15 @@ const words = ['grocery', 'sister', 'dirt', 'history', 'opinion', 'payment',
   'movie', 'drawing', 'area', 'hair', 'selection', 'coffee'];
 
 const wordsWithO = [];
+const letterO = 'o';
 
-// for (ВАШ) {
-//      КОД
-//      ТУТ
-// }
-
+for (indexOfWord = 0; indexOfWord < words.length; indexOfWord = indexOfWord + 1) {
+  if (words[indexOfWord].includes(letterO)) {
+    wordsWithO.push(words[indexOfWord])
+  }
+}
 // ['grocery', 'history', 'opinion', 'movie', 'selection', 'coffee']
-console.log(wordsWithO);
+//console.log(wordsWithO);
 
 // В.
 /**
@@ -42,7 +44,7 @@ console.log(wordsWithO);
  */
 
 // [ 2, 4, 6, 8, 100 ]
-console.log(numbers.filter((num) => num/** ваш код тут */));
+//console.log(numbers.filter((num) => num % 2 === 0));
 
 // ['grocery', 'history', 'opinion', 'movie', 'selection', 'coffee']
-console.log(words.filter((word) => word/** ваш код тут */));
+console.log(words.filter((word) => word.includes('o')));
