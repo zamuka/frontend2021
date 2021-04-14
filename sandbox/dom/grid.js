@@ -27,9 +27,18 @@ const createGrid = function () {
 
   document.body.appendChild(mainContainer);
 
-  for (let y = 0; y < GRID_WIDTH; y = y + 1) {
-    for (let x = 0; x < GRID_HEIGHT; x = x + 1) {
-      const cell = createCell('grass');
+  for (let y = 0; y < GRID_HEIGHT; y = y + 1) {
+    for (let x = 0; x < GRID_WIDTH; x = x + 1) {
+      let cell = createCell('grass');
+
+      if (x === 0 || x === GRID_WIDTH - 1) {
+        cell = createCell('wall');
+      }
+
+      if (y === 0 || y === GRID_HEIGHT - 1) {
+        cell = createCell('wall');
+      }
+
       mainContainer.appendChild(cell);
     }
   }
