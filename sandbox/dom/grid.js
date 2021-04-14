@@ -83,21 +83,6 @@ const createGrid = function () {
 
       const cell = createCell(cellClass);
       mainContainer.appendChild(cell);
-      if (!x || !y || y === GRID_HEIGHT - 1 || x === GRID_WIDTH - 1) {
-        cell.className = 'wall';
-      }
-    }
-  }
-  // Вариант 2:
-  for (let y = 0; y < GRID_HEIGHT; y = y + 1) {
-    for (let x = 0; x < GRID_WIDTH; x = x + 1) {
-      if (!x || !y || y === GRID_HEIGHT - 1 || x === GRID_WIDTH - 1) {
-        const coralCell = createCell('wall');
-        mainContainer.appendChild(coralCell);
-      } else {
-        const cell = createCell('grass');
-        mainContainer.appendChild(cell);
-      }
     }
   }
 };
