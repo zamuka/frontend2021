@@ -17,7 +17,12 @@
  * @returns boolean
  */
 function every(arr, validator) {
-  // ВАШ КОД ТУТ
+  for (const item of arr) {
+    if (!validator(item)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 const numbers = [1, 4, 16, 10, 33, 20, 0];
@@ -29,21 +34,23 @@ if (allNumbersGreaterThanZero) {
   console.log('В массиве есть что-то меньше или равное нолю.');
 }
 
-const users = [
-  { name: 'Adam', age: 20, id: '4598' },
-  { name: 'Bill', age: 22, id: 'AE46' },
-  { name: 'Carol', age: 32, id: 'CC10' },
-  { name: 'Denis', age: 18, id: '3109' },
-  { name: 'Eric', age: 40, id: '880A' },
-];
+Проверка методом every:
+const allNumbersGreaterThanZero = numbers.every(item => (item > 0));
+// const users = [
+//   { name: 'Adam', age: 20, id: '4598' },
+//   { name: 'Bill', age: 22, id: 'AE46' },
+//   { name: 'Carol', age: 32, id: 'CC10' },
+//   { name: 'Denis', age: 18, id: '3109' },
+//   { name: 'Eric', age: 40, id: '880A' },
+// ];
 
-const allAdults = every(users, (user) => user.age > 16);
+// const allAdults = every(users, (user) => user.age > 16);
 
-if (allAdults) {
-  console.log('Все взрослые!');
-} else {
-  console.log('Внимание, обнаружен несовершеннолетний! Лови его!');
-}
+// if (allAdults) {
+//   console.log('Все взрослые!');
+// } else {
+//   console.log('Внимание, обнаружен несовершеннолетний! Лови его!');
+// }
 
-console.log('Встроенный ".every" для пустого массива выводит true при любом валидаторе:', [].every(() => false));
-console.log('Ваш "every":', every([], () => false));
+// console.log('Встроенный ".every" для пустого массива выводит true при любом валидаторе:', [].every(() => false));
+// console.log('Ваш "every":', every([], () => false));

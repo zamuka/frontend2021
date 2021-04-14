@@ -21,7 +21,11 @@
  * @returns ItemType
  */
 function find(arr, validator) {
-  // ВАШ КОД ТУТ
+  for (const item of arr) {
+    if (validator(item)) {
+      return item;
+    }
+  }
 }
 
 const numbers = [1, 4, 16, 10, 33, 20, 0];
@@ -29,6 +33,9 @@ const multipleOfTree = find(numbers, (num) => !(num % 3));
 
 // 33
 console.log('Первое кратное трем в массиве:', multipleOfTree);
+
+Проверка методом find:
+const multipleOfTree = numbers.find(item =>!(item % 3))
 
 const users = [
   { name: 'Adam', age: 20, id: '4598' },

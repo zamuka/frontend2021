@@ -19,33 +19,41 @@
  * @returns boolean
  */
 function some(arr, validator) {
-  // ВАШ КОД ТУТ
+  for (const item of arr) {
+    if (validator(item)) {
+      return true;
+    }
+  }
 }
 
-const numbers = [1, 4, 16, 10, 33, 20, 0];
+const numbers = [1, 4, 16, 10, 20, 0];
 const hasMultipleOfTree = some(numbers, (num) => !(num % 3));
 
-if (hasMultipleOfTree) {
-  console.log('Число, нацело делящееся на 3 в массиве есть');
-} else {
-  console.log('В массиве нет числа нацело делящегося на 3');
-}
+Проверка методом some:
+const hasMultipleOfTree = numbers.some(item => !(item % 3));
+console.log(hasMultipleOfTree);
 
-const users = [
-  { name: 'Adam', age: 20, id: '4598' },
-  { name: 'Bill', age: 22, id: 'AE46' },
-  { name: 'Carol', age: 32, id: 'CC10' },
-  { name: 'Denis', age: 18, id: '3109' },
-  { name: 'Eric', age: 40, id: '880A' },
-];
+// if (hasMultipleOfTree) {
+//   console.log('Число, нацело делящееся на 3 в массиве есть');
+// } else {
+//   console.log('В массиве нет числа нацело делящегося на 3');
+// }
 
-const hasBill = some(users, (user) => user.name === 'Bill');
+// const users = [
+//   { name: 'Adam', age: 20, id: '4598' },
+//   { name: 'Bill', age: 22, id: 'AE46' },
+//   { name: 'Carol', age: 32, id: 'CC10' },
+//   { name: 'Denis', age: 18, id: '3109' },
+//   { name: 'Eric', age: 40, id: '880A' },
+// ];
 
-if (hasBill) {
-  console.log('Пользователь с именем Bill существует');
-} else {
-  console.log('Биллов - нет!');
-}
+// const hasBill = some(users, (user) => user.name === 'Bill');
 
-console.log('Встроенный ".some" для пустого массива c любым валидатором выводит:', [].some(() => true));
-console.log('Ваш "some" выводит:', some([], () => true));
+// if (hasBill) {
+//   console.log('Пользователь с именем Bill существует');
+// } else {
+//   console.log('Биллов - нет!');
+// }
+
+// console.log('Встроенный ".some" для пустого массива c любым валидатором выводит:', [].some(() => true));
+// console.log('Ваш "some" выводит:', some([], () => true));
