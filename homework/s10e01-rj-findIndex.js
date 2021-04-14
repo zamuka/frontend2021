@@ -9,7 +9,12 @@
  * @returns {number}
  */
 function findIndex(array, qualifier) {
-
+  for (let i = 0; i < array.length; i = i + 1) {
+    const element = array[i];
+    if (qualifier(element)) {
+      return i;
+    }
+  }
   return -1;
 }
 
