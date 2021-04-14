@@ -1,46 +1,41 @@
-// <<<<<<< HEAD
-// const GRID_WIDTH = 8;
-// const GRID_HEIGHT = 8;
-// const CELL_WIDTH_PX = 20;
-// const CELL_HEIGHT_PX = 20;
+import { CELL_TYPES } from './config.js';
+import { createGrid, getCellClass, setCellClass } from './grid.js';
 
-// function main() {
-//   const mainContainer = document.createElement('div');
-//   mainContainer.className = 'grid';
-//   mainContainer.style.width = `${GRID_WIDTH * CELL_WIDTH_PX}px`;
-//   mainContainer.style.height = `${GRID_HEIGHT * CELL_HEIGHT_PX}px`;
+const snake = {
+  cells: [
+    { x: 9, y: 5 },
+    { x: 8, y: 5 },
+    { x: 7, y: 5 },
+    { x: 6, y: 5 },
+    { x: 5, y: 5 },
+  ],
+};
 
-//   document.body.appendChild(mainContainer);
+function doStep() {
+  const currentHead = snake.cells[0];
+  // const newHead = Object.assign({}, currentHead);
+  // const newHead = {
+  //   x: currentHead.x,
+  //   y: currentHead.y,
+  // };
+  const newHead = { ...currentHead };
+  newHead.x = newHead.x + 1;
 
-//   for (let y = 0; y < GRID_WIDTH; y = y + 1) {
-//     for (let x = 0; x < GRID_HEIGHT; x = x + 1) {
-//       const cell = document.createElement('div');
-//       cell.classList.add('cell');
-//       cell.style.width = `${CELL_WIDTH_PX}px`;
-//       cell.style.height = `${CELL_HEIGHT_PX}px`;
-//       let r, g, b;
-//     if ((y + x) % 2 === 0) {
-//       r = 0;
-//       g = 0;
-//       b = 0;
-//       // или просто cell.style.backgroundColor = `rgb(0, 0, 0)`;
-//     } else {
-//       r = 255;
-//       g = 255;
-//       b = 255;
-//       // или так cell.style.backgroundColor = `rgb(255, 255, 255)`; но тогда 
-//       // в конце убираем cell.style.backgroundColor = `rgb(${r}, ${g}, ${g})`; 
-//     }
+  snake.cells.unshift(newHead);
+  setCellClass(newHead.x, newHead.y, CELL_TYPES.SNAKE);
 
-//       cell.style.backgroundColor = `rgb(${r}, ${g}, ${g})`;
-//       mainContainer.appendChild(cell);
-//     }
-//   }
-
-import { createGrid } from './grid.js';
+  const tail = snake.cells.pop();
+  setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
+}
 
 function main() {
   createGrid();
+
+  snake.cells.forEach((cell) => {
+    setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
+  });
+
+  setInterval(doStep, 1000);
 }
 
 window.addEventListener('load', main);

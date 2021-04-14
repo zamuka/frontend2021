@@ -4,22 +4,29 @@
   padding: 0;
   width: auto;
   flex-wrap: wrap;
+<<<<<<< HEAD
   
+=======
+  background-color: green;
+>>>>>>> eb1e4e816e2b4082309a106b7026411a602686d6
 }
 
-.cell {
+.grid * {
   width: 20px;
   height: 20px;
   margin: 0;
   padding: 0;
-
 }
 
 .grass {
   background-color: green;
-  
 }
 
 .wall {
- background-color: brown;
+  background-color: brown;
+}
+
+.snake {
+  background-color: black;
+  border-radius: 5px;
 }
