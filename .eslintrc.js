@@ -21,5 +21,7 @@ module.exports = {
     'func-names': ['off'],
     'import/prefer-default-export': ['off'],
     'import/extensions': ['off'],
+    'no-param-reassign': ['off'],
+    'default-case': ['off'],
   },
 };
