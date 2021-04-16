@@ -20,6 +20,11 @@ const snake = {
   getHead() {
     return this.cells[0];
   },
+  drawSnake() {
+    snake.cells.forEach((cell) => {
+      setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
+    });
+  },
   getAndTrimTail() {
     return this.cells.pop();
   },
@@ -46,12 +51,6 @@ const snake = {
     return newHeadPosition;
   },
 };
-
-function drawSnake() {
-  snake.cells.forEach((cell) => {
-    setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
-  });
-}
 
 function gameOver() {
   isPaused = true;
@@ -132,7 +131,7 @@ function handleClick({ target }) {
 
 function main() {
   createGrid();
-  drawSnake();
+  snake.drawSnake();
 
   window.addEventListener('keydown', handleKeyDown);
   // @ts-ignore
