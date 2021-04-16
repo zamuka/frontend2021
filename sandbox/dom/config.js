@@ -14,4 +14,4 @@ export const DIRECTION_TYPE = {
   DOWN: 'down',
   LEFT: 'left',
   UP: 'up',
-}
+};
