@@ -16,6 +16,7 @@ const snake = {
     { x: 6, y: 5 },
     { x: 5, y: 5 },
   ],
+  startPosition: { x: 10, y: 10 },
   direction: START_DIRECTION,
   getHead() {
     return this.cells[0];
@@ -52,10 +53,30 @@ const snake = {
   },
 };
 
+function deletePreviousSnake() {
+  const cellsAmmount = snake.cells.length;
+  for (let i = 0; i < cellsAmmount; i = i + 1) {
+    const { x, y } = snake.getAndTrimTail();
+    setCellClass(x, y, CELL_TYPES.GRASS);
+  }
+}
+
+function putSnakeOnTheStartPosition() {
+  deletePreviousSnake();
+  const { startPosition } = snake;
+
+  snake.cells.push(startPosition);
+
+  const { x, y } = snake.getHead();
+  setCellClass(x, y, CELL_TYPES.SNAKE);
+
+  isPaused = false;
+}
+
 function gameOver() {
+  alert('Game Over');
   isPaused = true;
-  // TODO: очистить поле
-  // заново пересоздать змею.
+  putSnakeOnTheStartPosition();
 }
 
 function doGameStep() {
@@ -87,6 +108,7 @@ function doGameStep() {
  * @param {KeyboardEvent} event
  */
 function handleKeyDown(event) {
+  console.log(event.key);
   const direction = DIRECTIONS_MAP[event.key];
   const currentDirection = snake.direction;
 
