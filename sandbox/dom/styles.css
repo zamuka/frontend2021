@@ -1,27 +1,31 @@
 .grid {
-  display: flex;
-  margin: 20px;
-  padding: 0;
-  width: auto;
-  flex-wrap: wrap;
-  background-color: green;
+	display: flex;
+	margin: 20px;
+	padding: 0;
+	width: auto;
+	flex-wrap: wrap;
+	background-color: green;
 }
 
 .grid * {
-  width: 20px;
-  height: 20px;
-  margin: 0;
-  padding: 0;
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	padding: 0;
 }
 
 .grass {
-  background-color: green;
+	background-color: green;
 }
 .wall {
-  background-color: brown;
+	background-color: brown;
 }
 
 .snake {
-  background-color: black;
-  border-radius: 5px;
+	background-color: black;
+	border-radius: 5px;
+}
+
+.fruit {
+	background: purple;
 }

@@ -1,5 +1,7 @@
 /* eslint-disable default-case */
-import { CELL_TYPES, DIRECTION_TYPE, DIRECTIONS_MAP } from './config.js';
+import {
+  CELL_TYPES, DIRECTION_TYPE, DIRECTIONS_MAP, GRID_WIDTH, GRID_HEIGHT,
+} from './config.js';
 import { createGrid, getCellClass, setCellClass } from './grid.js';
 
 const START_DIRECTION = DIRECTION_TYPE.RIGHT;
@@ -14,10 +16,9 @@ const snake = {
     { x: 8, y: 5 },
     { x: 7, y: 5 },
     { x: 6, y: 5 },
-    { x: 5, y: 5 },
   ],
-  startPosition: { x: 10, y: 10 },
   direction: START_DIRECTION,
+  startPosition: { x: 10, y: 10 },
   getHead() {
     return this.cells[0];
   },
@@ -28,6 +29,12 @@ const snake = {
   },
   getAndTrimTail() {
     return this.cells.pop();
+  },
+  addOneMoreCell() {
+    const index = this.cells.length - 1;
+    const { x, y } = this.cells[index];
+
+    this.cells.push({ x: (x + 1), y: (y + 1) });
   },
   getNewHeadPosition() {
     const newHeadPosition = {
@@ -50,6 +57,26 @@ const snake = {
     }
 
     return newHeadPosition;
+  },
+};
+
+const fruit = {
+  coordinates: [],
+  setCordinates() {
+    const x = Math.floor(1 + Math.random() * (GRID_WIDTH - 2));
+    const y = Math.floor(1 + Math.random() * (GRID_HEIGHT - 2));
+
+    this.coordinates = [x, y];
+    return this;
+  },
+  deleteFruit() {
+    const [x, y] = this.coordinates;
+    setCellClass(x, y, CELL_TYPES.GRASS);
+  },
+  drawFruit() {
+    this.setCordinates();
+    const [x, y] = this.coordinates;
+    setCellClass(x, y, CELL_TYPES.FRUIT);
   },
 };
 
@@ -90,8 +117,14 @@ function doGameStep() {
   const obstacle = getCellClass(newHeadPosition.x, newHeadPosition.y);
   switch (obstacle) {
     case CELL_TYPES.GRASS:
-    case CELL_TYPES.SNAKE:
       break;
+    case CELL_TYPES.FRUIT:
+      snake.addOneMoreCell();
+      fruit.drawFruit();
+      break;
+    case CELL_TYPES.SNAKE:
+      gameOver();
+      return;
     default:
       gameOver();
       return;
@@ -108,7 +141,6 @@ function doGameStep() {
  * @param {KeyboardEvent} event
  */
 function handleKeyDown(event) {
-  console.log(event.key);
   const direction = DIRECTIONS_MAP[event.key];
   const currentDirection = snake.direction;
 
@@ -154,6 +186,7 @@ function handleClick({ target }) {
 function main() {
   createGrid();
   snake.drawSnake();
+  fruit.drawFruit();
 
   window.addEventListener('keydown', handleKeyDown);
   // @ts-ignore
