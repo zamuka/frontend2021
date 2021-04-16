@@ -1,12 +1,8 @@
 // Tренируемся использовать деструктуризацию
 
 const vegetable = {
-/**
- * 1.
- * TODO:
- * добавьте свойства в объект vegetable так, чтобы в консоль вывелось
- * onions are usually white
- */
+name : "onions",
+color : "white"
 };
 
 const { name, color } = vegetable;
@@ -23,6 +19,12 @@ console.log(`${name}s are usually ${color}`);
  * Добавьте свойства в объект vegetable так, чтобы в консоль вывелось
  * onions are usually round */
 
+const vegetable = {
+  name : "onions",
+  shape : "round"
+}
+
+const { name} = vegetable;
 const { shape } = vegetable;
 
 console.log(`${name}s are usually ${shape}`);
@@ -64,7 +66,7 @@ console.log(`${pumpkin.name}s are usually ${pumpkin.color}`);
  * Добавьте запятых в выражение ниже, чтобы отобразилось
  * tomatoes are usually red and round
  */
-const [tomato] = vegetables;
+const [, , tomato] = vegetables;
 
 console.log(`${tomato.name}es are usually ${tomato.color} and ${tomato.shape}`);
 
