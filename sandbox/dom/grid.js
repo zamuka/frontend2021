@@ -4,7 +4,11 @@ import {
   CELL_HEIGHT_PX,
   CELL_WIDTH_PX,
   GRID_HEIGHT,
+  CELL_TYPES,
 } from './config.js';
+
+/** @type {HTMLDivElement} */
+let mainContainer = null;
 
 /**
  * @param {string} [className='']
@@ -13,14 +17,56 @@ import {
 function createCell(className = '') {
   const cell = document.createElement('div');
   cell.className = className;
-  cell.classList.add('cell', className);
   cell.style.width = `${CELL_WIDTH_PX}px`;
   cell.style.height = `${CELL_HEIGHT_PX}px`;
   return cell;
 }
 
+/**
+ * @param {number} x
+ * @param {number} y
+ * @returns {Element}
+ */
+function getCell(x, y) {
+  if (!mainContainer) {
+    return null;
+  }
+  const cellIndex = x + y * GRID_WIDTH;
+  const cell = mainContainer.childNodes[cellIndex];
+  if (cell instanceof Element) {
+    return cell;
+  }
+  return null;
+}
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {string} className
+ */
+function setCellClass(x, y, className) {
+  const cell = getCell(x, y);
+  if (!cell) {
+    return;
+  }
+  cell.className = className;
+}
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @returns {string}
+ */
+function getCellClass(x, y) {
+  const cell = getCell(x, y);
+  if (!cell) {
+    return '';
+  }
+  return cell.className;
+}
+
 const createGrid = function () {
-  const mainContainer = document.createElement('div');
+  mainContainer = document.createElement('div');
   mainContainer.className = 'grid';
   mainContainer.style.width = `${GRID_WIDTH * CELL_WIDTH_PX}px`;
   mainContainer.style.height = `${GRID_HEIGHT * CELL_HEIGHT_PX}px`;
@@ -42,4 +88,6 @@ const createGrid = function () {
 
 export {
   createGrid,
+  setCellClass,
+  getCellClass,
 };
