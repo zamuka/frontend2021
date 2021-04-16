@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /**
  * Реализуйте следующие функции
  * omit - возвращает shallow copy (мелкую копию) объекта,
@@ -15,10 +16,22 @@
  * @return {object}
  */
 function omit(input, props) {
-  /** YOUR CODE HERE */
+  const result = {};
+
+  for (const key in input) {
+    if (props.indexOf(key) === -1) {
+      result[key] = input[key];
+    }
+  }
+
+  return result;
 }
 
-const object = { a: 1, b: '2', c: 3 };
+const object = {
+  a: 1,
+  b: '2',
+  c: 3,
+};
 
 // { 'b': '2' }
 console.log(omit(object, ['a', 'c']));
@@ -40,7 +53,15 @@ console.log(omit(object, ['a', 'c']));
  * @return {object}
  */
 function pick(input, props) {
-  /** YOUR CODE HERE */
+  const result = {};
+
+  for (const key in input) {
+    if (props.indexOf(key) !== -1) {
+      result[key] = input[key];
+    }
+  }
+
+  return result;
 }
 
 // { 'a': 1, 'c': 3 }
