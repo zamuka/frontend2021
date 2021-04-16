@@ -23,35 +23,34 @@ const snake = {
   getAndTrimTail() {
     return this.cells.pop();
   },
+  getNewHeadPosition() {
+    const newHeadPosition = {
+      ...this.getHead(),
+    };
+
+    switch (this.direction) {
+      case DIRECTION_TYPE.RIGHT:
+        newHeadPosition.x = newHeadPosition.x + 1;
+        break;
+      case DIRECTION_TYPE.UP:
+        newHeadPosition.y = newHeadPosition.y - 1;
+        break;
+      case DIRECTION_TYPE.DOWN:
+        newHeadPosition.y = newHeadPosition.y + 1;
+        break;
+      case DIRECTION_TYPE.LEFT:
+        newHeadPosition.x = newHeadPosition.x - 1;
+        break;
+    }
+
+    return newHeadPosition;
+  },
 };
 
 function drawSnake() {
   snake.cells.forEach((cell) => {
     setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
   });
-}
-
-function getNewHeadPosition() {
-  const newHeadPosition = {
-    ...snake.getHead(),
-  };
-
-  switch (snake.direction) {
-    case DIRECTION_TYPE.RIGHT:
-      newHeadPosition.x = newHeadPosition.x + 1;
-      break;
-    case DIRECTION_TYPE.UP:
-      newHeadPosition.y = newHeadPosition.y - 1;
-      break;
-    case DIRECTION_TYPE.DOWN:
-      newHeadPosition.y = newHeadPosition.y + 1;
-      break;
-    case DIRECTION_TYPE.LEFT:
-      newHeadPosition.x = newHeadPosition.x - 1;
-      break;
-  }
-
-  return newHeadPosition;
 }
 
 function gameOver() {
@@ -67,7 +66,7 @@ function doGameStep() {
 
   setTimeout(doGameStep, cycleDelayMs);
 
-  const newHeadPosition = getNewHeadPosition();
+  const newHeadPosition = snake.getNewHeadPosition();
   const obstacle = getCellClass(newHeadPosition.x, newHeadPosition.y);
   switch (obstacle) {
     case CELL_TYPES.GRASS:
