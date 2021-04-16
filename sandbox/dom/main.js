@@ -20,10 +20,8 @@ const snake = {
   getHead() {
     return this.cells[0];
   },
-  // TODO: добавить getAndTrimTail
   getAndTrimTail() {
-    const index = this.cells.length - 1;
-    return this.cells[index];
+    return this.cells.pop();
   },
 };
 
@@ -83,8 +81,8 @@ function doGameStep() {
   snake.cells.unshift(newHeadPosition);
   setCellClass(newHeadPosition.x, newHeadPosition.y, CELL_TYPES.SNAKE);
 
-  const tail = snake.cells.pop();
-  setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
+  const { x, y } = snake.getAndTrimTail();
+  setCellClass(x, y, CELL_TYPES.GRASS);
 }
 
 /**
