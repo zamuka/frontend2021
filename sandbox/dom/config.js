@@ -8,3 +8,10 @@ export const CELL_TYPES = {
   GRASS: 'grass',
   SNAKE: 'snake',
 };
+
+export const DIRECTION_TYPE = {
+  RIGHT: 'right',
+  DOWN: 'down',
+  LEFT: 'left',
+  UP: 'up',
+};
