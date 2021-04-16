@@ -15,3 +15,10 @@ export const DIRECTION_TYPE = {
   LEFT: 'left',
   UP: 'up',
 };
+
+export const DIRECTIONS_MAP = {
+  ArrowUp: DIRECTION_TYPE.UP,
+  ArrowDown: DIRECTION_TYPE.DOWN,
+  ArrowLeft: DIRECTION_TYPE.LEFT,
+  ArrowRight: DIRECTION_TYPE.RIGHT,
+};

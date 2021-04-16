@@ -1,10 +1,10 @@
 /* eslint-disable default-case */
-import { CELL_TYPES, DIRECTION_TYPE } from './config.js';
+import { CELL_TYPES, DIRECTION_TYPE, DIRECTIONS_MAP } from './config.js';
 import { createGrid, getCellClass, setCellClass } from './grid.js';
 
 const START_DIRECTION = DIRECTION_TYPE.RIGHT;
 
-const cycleDelayMs = 500;
+const cycleDelayMs = 100;
 
 let isPaused = false;
 
@@ -21,7 +21,17 @@ const snake = {
     return this.cells[0];
   },
   // TODO: добавить getAndTrimTail
+  getAndTrimTail() {
+    const index = this.cells.length - 1;
+    return this.cells[index];
+  },
 };
+
+function drawSnake() {
+  snake.cells.forEach((cell) => {
+    setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
+  });
+}
 
 function getNewHeadPosition() {
   const newHeadPosition = {
@@ -47,7 +57,6 @@ function getNewHeadPosition() {
 }
 
 function gameOver() {
-  alert('Game over');
   isPaused = true;
   // TODO: очистить поле
   // заново пересоздать змею.
@@ -62,9 +71,9 @@ function doGameStep() {
 
   const newHeadPosition = getNewHeadPosition();
   const obstacle = getCellClass(newHeadPosition.x, newHeadPosition.y);
-
   switch (obstacle) {
     case CELL_TYPES.GRASS:
+    case CELL_TYPES.SNAKE:
       break;
     default:
       gameOver();
@@ -82,17 +91,28 @@ function doGameStep() {
  * @param {KeyboardEvent} event
  */
 function handleKeyDown(event) {
-  const directionsMap = {
-    ArrowDown: DIRECTION_TYPE.DOWN,
-    ArrowRight: DIRECTION_TYPE.RIGHT,
-    ArrowUp: DIRECTION_TYPE.UP,
-    ArrowLeft: DIRECTION_TYPE.LEFT,
-  };
+  const direction = DIRECTIONS_MAP[event.key];
+  const currentDirection = snake.direction;
 
-  const direction = directionsMap[event.key];
-  if (direction) {
-    // TODO: добавить проверку и не менять направление на противоположное
-    snake.direction = direction;
+  switch (currentDirection) {
+    case 'up':
+      if (direction === 'down') return;
+      snake.direction = direction;
+      break;
+    case 'down':
+      if (direction === 'up') return;
+      snake.direction = direction;
+      break;
+    case 'right':
+      if (direction === 'left') return;
+      snake.direction = direction;
+      break;
+    case 'left':
+      if (direction === 'right') return;
+      snake.direction = direction;
+      break;
+    default:
+      snake.direction = currentDirection;
   }
 
   switch (event.key) {
@@ -115,10 +135,7 @@ function handleClick({ target }) {
 
 function main() {
   createGrid();
-
-  snake.cells.forEach((cell) => {
-    setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
-  });
+  drawSnake();
 
   window.addEventListener('keydown', handleKeyDown);
   // @ts-ignore
