@@ -20,7 +20,9 @@ const snake = {
   getHead() {
     return this.cells[0];
   },
-  // TODO: добавить getAndTrimTail
+  getAndTrimTail() {
+    return this.cells.pop();
+  },
 };
 
 function getNewHeadPosition() {
@@ -50,7 +52,20 @@ function gameOver() {
   alert('Game over');
   isPaused = true;
   // TODO: очистить поле
+  snake.cells.forEach((cell) => {
+    setCellClass(cell.x, cell.y, CELL_TYPES.GRASS);
+  });
   // заново пересоздать змею.
+  snake.cells = [
+    { x: 9, y: 5 },
+    { x: 8, y: 5 },
+    { x: 7, y: 5 },
+    { x: 6, y: 5 },
+    { x: 5, y: 5 },
+  ];
+  snake.cells.forEach((cell) => {
+    setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
+  });
 }
 
 function doGameStep() {
@@ -74,7 +89,7 @@ function doGameStep() {
   snake.cells.unshift(newHeadPosition);
   setCellClass(newHeadPosition.x, newHeadPosition.y, CELL_TYPES.SNAKE);
 
-  const tail = snake.cells.pop();
+  const tail = snake.getAndTrimTail();
   setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
 }
 
@@ -91,7 +106,34 @@ function handleKeyDown(event) {
 
   const direction = directionsMap[event.key];
   if (direction) {
-    // TODO: добавить проверку и не менять направление на противоположное
+    switch (snake.direction) {
+      case DIRECTION_TYPE.UP:
+        switch (direction) {
+          case DIRECTION_TYPE.DOWN:
+            return;
+        }
+    }
+    switch (snake.direction) {
+      case DIRECTION_TYPE.DOWN:
+        switch (direction) {
+          case DIRECTION_TYPE.UP:
+            return;
+        }
+    }
+    switch (snake.direction) {
+      case DIRECTION_TYPE.LEFT:
+        switch (direction) {
+          case DIRECTION_TYPE.RIGHT:
+            return;
+        }
+    }
+    switch (snake.direction) {
+      case DIRECTION_TYPE.RIGHT:
+        switch (direction) {
+          case DIRECTION_TYPE.LEFT:
+            return;
+        }
+    }
     snake.direction = direction;
   }
 
