@@ -1,8 +1,14 @@
 /* eslint-disable default-case */
 import {
-  CELL_TYPES, DIRECTION_TYPE, DIRECTIONS_MAP, GRID_WIDTH, GRID_HEIGHT,
-} from './config.js';
-import { createGrid, getCellClass, setCellClass } from './grid.js';
+  createGrid,
+  CELL_TYPES,
+  GRID_WIDTH,
+  GRID_HEIGHT,
+  getCellClass,
+  setCellClass,
+  DIRECTIONS_MAP,
+  DIRECTION_TYPE,
+} from './partials/index.js';
 
 const START_DIRECTION = DIRECTION_TYPE.RIGHT;
 
@@ -11,26 +17,16 @@ const cycleDelayMs = 100;
 let isPaused = false;
 
 const snake = {
-  cells: [
-    { x: 9, y: 5 },
-    { x: 8, y: 5 },
-    { x: 7, y: 5 },
-    { x: 6, y: 5 },
-  ],
+  cells: [],
   direction: START_DIRECTION,
   startPosition: { x: 10, y: 10 },
   getHead() {
     return this.cells[0];
   },
-  drawSnake() {
-    snake.cells.forEach((cell) => {
-      setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
-    });
-  },
   getAndTrimTail() {
     return this.cells.pop();
   },
-  addOneMoreCell() {
+  putInWeight() {
     const index = this.cells.length - 1;
     const { x, y } = this.cells[index];
 
@@ -63,49 +59,55 @@ const snake = {
 const fruit = {
   coordinates: [],
   setCordinates() {
-    const x = Math.floor(1 + Math.random() * (GRID_WIDTH - 2));
-    const y = Math.floor(1 + Math.random() * (GRID_HEIGHT - 2));
+    function randomBetween(min, max) {
+      return Math.floor(min + Math.random() * (max - min - 1));
+    }
+
+    const x = randomBetween(1, GRID_WIDTH);
+    const y = randomBetween(1, GRID_HEIGHT);
 
     this.coordinates = [x, y];
-    return this;
-  },
-  deleteFruit() {
-    const [x, y] = this.coordinates;
-    setCellClass(x, y, CELL_TYPES.GRASS);
-  },
-  drawFruit() {
-    this.setCordinates();
-    const [x, y] = this.coordinates;
-    setCellClass(x, y, CELL_TYPES.FRUIT);
   },
 };
 
-function deletePreviousSnake() {
-  const cellsAmmount = snake.cells.length;
-  for (let i = 0; i < cellsAmmount; i = i + 1) {
-    const { x, y } = snake.getAndTrimTail();
-    setCellClass(x, y, CELL_TYPES.GRASS);
-  }
-}
-
-function putSnakeOnTheStartPosition() {
-  deletePreviousSnake();
+function drawSnake() {
   const { startPosition } = snake;
 
   snake.cells.push(startPosition);
 
-  const { x, y } = snake.getHead();
-  setCellClass(x, y, CELL_TYPES.SNAKE);
+  snake.cells.forEach((cell) => {
+    setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
+  });
+}
+function deleteSnake() {
+  snake.cells.forEach((cell) => {
+    setCellClass(cell.x, cell.y, CELL_TYPES.GRASS);
+  });
 
-  isPaused = false;
+  snake.cells = [];
+}
+function deleteFruit() {
+  const [x, y] = fruit.coordinates;
+  setCellClass(x, y, CELL_TYPES.GRASS);
+}
+function drawNewFruit() {
+  fruit.setCordinates();
+  const [x, y] = fruit.coordinates;
+  setCellClass(x, y, CELL_TYPES.FRUIT);
+}
+function playAgain() {
+  deleteSnake();
+  drawSnake();
+  deleteFruit();
+  drawNewFruit();
 }
 
 function gameOver() {
   alert('Game Over');
   isPaused = true;
-  putSnakeOnTheStartPosition();
+  playAgain();
+  isPaused = false;
 }
-
 function doGameStep() {
   if (isPaused) {
     return;
@@ -119,8 +121,8 @@ function doGameStep() {
     case CELL_TYPES.GRASS:
       break;
     case CELL_TYPES.FRUIT:
-      snake.addOneMoreCell();
-      fruit.drawFruit();
+      snake.putInWeight();
+      drawNewFruit();
       break;
     case CELL_TYPES.SNAKE:
       gameOver();
@@ -185,8 +187,8 @@ function handleClick({ target }) {
 
 function main() {
   createGrid();
-  snake.drawSnake();
-  fruit.drawFruit();
+  drawSnake();
+  drawNewFruit();
 
   window.addEventListener('keydown', handleKeyDown);
   // @ts-ignore
