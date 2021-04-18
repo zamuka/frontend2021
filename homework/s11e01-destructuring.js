@@ -3,12 +3,6 @@
 const vegetable = {
   name: 'onion',
   color: 'white'
-  /**
-   * 1.
-   * TODO:
-   * добавьте свойства в объект vegetable так, чтобы в консоль вывелось
-   * onions are usually white
-   */
 };
 
 const { name, color } = vegetable;
@@ -25,9 +19,9 @@ console.log(`${name}s are usually ${color}`);
  * Добавьте свойства в объект vegetable так, чтобы в консоль вывелось
  * onions are usually round */
 
-//const { name, shape = 'round' } = vegetable;
+const { shape = 'round' } = vegetable;
 
-//console.log(`${name}s are usually ${shape}`);
+console.log(`${name}s are usually ${shape}`);
 
 /**
  * Декомпозиция работает не только на объектах, но и на массивах.
@@ -85,4 +79,4 @@ console.log(`a ${firstVegetable.name} and ${otherVegetables.length} other vegeta
 
 // На эту строку сильно не смотрите =). Без нее нам не дадут создать
 // переменную name из-за конфликта со свойством window.name
-//export { };
+export { };

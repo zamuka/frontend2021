@@ -30,7 +30,7 @@ function omit(input, props) {
 const object = { a: 1, b: '2', c: 3 };
 
 // { 'b': '2' }
-console.log(omit(object, ['a', 'c']));
+//console.log(omit(object, ['a', 'c']));
 
 /**
  * Реализуйте функцию pick, которая принимая объект, возвращает новый,
@@ -59,6 +59,5 @@ function pick(input, props) {
   return result;
 }
 
-console.log(object);
 // { 'a': 1, 'c': 3 }
 console.log(pick(object, ['a', 'c']));
