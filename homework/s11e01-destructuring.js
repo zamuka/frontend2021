@@ -1,30 +1,16 @@
 // Tренируемся использовать деструктуризацию
 
 const vegetable = {
-/**
- * 1.
- * TODO:
- * добавьте свойства в объект vegetable так, чтобы в консоль вывелось
- * onions are usually white
- */
+  name: 'onoins',
+  color: 'white',
+  shape: 'round',
 };
 
 const { name, color } = vegetable;
-
 console.log(`${name}s are usually ${color}`);
 
-/**
- * 2.
- * Заметьте, что другие свойства никак не влияют на результат.
- * Мы используем только указанные в скобках при деструктуризации.
- */
-
-/** TODO:
- * Добавьте свойства в объект vegetable так, чтобы в консоль вывелось
- * onions are usually round */
-
+//  2.
 const { shape } = vegetable;
-
 console.log(`${name}s are usually ${shape}`);
 
 /**
@@ -33,7 +19,7 @@ console.log(`${name}s are usually ${shape}`);
  */
 
 const vegetables = [
-  { name: 'cucuber', color: 'green' },
+  { name: 'cucumber', color: 'green' },
   vegetable, // это наш лук
   { name: 'pumpkin', color: 'orange' },
   { name: 'tomato', color: 'red', shape: 'round' },
@@ -55,7 +41,7 @@ console.log(`${cucumber.name} and ${onion.name}`);
  */
 
 const [, , pumpkin] = vegetables;
-// выведется cucumber and onion
+// выведется pumpkins are usually orange
 console.log(`${pumpkin.name}s are usually ${pumpkin.color}`);
 
 /**
@@ -64,7 +50,7 @@ console.log(`${pumpkin.name}s are usually ${pumpkin.color}`);
  * Добавьте запятых в выражение ниже, чтобы отобразилось
  * tomatoes are usually red and round
  */
-const [tomato] = vegetables;
+const [, , ,tomato] = vegetables;
 
 console.log(`${tomato.name}es are usually ${tomato.color} and ${tomato.shape}`);
 
