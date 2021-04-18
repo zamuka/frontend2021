@@ -19,7 +19,7 @@ function omit(input, props) {
   const result = {};
 
   for (const key in input) {
-    if (props.indexOf(key) === -1) {
+    if (props.includes(key)) {
       result[key] = input[key];
     }
   }
@@ -56,7 +56,7 @@ function pick(input, props) {
   const result = {};
 
   for (const key in input) {
-    if (props.indexOf(key) !== -1) {
+    if (!props.includes(key)) {
       result[key] = input[key];
     }
   }
