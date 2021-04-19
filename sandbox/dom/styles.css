@@ -3,6 +3,7 @@
 	padding: 0;
 	list-style: none;
 	text-decoration: none;
+	font-family: sans-serif;
 }
 
 .game {
@@ -35,19 +36,23 @@
 }
 
 .game_over {
-	top: 0;
-	left: 0;
 	gap: 10px;
-	z-index: 10;
 	width: 100%;
 	height: 100%;
 	color: #fff;
-	display: none;
-	position: absolute;
+	display: flex;
 	align-items: center;
 	flex-direction: column;
-	font-family: sans-serif;
 	justify-content: center;
+}
+
+.game_menus {
+	top: 0;
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	backdrop-filter: brightness(20%);
 }
 
@@ -74,4 +79,19 @@
 }
 .red {
 	background: red;
+}
+
+.game_paused {
+	gap: 100px;
+	width: 100%;
+	height: 100%;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.game_paused h2 {
+	color: #4f4f4f;
 }

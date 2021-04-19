@@ -13,13 +13,21 @@
 		<main class="game">
 			<div id="game_grid" class="grid"></div>
 			<!-- Game Over Window -->
-			<div id="game_over" class="game_over"">
-				<h1>Game Over!</h1>
-				<h2>Score: <span id="score">10</span></h2>
-				<div>
-					<a href="#" class="btn green">Paly Again</a>
-					<a href="#" class="btn red">Exit</a>
+			<div id="game_over" class="game_menus" hidden>
+				<div class="game_over">
+					<h1>Game Over!</h1>
+					<h2>Score: <span id="score">10</span></h2>
+					<div>
+						<a href="#" class="btn green">Paly Again</a>
+						<a href="#" class="btn red">Exit</a>
+					</div>
 				</div>
+			</div>
+
+			<div id="game_paused" class="game_menus" hidden>
+				<div class="game_paused">
+				<h1>Game Paused</h1>
+				<h2>Press <kbd>Space</kbd> to continue</h2>
 			</div>
 		</main>
 	</body>

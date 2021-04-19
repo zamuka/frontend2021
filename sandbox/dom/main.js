@@ -15,7 +15,8 @@ let isPaused = false;
 const cycleDelayMs = 100;
 const START_DIRECTION = DIRECTION_TYPE.RIGHT;
 const displayScore = document.querySelector('#score');
-const gameOverView = document.querySelector('#game_over');
+const gameOverMenu = document.querySelector('#game_over');
+const gamePausedMenu = document.querySelector('#game_paused');
 
 const snake = {
   cells: [],
@@ -97,7 +98,7 @@ function drawNewFruit() {
 }
 function gameOver() {
   isPaused = true;
-  gameOverView.style.display = 'flex';
+  gameOverMenu.hidden = false;
   displayScore.textContent = score;
 }
 function moveSnake(coordinates) {
@@ -138,7 +139,7 @@ function playAgain() {
   drawSnake();
   deleteFruit();
   drawNewFruit();
-  gameOverView.style.display = 'none';
+  gameOverMenu.hidden = true;
   isPaused = false;
   doGameStep();
 }
@@ -181,8 +182,11 @@ function handleKeyDown(event) {
     case ' ':
       isPaused = !isPaused;
       if (!isPaused) {
+        gamePausedMenu.hidden = true;
         doGameStep();
+        return;
       }
+      gamePausedMenu.hidden = false;
   }
 }
 
@@ -205,7 +209,7 @@ function main() {
   document.querySelector('.grid').addEventListener('mousedown', handleClick);
   doGameStep();
 
-  gameOverView.addEventListener('click', playOrExit);
+  gameOverMenu.addEventListener('click', playOrExit);
 }
 
 window.addEventListener('load', main);
