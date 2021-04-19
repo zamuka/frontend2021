@@ -10,7 +10,10 @@ import {
   DIRECTION_TYPE,
 } from './partials/index.js';
 
+let score = 0;
 const START_DIRECTION = DIRECTION_TYPE.RIGHT;
+const gameOverView = document.querySelector('#game_over');
+const displayScore = document.querySelector('#score');
 
 const cycleDelayMs = 100;
 
@@ -100,13 +103,21 @@ function playAgain() {
   drawSnake();
   deleteFruit();
   drawNewFruit();
+  gameOverView.style.display = 'none';
+  isPaused = false;
+  doGameStep();
+}
+function playOrExit(event) {
+  if (event.target.classList.contains('green')) {
+    playAgain();
+  }
+  // TO-DO: add exit option
 }
 
 function gameOver() {
-  alert('Game Over');
   isPaused = true;
-  playAgain();
-  isPaused = false;
+  gameOverView.style.display = 'flex';
+  displayScore.textContent = score;
 }
 function doGameStep() {
   if (isPaused) {
@@ -121,6 +132,7 @@ function doGameStep() {
     case CELL_TYPES.GRASS:
       break;
     case CELL_TYPES.FRUIT:
+      score = score + 10;
       snake.putInWeight();
       drawNewFruit();
       break;
@@ -194,6 +206,8 @@ function main() {
   // @ts-ignore
   document.querySelector('.grid').addEventListener('mousedown', handleClick);
   doGameStep();
+
+  gameOverView.addEventListener('click', playOrExit);
 }
 
 window.addEventListener('load', main);

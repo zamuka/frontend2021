@@ -8,7 +8,7 @@ import {
 } from './config.js';
 
 /** @type {HTMLDivElement} */
-let mainContainer = null;
+const mainContainer = document.querySelector('#game_grid');
 
 /**
  * @param {string} [className='']
@@ -28,9 +28,6 @@ function createCell(className = '') {
  * @returns {Element}
  */
 function getCell(x, y) {
-  if (!mainContainer) {
-    return null;
-  }
   const cellIndex = x + y * GRID_WIDTH;
   const cell = mainContainer.childNodes[cellIndex];
   if (cell instanceof Element) {
@@ -66,12 +63,8 @@ function getCellClass(x, y) {
 }
 
 const createGrid = function () {
-  mainContainer = document.createElement('div');
-  mainContainer.className = 'grid';
   mainContainer.style.width = `${GRID_WIDTH * CELL_WIDTH_PX}px`;
   mainContainer.style.height = `${GRID_HEIGHT * CELL_HEIGHT_PX}px`;
-
-  document.body.appendChild(mainContainer);
 
   for (let y = 0; y < GRID_HEIGHT; y = y + 1) {
     for (let x = 0; x < GRID_WIDTH; x = x + 1) {

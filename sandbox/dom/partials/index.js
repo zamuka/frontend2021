@@ -1,2 +1,2 @@
 export * from './config.js';
-export * from './display.js';
+export * from './grid.js';
