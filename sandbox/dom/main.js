@@ -11,13 +11,11 @@ import {
 } from './partials/index.js';
 
 let score = 0;
-const START_DIRECTION = DIRECTION_TYPE.RIGHT;
-const gameOverView = document.querySelector('#game_over');
-const displayScore = document.querySelector('#score');
-
-const cycleDelayMs = 100;
-
 let isPaused = false;
+const cycleDelayMs = 100;
+const START_DIRECTION = DIRECTION_TYPE.RIGHT;
+const displayScore = document.querySelector('#score');
+const gameOverView = document.querySelector('#game_over');
 
 const snake = {
   cells: [],
@@ -39,7 +37,6 @@ const snake = {
     const newHeadPosition = {
       ...this.getHead(),
     };
-
     switch (this.direction) {
       case DIRECTION_TYPE.RIGHT:
         newHeadPosition.x = newHeadPosition.x + 1;
@@ -98,6 +95,44 @@ function drawNewFruit() {
   const [x, y] = fruit.coordinates;
   setCellClass(x, y, CELL_TYPES.FRUIT);
 }
+function gameOver() {
+  isPaused = true;
+  gameOverView.style.display = 'flex';
+  displayScore.textContent = score;
+}
+function moveSnake(coordinates) {
+  snake.cells.unshift(coordinates);
+  setCellClass(coordinates.x, coordinates.y, CELL_TYPES.SNAKE);
+
+  const { x, y } = snake.getAndTrimTail();
+  setCellClass(x, y, CELL_TYPES.GRASS);
+}
+function doGameStep() {
+  if (isPaused) {
+    return;
+  }
+
+  const newHeadPosition = snake.getNewHeadPosition();
+  const obstacle = getCellClass(newHeadPosition.x, newHeadPosition.y);
+
+  setTimeout(doGameStep, cycleDelayMs);
+  switch (obstacle) {
+    case CELL_TYPES.GRASS:
+      moveSnake(newHeadPosition);
+      break;
+    case CELL_TYPES.FRUIT:
+      score = score + 10;
+      snake.putInWeight();
+      moveSnake(newHeadPosition);
+      drawNewFruit();
+      break;
+    case CELL_TYPES.SNAKE:
+      gameOver();
+      return;
+    default:
+      gameOver();
+  }
+}
 function playAgain() {
   deleteSnake();
   drawSnake();
@@ -114,43 +149,6 @@ function playOrExit(event) {
   // TO-DO: add exit option
 }
 
-function gameOver() {
-  isPaused = true;
-  gameOverView.style.display = 'flex';
-  displayScore.textContent = score;
-}
-function doGameStep() {
-  if (isPaused) {
-    return;
-  }
-
-  setTimeout(doGameStep, cycleDelayMs);
-
-  const newHeadPosition = snake.getNewHeadPosition();
-  const obstacle = getCellClass(newHeadPosition.x, newHeadPosition.y);
-  switch (obstacle) {
-    case CELL_TYPES.GRASS:
-      break;
-    case CELL_TYPES.FRUIT:
-      score = score + 10;
-      snake.putInWeight();
-      drawNewFruit();
-      break;
-    case CELL_TYPES.SNAKE:
-      gameOver();
-      return;
-    default:
-      gameOver();
-      return;
-  }
-
-  snake.cells.unshift(newHeadPosition);
-  setCellClass(newHeadPosition.x, newHeadPosition.y, CELL_TYPES.SNAKE);
-
-  const { x, y } = snake.getAndTrimTail();
-  setCellClass(x, y, CELL_TYPES.GRASS);
-}
-
 /**
  * @param {KeyboardEvent} event
  */
@@ -158,25 +156,25 @@ function handleKeyDown(event) {
   const direction = DIRECTIONS_MAP[event.key];
   const currentDirection = snake.direction;
 
-  switch (currentDirection) {
-    case 'up':
-      if (direction === 'down') return;
-      snake.direction = direction;
-      break;
-    case 'down':
-      if (direction === 'up') return;
-      snake.direction = direction;
-      break;
-    case 'right':
-      if (direction === 'left') return;
-      snake.direction = direction;
-      break;
-    case 'left':
-      if (direction === 'right') return;
-      snake.direction = direction;
-      break;
-    default:
-      snake.direction = currentDirection;
+  if (direction) {
+    switch (currentDirection) {
+      case 'up':
+        if (direction === 'down') return;
+        snake.direction = direction;
+        break;
+      case 'down':
+        if (direction === 'up') return;
+        snake.direction = direction;
+        break;
+      case 'right':
+        if (direction === 'left') return;
+        snake.direction = direction;
+        break;
+      case 'left':
+        if (direction === 'right') return;
+        snake.direction = direction;
+        break;
+    }
   }
 
   switch (event.key) {
