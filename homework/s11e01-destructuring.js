@@ -7,6 +7,9 @@ const vegetable = {
  * добавьте свойства в объект vegetable так, чтобы в консоль вывелось
  * onions are usually white
  */
+  name: 'onion',
+  color: 'white',
+  shape: 'round',
 };
 
 const { name, color } = vegetable;
@@ -64,7 +67,7 @@ console.log(`${pumpkin.name}s are usually ${pumpkin.color}`);
  * Добавьте запятых в выражение ниже, чтобы отобразилось
  * tomatoes are usually red and round
  */
-const [tomato] = vegetables;
+const [, , , tomato] = vegetables;
 
 console.log(`${tomato.name}es are usually ${tomato.color} and ${tomato.shape}`);
 
