@@ -26,9 +26,11 @@ function handleClick({ target }) {
   if (isVertical(snake.direction)) {
     if (x > head.x) snake.direction = DIRECTION_TYPE.RIGHT;
     if (x < head.x) snake.direction = DIRECTION_TYPE.LEFT;
-  } else {
-    // TODO: handle horizontal movement
+    return;
   }
+  // TODO: handle horizontal movement
+  if (y > head.y) snake.direction = DIRECTION_TYPE.DOWN;
+  if (y < head.y) snake.direction = DIRECTION_TYPE.UP;
 }
 
 function addApple() {
