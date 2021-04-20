@@ -12,6 +12,11 @@ let score;
 let cycleDelayMs;
 let isPaused = false;
 
+/**
+ * Checks if direction name is vertical
+ * @param {string} direction
+ * @returns {boolean}
+ */
 const isVertical = (direction) => direction === DIRECTION_TYPE.DOWN
   || direction === DIRECTION_TYPE.UP;
 
