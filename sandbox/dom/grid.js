@@ -82,6 +82,12 @@ const createGrid = function () {
         const cell = createCell('grass');
         mainContainer.appendChild(cell);
       }
+
+      const cell = createCell(cellClass);
+      cell.dataset.x = String(x);
+      cell.dataset.y = String(y);
+
+      mainContainer.appendChild(cell);
     }
   }
 };
