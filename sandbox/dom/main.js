@@ -6,11 +6,11 @@ import * as grid from './grid.js';
 
 const START_DIRECTION = DIRECTION_TYPE.RIGHT;
 
-let cycleDelayMs;
-let score;
-let isPaused = false;
-
 let snake;
+
+let score;
+let cycleDelayMs;
+let isPaused = false;
 
 const isVertical = (direction) => direction === DIRECTION_TYPE.DOWN
   || direction === DIRECTION_TYPE.UP;
@@ -36,13 +36,22 @@ function handleClick({ target }) {
 function addApple() {
   // TODO: add apple only on clear grass
   // use do..while
-  const x = Math.floor(Math.random() * GRID_WIDTH);
-  const y = Math.floor(Math.random() * GRID_HEIGHT);
+  let randomCords;
+  let randomCellClass;
+
+  do {
+    randomCords = grid.getRandomCell(GRID_WIDTH, GRID_HEIGHT);
+
+    const { x, y } = randomCords;
+    randomCellClass = grid.getCellClass(x, y);
+  } while (randomCellClass !== CELL_TYPES.GRASS);
+
+  const { x, y } = randomCords;
   grid.setCellClass(x, y, CELL_TYPES.APPLE);
 }
 
 function init() {
-  cycleDelayMs = 200;
+  cycleDelayMs = 100;
   score = 0;
   snake = {
     cells: [
