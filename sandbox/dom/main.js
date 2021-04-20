@@ -113,6 +113,7 @@ function handleClick({ target }) {
   console.log(target.dataset.y);
 }
 
+
 function main() {
   createGrid();
 
