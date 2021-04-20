@@ -54,7 +54,9 @@ function init() {
     getHead() {
       return this.cells[0];
     },
-    // TODO: добавить getAndTrimTail
+    getAndTrimTail() {
+      return this.cells.pop();
+    },
   };
   grid.createGrid();
 
