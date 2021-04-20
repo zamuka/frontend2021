@@ -10,20 +10,13 @@
 // Должно остаться 8 нужных вещей.
 // В результате должна получиться строка со словами, разделенными запятыми. (так же, как в источнике)
 
-const allThings = `кусок дерева, Ненужная скромность, Очки Элвиса,
-  ненужные сомнения, Цветное стекло, Амулет от артрита, "Лошадиные скачки",
-  Книга, Ненужное мороженое, Ваза, ненужный желудь, бейсбольная карточка`;
+const allThings = `кусок дерева, Ненужная скромность, Очки Элвиса, ненужные сомнения, Цветное стекло, Амулет от артрита, "Лошадиные скачки", Книга, Ненужное мороженое, Ваза, ненужный желудь, бейсбольная карточка`;
 
-  const needfulThings = allThings.filterThings
-
-  function filterThings(allThings) {
-    return allThings
-      .split(',')
-      .map (
-        (word, index) => index == 0 ? word : word[0].toUpperCase() + word.slice(1))
-
-  }
-
-
+const needfulThings = allThings.toLocaleLowerCase()
+.split(', ')
+.filter(needfulThings => !(needfulThings.startsWith('ненужная') || needfulThings.startsWith('ненужные') || needfulThings.startsWith('ненужный') || needfulThings.startsWith('ненужное')))
+.join(', ') 
 
 console.log(needfulThings);
+
+
