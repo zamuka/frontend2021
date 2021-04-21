@@ -10,6 +10,8 @@ import {
 /** @type {HTMLDivElement} */
 let mainContainer = null;
 
+let clickHandler = null;
+
 /**
  * @param {string} [className='']
  * @returns {HTMLDivElement} newly created cell
@@ -65,6 +67,12 @@ function getCellClass(x, y) {
   return cell.className;
 }
 
+const handleClick = function (event) {
+  if (clickHandler) {
+    clickHandler(event);
+  }
+};
+
 const createGrid = function () {
   mainContainer = document.createElement('div');
   mainContainer.className = 'grid';
@@ -88,10 +96,25 @@ const createGrid = function () {
       mainContainer.appendChild(cell);
     }
   }
+
+  mainContainer.addEventListener('mousedown', handleClick);
+};
+
+const removeGrid = function () {
+  if (mainContainer) {
+    mainContainer.remove();
+    mainContainer = null;
+  }
+};
+
+const onGridClick = function (handler) {
+  clickHandler = handler;
 };
 
 export {
   createGrid,
   setCellClass,
   getCellClass,
+  removeGrid,
+  onGridClick,
 };
