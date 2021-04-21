@@ -9,7 +9,7 @@ const inputString = 'Neque porro quisquam est qui dolorem ipsum quia dolor sit a
 
 
 // variant-1
-let newInputString = inputString.replace(/[aeiouyAEIOUY]/g, "")
+const newInputString = inputString.replace(/[aeiouyAEIOUY]/g, '');
 
 console.log(`Variant-1 result is: ${newInputString}`);
 
@@ -21,9 +21,9 @@ let cloneString = inputString;
 
 let newString;
 
-for (let i = 0; i < vowelsArr.length; i++) {
-    newString = cloneString.split(vowelsArr[i].toLowerCase());
-    cloneString = newString.join('');
+for (let i = 0; i < vowelsArr.length; i = i + 1) {
+  newString = cloneString.split(vowelsArr[i].toLowerCase());
+  cloneString = newString.join('');
 }
 
 console.log(`Variant-2 result is: ${cloneString}`);

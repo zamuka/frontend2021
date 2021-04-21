@@ -86,4 +86,4 @@ console.log(`a ${firstVegetable.name} and ${otherVegetables.length} other vegeta
 
 // На эту строку сильно не смотрите =). Без нее нам не дадут создать
 // переменную name из-за конфликта со свойством window.name
-export {};
+// export {};

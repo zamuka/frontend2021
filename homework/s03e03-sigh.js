@@ -10,17 +10,17 @@ let sighMessage = 'О';
 // к sighMessage за каждый оставшийся день
 
 if (daysTillWeekend !== 0) {
-    yep(daysTillWeekend)
+  yep(daysTillWeekend);
 } else {
-    alert(sighMessage + '!')
+  alert(sighMessage + '!');
 }
 
 function yep(n) {
-    let sigh = '-ho';
-    for (i = 1; i <= n; i++) {
-        sighMessage = sighMessage + sigh;
-    }
-    alert(sighMessage);
+  const sigh = '-ho';
+  for (let i = 1; i <= n; i = i + 1) {
+    sighMessage = sighMessage + sigh;
+  }
+  alert(sighMessage);
 }
 
 

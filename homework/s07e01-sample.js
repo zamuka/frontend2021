@@ -19,17 +19,15 @@ const randomColor = sample(['red', 'green', 'blue', 'orange']);
 // Буквы могут повторяться.
 
 function getRandomLetters(str, param) {
-    let newString = [];
+  let newString = [];
 
-    for (i = 0; i < param; i = i + 1) {
-        let index = Math.floor(Math.random() * str.length);
+  for (let i = 0; i < param; i = i + 1) {
+    const index = Math.floor(Math.random() * str.length);
 
-        newString.push(str[index]);
-    }
-
-    return newString.join('');
+    newString.push(str[index]);
+  }
+  return newString.join('');
 }
-
 
 const result = getRandomLetters('abcdefgh', 4);
 
@@ -37,24 +35,22 @@ const result = getRandomLetters('abcdefgh', 4);
 // объект, в котором только одно случайное свойство из оригинального
 // например для объекта:
 const person = {
-    name: 'Vasya',
-    age: 20,
-    occupation: 'student',
-    height: 170,
+  name: 'Vasya',
+  age: 20,
+  occupation: 'student',
+  height: 170,
 };
 
-
-
 function sampleProperty(obj) {
-    const pairs = Object.entries(obj);
+  const pairs = Object.entries(obj);
 
-    let index = Math.floor(Math.random() * pairs.length);
+  const index = Math.floor(Math.random() * pairs.length);
 
-    const randomPair = pairs[index];
+  const randomPair = pairs[index];
 
-    return {
-        [randomPair[0]]: randomPair[1]
-    };
+  return {
+    [randomPair[0]]: randomPair[1],
+  };
 }
 sampleProperty(person);
 

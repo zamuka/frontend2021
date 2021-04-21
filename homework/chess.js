@@ -18,7 +18,7 @@ function chessBoard() {
 
   for (let i = 0; i < MAX_ROW_ITEMS; i = i + 1) {
     for (let j = 0; j < MAX_ROW_ITEMS; j = j + 1) {
-      if (i % 2 === 0 && j % 2 === 0 || i % 2 !== 0 && j % 2 !== 0) {
+      if ((i % 2 === 0 && j % 2 === 0) || (i % 2 !== 0 && j % 2 !== 0)) {
         const tile = tileCreate('#000');
         board.appendChild(tile);
       } else {
