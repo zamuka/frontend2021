@@ -83,12 +83,10 @@ const createGrid = function () {
 
   for (let y = 0; y < GRID_HEIGHT; y = y + 1) {
     for (let x = 0; x < GRID_WIDTH; x = x + 1) {
-      if (x === 0 || y === 0 || y === GRID_HEIGHT - 1 || x === GRID_WIDTH - 1) {
-        const coralCell = createCell('wall');
-        mainContainer.appendChild(coralCell);
-      } else {
-        const cell = createCell('grass');
-        mainContainer.appendChild(cell);
+      let cellClass = CELL_TYPES.GRASS;
+
+      if (y === 0 || x === 0 || y === GRID_HEIGHT - 1 || x === GRID_WIDTH - 1) {
+        cellClass = CELL_TYPES.WALL;
       }
 
       const cell = createCell(cellClass);
@@ -113,10 +111,17 @@ const onGridClick = function (handler) {
   clickHandler = handler;
 };
 
+function randomApple(width, height) {
+  const x = Math.floor(Math.random() * width);
+  const y = Math.floor(Math.random() * height);
+  return { x, y }
+}
+
 export {
   createGrid,
   setCellClass,
   getCellClass,
   removeGrid,
   onGridClick,
+  randomApple,
 };
