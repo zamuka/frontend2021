@@ -18,5 +18,3 @@ const needfulThings = allThings.toLocaleLowerCase()
 .join(', ') 
 
 console.log(needfulThings);
-
-

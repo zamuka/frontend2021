@@ -27,21 +27,28 @@ function handleClick({ target }) {
     if (x > head.x) snake.direction = DIRECTION_TYPE.RIGHT;
     if (x < head.x) snake.direction = DIRECTION_TYPE.LEFT;
   } else {
-    // TODO: handle horizontal movement
+    if (y > head.y) snake.direction = DIRECTION_TYPE.DOWN;
+    if (y < head.y) snake.direction = DIRECTION_TYPE.UP;
   }
 }
 
 function addApple() {
-  // TODO: add apple only on clear grass
-  // use do..while
-  const x = Math.floor(Math.random() * GRID_WIDTH);
-  const y = Math.floor(Math.random() * GRID_HEIGHT);
+let randomSite;
+let randomCellClass;
+
+do {
+  randomSite = grid.randomApple(GRID_WIDTH, GRID_HEIGHT);
+  const {x, y} = randomSite;
+  randomCellClass = grid.getCellClass(x, y);
+} while (randomCellClass !== CELL_TYPES.GRASS);
+  const {x, y} = randomSite;
   grid.setCellClass(x, y, CELL_TYPES.APPLE);
 }
 
 function init() {
   cycleDelayMs = 200;
-  score = 0;
+  score = document.getElementsByTagName("div")[0];
+  score.textContent = 0;
   snake = {
     cells: [
       { x: 9, y: 5 },
@@ -50,11 +57,14 @@ function init() {
       { x: 6, y: 5 },
       { x: 5, y: 5 },
     ],
+    targetLength: 5,
     direction: START_DIRECTION,
     getHead() {
       return this.cells[0];
     },
-    // TODO: добавить getAndTrimTail
+    getAndTrimTail () {
+      return this.cells.pop();
+    }
   };
   grid.createGrid();
 
@@ -111,7 +121,9 @@ function doGameStep() {
     case CELL_TYPES.GRASS:
       break;
     case CELL_TYPES.APPLE:
-      // TODO: Handle apple hit. score
+      score.textContent++;
+      snake.targetLength = snake.targetLength + 1;
+      addApple();
       break;
     default:
       gameOver();
@@ -121,8 +133,10 @@ function doGameStep() {
   snake.cells.unshift(newHeadPosition);
   grid.setCellClass(newHeadPosition.x, newHeadPosition.y, CELL_TYPES.SNAKE);
 
-  const tail = snake.cells.pop();
-  grid.setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
+  if (snake.targetLength < snake.cells.length) {
+    const tail = snake.getAndTrimTail();
+    grid.setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
+  }
 }
 
 /**
