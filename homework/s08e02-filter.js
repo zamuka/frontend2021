@@ -6,10 +6,11 @@
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 100, 151];
 const evenNumbers = [];
 
-// for (ВАШ) {
-//      КОД
-//      ТУТ
-// }
+for (let i = 0; i < numbers.length; i = i + 1) {
+  if (Math.floor(numbers[i]) % 2 === 0) {
+    evenNumbers.push(numbers[i]);
+  }
+}
 
 // [ 2, 4, 6, 8, 100 ]
 console.log(evenNumbers);
@@ -18,17 +19,28 @@ console.log(evenNumbers);
 // используйте метод строки - .includes для поиска 'o'
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes
 const words = ['grocery', 'sister', 'dirt', 'history', 'opinion', 'payment',
-  'movie', 'drawing', 'area', 'hair', 'selection', 'coffee'];
+  'movie', 'drawing', 'area', 'hair', 'selection', 'coffee',
+];
 
 const wordsWithO = [];
+const nextWordsWithO = [];
 
-// for (ВАШ) {
-//      КОД
-//      ТУТ
-// }
+for (let i = 0; i < words.length; i = i + 1) {
+  if (words[i].toLowerCase().includes('o')) {
+    wordsWithO.push(words[i]);
+  }
+}
+
+words.map(function (elem) {
+  const item = elem.includes('o');
+  if (item) {
+    nextWordsWithO.push(elem);
+  }
+});
 
 // ['grocery', 'history', 'opinion', 'movie', 'selection', 'coffee']
 console.log(wordsWithO);
+console.log(nextWordsWithO);
 
 // В.
 /**
@@ -42,7 +54,7 @@ console.log(wordsWithO);
  */
 
 // [ 2, 4, 6, 8, 100 ]
-console.log(numbers.filter((num) => num/** ваш код тут */));
+console.log(numbers.filter((num) => num % 2 === 0));
 
 // ['grocery', 'history', 'opinion', 'movie', 'selection', 'coffee']
-console.log(words.filter((word) => word/** ваш код тут */));
+console.log(words.filter((word) => word.includes('o')));

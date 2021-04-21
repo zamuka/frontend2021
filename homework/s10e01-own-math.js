@@ -25,11 +25,12 @@
  * @returns {number} плотность населения на квадратный км
  */
 function getPopulationDensity(country) {
-
+  const density = Math.floor(country.population / country.area);
+  return `~${density} чел / кв. км`;
 }
 
 /**
- * хоть Франция и страна - переменная все равно и маленькой буквы.
+ * хоть Франция и страна - переменная все равно с маленькой буквы.
  * С прошлого года JavaScript поддерживает разделители разрядов в числах (подчерк)
  * Они ни на что не влияют, но читать большие числа становится намного проще.
  */
@@ -37,11 +38,10 @@ const france = {
   area: 640_679,
   population: 67_067_000,
   capital: 'Paris',
-}
+};
 
 // Плотность населения Франции ~104 чел / кв. км
 console.log('Плотность населения Франции:', getPopulationDensity(france));
-
 
 /**
  * 2. calcFreeFallTime
@@ -53,12 +53,14 @@ console.log('Плотность населения Франции:', getPopulati
  * @returns {number} free-fall time
  */
 function calcFreeFallTime(height) {
+  const acceleration = 9.81;
 
+  const time = Math.sqrt((2 * height) / acceleration);
+  return parseFloat(time.toFixed(3));
 }
 
 // Для высоты 100м должно вывести примерно 4.516сек
 console.log(`Время свободного падения с высоты 100 метров: ${calcFreeFallTime(100)} сек`);
-
 
 /**
  * 3. calcTriangleAreaFromEdges
@@ -73,7 +75,9 @@ console.log(`Время свободного падения с высоты 100 
  * @returns {number} triangle area
  */
 function calcTriangleAreaFromEdges(a, b, c) {
-
+  const p = parseFloat(((a + b + c) / 2).toFixed(3));
+  const areaOfTriangle = parseFloat(Math.sqrt(p * (p - a) * (p - b) * (p - c)).toFixed(3));
+  return areaOfTriangle;
 }
 
 // для равностороннего треугольника со стороной 3 площадь ~3.897
