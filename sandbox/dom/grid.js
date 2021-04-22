@@ -68,9 +68,6 @@ function getCellClass(x, y) {
 }
 
 /**
- * Returns random cell coordinates
- * @param {number} width - grid with
- * @param {number} height - grid height
  * @returns {{x:number, y:number}}
  */
 function getRandomCell() {
