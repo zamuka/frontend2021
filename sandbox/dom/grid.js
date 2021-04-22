@@ -111,17 +111,10 @@ const onGridClick = function (handler) {
   clickHandler = handler;
 };
 
-function randomApple(width, height) {
-  const x = Math.floor(Math.random() * width);
-  const y = Math.floor(Math.random() * height);
-  return { x, y }
-}
-
 export {
   createGrid,
   setCellClass,
   getCellClass,
   removeGrid,
   onGridClick,
-  randomApple,
 };

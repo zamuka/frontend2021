@@ -32,12 +32,18 @@ function handleClick({ target }) {
   }
 }
 
+function positionAppleRandom(width, height) {
+  const x = Math.floor(Math.random() * width);
+  const y = Math.floor(Math.random() * height);
+  return { x, y }
+}
+
 function addApple() {
 let randomSite;
 let randomCellClass;
 
 do {
-  randomSite = grid.randomApple(GRID_WIDTH, GRID_HEIGHT);
+  randomSite = positionAppleRandom(GRID_WIDTH, GRID_HEIGHT);
   const {x, y} = randomSite;
   randomCellClass = grid.getCellClass(x, y);
 } while (randomCellClass !== CELL_TYPES.GRASS);
