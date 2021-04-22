@@ -21,6 +21,10 @@
 	background-color: brown;
 }
 
+.apple {
+  background-color: red;
+  border-radius: 50%;
+}
 .snake {
 	background-color: black;
 	border-radius: 5px;
