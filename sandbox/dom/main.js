@@ -59,7 +59,9 @@ function init() {
     getHead() {
       return this.cells[0];
     },
-    return this.cells.pop();
+    getAndTrimTail() {
+      return this.cells.pop();
+    },
   };
   grid.createGrid();
 
@@ -117,6 +119,7 @@ function doGameStep() {
       break;
     case CELL_TYPES.APPLE:
       score = score + 1;
+      addApple();
       break;
     default:
       gameOver();
