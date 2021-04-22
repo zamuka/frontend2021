@@ -26,16 +26,21 @@ function handleClick({ target }) {
   if (isVertical(snake.direction)) {
     if (x > head.x) snake.direction = DIRECTION_TYPE.RIGHT;
     if (x < head.x) snake.direction = DIRECTION_TYPE.LEFT;
-  } else {
-    // TODO: handle horizontal movement
-  }
+  } 
+  if (y > head.y) snake.direction = DIRECTION_TYPE.DOWN;
+  if (y < head.y) snake.direction = DIRECTION_TYPE.UP;
 }
 
 function addApple() {
-  // TODO: add apple only on clear grass
-  // use do..while
-  const x = Math.floor(Math.random() * GRID_WIDTH);
-  const y = Math.floor(Math.random() * GRID_HEIGHT);
+  const { x, y } = grid.getRandomCell(GRID_WIDTH, GRID_HEIGHT);
+  let randomCellClass;
+
+  do {
+    
+    randomCellClass = grid.getCellClass(x, y);
+  } while (randomCellClass !== CELL_TYPES.GRASS);
+
+
   grid.setCellClass(x, y, CELL_TYPES.APPLE);
 }
 
@@ -54,7 +59,7 @@ function init() {
     getHead() {
       return this.cells[0];
     },
-    // TODO: добавить getAndTrimTail
+    return this.cells.pop();
   };
   grid.createGrid();
 
@@ -91,7 +96,7 @@ function getNewHeadPosition() {
 
 function gameOver() {
   // eslint-disable-next-line no-alert
-  alert('Game over');
+  alert(`Game Over!\nYour Score: ${score}`);
 
   grid.removeGrid();
   init();
@@ -111,7 +116,7 @@ function doGameStep() {
     case CELL_TYPES.GRASS:
       break;
     case CELL_TYPES.APPLE:
-      // TODO: Handle apple hit. score
+      score = score + 1;
       break;
     default:
       gameOver();

@@ -24,6 +24,12 @@ function createCell(className = '') {
   return cell;
 }
 
+function getRandomCell(width, height) {
+  const x = Math.floor(Math.random() * width);
+  const y = Math.floor(Math.random() * height);
+  return { x, y };
+}
+
 /**
  * @param {number} x
  * @param {number} y
@@ -117,4 +123,6 @@ export {
   getCellClass,
   removeGrid,
   onGridClick,
+  getRandomCell,
+  
 };
