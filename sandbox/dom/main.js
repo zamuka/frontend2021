@@ -28,15 +28,17 @@ function handleClick({ target }) {
     if (x < head.x) snake.direction = DIRECTION_TYPE.LEFT;
   } else {
     // TODO: handle horizontal movement
+    if (y > head.y) snake.direction = DIRECTION_TYPE.DOWN;
+    if (y < head.y) snake.direction = DIRECTION_TYPE.UP;
   }
 }
 
 function addApple() {
   // TODO: add apple only on clear grass
   // use do..while
-  const x = Math.floor(Math.random() * GRID_WIDTH);
-  const y = Math.floor(Math.random() * GRID_HEIGHT);
-  grid.setCellClass(x, y, CELL_TYPES.APPLE);
+  const x = Math.floor(Math.random() * (GRID_WIDTH - 2)) + 1;
+  const y = Math.floor(Math.random() * (GRID_HEIGHT - 2)) + 1;
+  grid.setCellClass(x, y, CELL_TYPES.APPLE);  
 }
 
 function init() {
@@ -50,12 +52,16 @@ function init() {
       { x: 6, y: 5 },
       { x: 5, y: 5 },
     ],
+    targetLength: 5,
     direction: START_DIRECTION,
     getHead() {
       return this.cells[0];
     },
-    // TODO: добавить getAndTrimTail
+    getAndTrimTail() {
+      return this.cells.pop();
+    },
   };
+  
   grid.createGrid();
 
   grid.onGridClick(handleClick);
@@ -89,6 +95,7 @@ function getNewHeadPosition() {
   return newHeadPosition;
 }
 
+
 function gameOver() {
   // eslint-disable-next-line no-alert
   alert('Game over');
@@ -96,6 +103,15 @@ function gameOver() {
   grid.removeGrid();
   init();
 }
+let input = document.createElement('input');
+document.body.appendChild(input);
+input.style.cssText = `
+font-size: 20px;
+display: block;`;
+score = 0;
+input.value = `Counter: ${score}`;
+
+
 
 function doGameStep() {
   if (isPaused) {
@@ -106,23 +122,35 @@ function doGameStep() {
 
   const newHeadPosition = getNewHeadPosition();
   const obstacle = grid.getCellClass(newHeadPosition.x, newHeadPosition.y);
+  
 
   switch (obstacle) {
     case CELL_TYPES.GRASS:
       break;
     case CELL_TYPES.APPLE:
+      score = score + 1;
+      input.value = `Counter: ${score}`;
+      addApple();
+      snake.targetLength = snake.targetLength + 1;
       // TODO: Handle apple hit. score
       break;
     default:
       gameOver();
       return;
   }
+  
+  
 
   snake.cells.unshift(newHeadPosition);
   grid.setCellClass(newHeadPosition.x, newHeadPosition.y, CELL_TYPES.SNAKE);
 
-  const tail = snake.cells.pop();
-  grid.setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
+  // const tail = snake.cells.pop();
+  // grid.setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
+  
+  if (snake.targetLength < snake.cells.length) {
+    const tail = snake.getAndTrimTail();
+    grid.setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
+  }
 }
 
 /**
