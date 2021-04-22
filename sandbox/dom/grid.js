@@ -73,9 +73,9 @@ function getCellClass(x, y) {
  * @param {number} height - grid height
  * @returns {{x:number, y:number}}
  */
-function getRandomCell(width, height) {
-  const x = Math.floor(Math.random() * width);
-  const y = Math.floor(Math.random() * height);
+function getRandomCell() {
+  const x = Math.floor(Math.random() * GRID_WIDTH);
+  const y = Math.floor(Math.random() * GRID_HEIGHT);
   return { x, y };
 }
 
