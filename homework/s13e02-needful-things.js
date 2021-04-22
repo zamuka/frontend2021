@@ -19,8 +19,9 @@ const allThings = `кусок дерева, Ненужная скромност�
 
 const needfulThings = allThings
   .split(',').filter((thing) => !thing
+    .trim()
     .toLowerCase()
-    .includes('не'))
+    .startsWith('не'))
   .join(',');
 
 console.log(needfulThings);
