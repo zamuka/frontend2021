@@ -6,11 +6,11 @@ import * as grid from './grid.js';
 
 const START_DIRECTION = DIRECTION_TYPE.RIGHT;
 
-let cycleDelayMs;
-let score;
-let isPaused = false;
-
 let snake;
+
+let score;
+let cycleDelayMs;
+let isPaused = false;
 
 const isVertical = (direction) => direction === DIRECTION_TYPE.DOWN
   || direction === DIRECTION_TYPE.UP;
@@ -26,35 +26,46 @@ function handleClick({ target }) {
   if (isVertical(snake.direction)) {
     if (x > head.x) snake.direction = DIRECTION_TYPE.RIGHT;
     if (x < head.x) snake.direction = DIRECTION_TYPE.LEFT;
-  } else {
-    // TODO: handle horizontal movement
+    return;
   }
+  if (y > head.y) snake.direction = DIRECTION_TYPE.DOWN;
+  if (y < head.y) snake.direction = DIRECTION_TYPE.UP;
 }
 
 function addApple() {
-  // TODO: add apple only on clear grass
-  // use do..while
-  const x = Math.floor(Math.random() * GRID_WIDTH);
-  const y = Math.floor(Math.random() * GRID_HEIGHT);
+  let randomCords;
+  let randomCellClass;
+
+  do {
+    randomCords = grid.getRandomCell(GRID_WIDTH, GRID_HEIGHT);
+
+    const { x, y } = randomCords;
+    randomCellClass = grid.getCellClass(x, y);
+  } while (randomCellClass !== CELL_TYPES.GRASS);
+
+  const { x, y } = randomCords;
   grid.setCellClass(x, y, CELL_TYPES.APPLE);
 }
 
 function init() {
-  cycleDelayMs = 200;
+  cycleDelayMs = 500;
   score = 0;
   snake = {
     cells: [
-      { x: 9, y: 5 },
-      { x: 8, y: 5 },
-      { x: 7, y: 5 },
-      { x: 6, y: 5 },
-      { x: 5, y: 5 },
+      { x: 14, y: 10 },
+      { x: 13, y: 10 },
+      { x: 12, y: 10 },
+      { x: 11, y: 10 },
+      { x: 10, y: 10 },
     ],
+    targetLength: 5,
     direction: START_DIRECTION,
     getHead() {
       return this.cells[0];
     },
-    // TODO: добавить getAndTrimTail
+    getAndTrimTail() {
+      return this.cells.pop();
+    },
   };
   grid.createGrid();
 
@@ -91,7 +102,7 @@ function getNewHeadPosition() {
 
 function gameOver() {
   // eslint-disable-next-line no-alert
-  alert('Game over');
+  alert(`Game Over!\nYour Score: ${score}`);
 
   grid.removeGrid();
   init();
@@ -105,13 +116,16 @@ function doGameStep() {
   setTimeout(doGameStep, cycleDelayMs);
 
   const newHeadPosition = getNewHeadPosition();
-  const obstacle = grid.getCellClass(newHeadPosition.x, newHeadPosition.y);
+  const { x, y } = newHeadPosition;
+  const obstacle = grid.getCellClass(x, y);
 
   switch (obstacle) {
     case CELL_TYPES.GRASS:
       break;
     case CELL_TYPES.APPLE:
-      // TODO: Handle apple hit. score
+      score = score + 1;
+      snake.targetLength = snake.targetLength + 1;
+      addApple();
       break;
     default:
       gameOver();
@@ -119,10 +133,12 @@ function doGameStep() {
   }
 
   snake.cells.unshift(newHeadPosition);
-  grid.setCellClass(newHeadPosition.x, newHeadPosition.y, CELL_TYPES.SNAKE);
+  grid.setCellClass(x, y, CELL_TYPES.SNAKE);
 
-  const tail = snake.cells.pop();
-  grid.setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
+  if (snake.targetLength < snake.cells.length) {
+    const tail = snake.getAndTrimTail();
+    grid.setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
+  }
 }
 
 /**
