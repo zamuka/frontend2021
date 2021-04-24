@@ -34,11 +34,17 @@ function handleClick({ target }) {
 }
 
 function addApple() {
-  // TODO: add apple only on clear grass
-  // use do..while
-  const x = Math.floor(Math.random() * (GRID_WIDTH - 2)) + 1;
-  const y = Math.floor(Math.random() * (GRID_HEIGHT - 2)) + 1;
-  grid.setCellClass(x, y, CELL_TYPES.APPLE);  
+  let randomCell;
+  let randomCellClass;
+  do {
+    randomCell = grid.getRandomCell(GRID_WIDTH, GRID_HEIGHT);
+
+    const { x, y } = randomCell;
+    randomCellClass = grid.getCellClass(x, y);
+  } while (randomCellClass !== CELL_TYPES.GRASS);
+
+  const { x, y } = randomCell;
+  grid.setCellClass(x, y, CELL_TYPES.APPLE); 
 }
 
 function init() {
@@ -139,13 +145,9 @@ function doGameStep() {
       return;
   }
   
-  
-
   snake.cells.unshift(newHeadPosition);
   grid.setCellClass(newHeadPosition.x, newHeadPosition.y, CELL_TYPES.SNAKE);
 
-  // const tail = snake.cells.pop();
-  // grid.setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
   
   if (snake.targetLength < snake.cells.length) {
     const tail = snake.getAndTrimTail();

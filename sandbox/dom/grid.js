@@ -5,6 +5,7 @@ import {
   CELL_WIDTH_PX,
   GRID_HEIGHT,
   CELL_TYPES,
+  
 } from './config.js';
 
 /** @type {HTMLDivElement} */
@@ -66,6 +67,11 @@ function getCellClass(x, y) {
   }
   return cell.className;
 }
+function getRandomCell() {
+  const x = Math.floor(Math.random() * GRID_WIDTH);
+  const y = Math.floor(Math.random() * GRID_HEIGHT);
+  return { x, y };
+}
 
 const handleClick = function (event) {
   if (clickHandler) {
@@ -117,4 +123,5 @@ export {
   getCellClass,
   removeGrid,
   onGridClick,
+  getRandomCell,
 };
