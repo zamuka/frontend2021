@@ -35,4 +35,4 @@ const [firstVegetable, ...otherVegetables] = vegetables;
 
 console.log(`a ${firstVegetable.name} and ${otherVegetables.length} other vegetables`);
 
-//export {};
+export {};
