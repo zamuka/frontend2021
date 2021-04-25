@@ -14,7 +14,7 @@ function getOdds(inputNumbers) {
       oddNumbers.push(num);
     }
   });
-  return oddNumbers
+  return oddNumbers;
 }
 
 const numbers = [1, 5, 10, 18, 23, 36, 55, 62];

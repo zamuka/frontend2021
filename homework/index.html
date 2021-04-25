@@ -8,32 +8,6 @@
 </head>
 <body>
 
-    <script src="./s12e01-pick-omit.js"></script>
-    <script>
-    
-        function omnit(obj, arr) {
-          let not ={};
-          let has = {};
-          for (let i = 0; i<arr.length; i++) {
-            arr[i] = String(arr[i])
-            console.log();
-            }
-          for (const key in obj) {
-              console.log(key);
-            if (Object.hasOwnProperty.call(obj, key)) {
-              arr.indexOf(key) > -1 ? has[key] = obj[key] : not[key] = obj[key];
-            }
-          }
-          console.log('not' ,not);
-          console.log('has' ,has);
-        }
-        const obj = {
-          a: 1,
-          b: '2',
-          c: 3, 
-        }
-        const keys = ['a', 'c'];
-        omnit(obj, keys)
-      </script>
+    <script src="./s13e02-needful-things.js"></script>
 </body>
 </html>
