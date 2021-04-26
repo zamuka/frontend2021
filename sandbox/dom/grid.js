@@ -73,6 +73,15 @@ const handleClick = function (event) {
   }
 };
 
+function getRandomCell(width, height) {
+  const x = Math.floor(Math.random() * width);
+  const y = Math.floor(Math.random() * height);
+  return {
+    x,
+    y,
+  };
+}
+
 const createGrid = function () {
   mainContainer = document.createElement('div');
   mainContainer.className = 'grid';
@@ -116,5 +125,6 @@ export {
   setCellClass,
   getCellClass,
   removeGrid,
+  getRandomCell,
   onGridClick,
 };
