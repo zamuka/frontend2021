@@ -50,7 +50,7 @@ console.log(`${pumpkin.name}s are usually ${pumpkin.color}`);
  * Добавьте запятых в выражение ниже, чтобы отобразилось
  * tomatoes are usually red and round
  */
-const [, , ,tomato] = vegetables;
+const [, , , tomato] = vegetables;
 
 console.log(`${tomato.name}es are usually ${tomato.color} and ${tomato.shape}`);
 
