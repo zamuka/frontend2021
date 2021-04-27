@@ -6,11 +6,7 @@ import { baseAnimal } from './animal.js';
  * @param {CanvasLib} canvas
  */
 function Chicken(canvas) {
-  /**
-   * this = {
-   *   __proto__: Chicken.prototype,
-   * }
-   */
+  this.direction = Math.random() * 2 * Math.PI;
 
   this.pixels = [
     { x: -1, y: -2 }, { x: -2, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 },
@@ -21,6 +17,14 @@ function Chicken(canvas) {
   // @ts-ignore
   this.init(canvas);
 }
+
+// Этот метод move будет жить в прототипе курицы. Если мы обратимся к chicken.move
+// то он найдется раньше, чем и move из прототипа животного и будет использован
+Chicken.prototype.move = function () {
+  this.direction = this.direction + 0.1;
+  this.x = this.x + Math.cos(this.direction);
+  this.y = this.y + Math.sin(this.direction);
+};
 
 Object.setPrototypeOf(Chicken.prototype, baseAnimal);
 
