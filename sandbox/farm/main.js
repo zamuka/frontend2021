@@ -2,10 +2,12 @@ import { CanvasLib } from '../libs/canvas-lib.js';
 import {
   Chicken,
   Cow,
+  Rabbit,
 } from './animals/index.js';
 
 const CHICKEN_COUNT = 10;
 const COW_COUNT = 3;
+const RABBIT_COUNT = 5;
 
 let canvas = null;
 const animals = [];
@@ -27,6 +29,9 @@ function startUp() {
   }
   for (let i = 0; i < COW_COUNT; i = i + 1) {
     animals.push(new Cow(canvas));
+  }
+  for (let i = 0; i < RABBIT_COUNT; i = i +1) {
+    animals.push(new Rabbit(canvas));
   }
 
   setInterval(gameStep, 50);
