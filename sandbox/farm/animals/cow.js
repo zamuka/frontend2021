@@ -34,7 +34,7 @@ const Cow = function (canvas) {
   this.init(canvas);
 };
 
-Cow.prototype = baseAnimal;
+Object.setPrototypeOf(Cow.prototype, baseAnimal);
 
 export {
   Cow,

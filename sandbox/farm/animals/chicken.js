@@ -22,7 +22,7 @@ function Chicken(canvas) {
   this.init(canvas);
 }
 
-Chicken.prototype = baseAnimal;
+Object.setPrototypeOf(Chicken.prototype, baseAnimal);
 
 export {
   Chicken,
