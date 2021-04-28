@@ -20,7 +20,8 @@ module.exports = {
 		'prefer-object-spread': ['off'],
     'prefer-arrow-callback': ['off'],
 		'operator-assignment': ['error', 'never'],
-	},
     'import/prefer-default-export': ['off'],
     'import/extensions': ['off'],
+    'no-underscore-dangle': ['off'],
+  },
 };
