@@ -21,17 +21,6 @@ function main() {
             if (i % 2 === 0 && j % 2 !== 0) {
                 cell.style.background = '#000'
             }
-
-
-
-
-
-
-            // const r = i + 255;
-            // const g = i + 255;
-            // const b = i + 255;
-            // cell.style.background = `rgb(${r}, ${g}, ${b})`;
-
         }
     }
     chessBody.style.width = `${CHESS_BODY_WIDTH * CHESS_CELL_WIDTH}px`;
@@ -39,11 +28,6 @@ function main() {
 
 
     cellsAmount = chessBody.childElementCount;
-
-    // for (let cellCount = 0; cellCount < cellsAmount; cellCount = cellCount + 2) {
-    //     chessBody.children[cellCount].style.background = '#000'
-    // }
-
 }
 
 
