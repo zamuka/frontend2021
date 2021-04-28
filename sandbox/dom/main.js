@@ -1,5 +1,5 @@
 /* eslint-disable default-case */
-import { CELL_TYPES, DIRECTION_TYPE } from './config.js';
+import { CELL_TYPES, DIRECTION_TYPE, GRID_HEIGHT, GRID_WIDTH } from './config.js';
 import { createGrid, getCellClass, setCellClass } from './grid.js';
 
 const START_DIRECTION = DIRECTION_TYPE.RIGHT;
@@ -23,6 +23,10 @@ const snake = {
   getAndTrimTail() {
     return this.cells.pop();
   },
+};
+const appleCell = {
+  x: Math.floor(Math.random() * (GRID_WIDTH - 1)) + 1,
+  y: Math.floor(Math.random() * (GRID_HEIGHT - 1)) + 1,
 };
 
 function getNewHeadPosition() {
@@ -103,7 +107,6 @@ function handleKeyDown(event) {
     ArrowUp: DIRECTION_TYPE.UP,
     ArrowLeft: DIRECTION_TYPE.LEFT,
   };
-
   const direction = directionsMap[event.key];
   if (direction) {
     switch (snake.direction) {
@@ -162,6 +165,7 @@ function main() {
     setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
   });
 
+  setCellClass(appleCell.x, appleCell.y, CELL_TYPES.APPLE);
   window.addEventListener('keydown', handleKeyDown);
   // @ts-ignore
   document.querySelector('.grid').addEventListener('mousedown', handleClick);
