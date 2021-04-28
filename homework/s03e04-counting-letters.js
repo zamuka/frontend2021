@@ -14,6 +14,27 @@ const messageLength = message.length;
 // начнем считать с ноля
 const aLetterCount = 0;
 
+let sum = 0;
+
+for (const letter of message) {
+  if (letter === 'i') {
+    sum = sum + 1;
+  }
+}
+
+console.log(`Нашлось ${sum} букв 'i'.`);
+
+/****** */
+
+let sum2 = 0;
+
+for (let i = 0; i < messageLength; i = i + 1) {
+  if (message[i] === 'i') {
+    sum2 = sum2 + 1;
+  }
+}
+
+console.log(`Нашлось ${sum2} букв 'i'.`);
 
 // А тут можно написать цикл, который переберет все буквы по очереди и если это 'i' - увеличит счетчик.
 
