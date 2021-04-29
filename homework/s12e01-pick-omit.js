@@ -14,8 +14,15 @@
  * @param {string[]} props - properties to omit
  * @return {object}
  */
-function omit(input, props) {
-  /** YOUR CODE HERE */
+
+function omit(input, keys) {
+  const newInput = {};
+  for (const key of Object.keys(input)) {
+    if (!keys.includes(key)) {
+      newInput[key] = input[key];
+    }
+  }
+  return newInput;
 }
 
 const object = { a: 1, b: '2', c: 3 };
@@ -39,8 +46,14 @@ console.log(omit(object, ['a', 'c']));
  * @param {string[]} props - properties to pick from the input object
  * @return {object}
  */
-function pick(input, props) {
-  /** YOUR CODE HERE */
+function pick(input, keys) {
+  const newInput = {};
+  for (const key of Object.keys(input)) {
+    if (keys.includes(key)) {
+      newInput[key] = input[key];
+    }
+  }
+  return newInput;
 }
 
 // { 'a': 1, 'c': 3 }
