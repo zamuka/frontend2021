@@ -1,29 +1,70 @@
 /* eslint-disable default-case */
-import { CELL_TYPES, DIRECTION_TYPE } from './config.js';
-import { createGrid, getCellClass, setCellClass } from './grid.js';
+import {
+  CELL_TYPES, DIRECTION_TYPE, GRID_WIDTH, GRID_HEIGHT,
+} from './config.js';
+import * as grid from './grid.js';
 
 const START_DIRECTION = DIRECTION_TYPE.RIGHT;
 
-const cycleDelayMs = 500;
-
+let cycleDelayMs;
+let score;
 let isPaused = false;
 
-const snake = {
-  cells: [
-    { x: 9, y: 5 },
-    { x: 8, y: 5 },
-    { x: 7, y: 5 },
-    { x: 6, y: 5 },
-    { x: 5, y: 5 },
-  ],
-  direction: START_DIRECTION,
-  getHead() {
-    return this.cells[0];
-  },
-  getAndTrimTail() {
-    return this.cells.pop();
-  },
-};
+let snake;
+
+const isVertical = (direction) => direction === DIRECTION_TYPE.DOWN
+  || direction === DIRECTION_TYPE.UP;
+
+/**
+ * @param {object} ev
+ * @param {HTMLElement} ev.target
+ */
+function handleClick({ target }) {
+  const { x, y } = target.dataset;
+  const head = snake.getHead();
+
+  if (isVertical(snake.direction)) {
+    if (x > head.x) snake.direction = DIRECTION_TYPE.RIGHT;
+    if (x < head.x) snake.direction = DIRECTION_TYPE.LEFT;
+  } else {
+    // TODO: handle horizontal movement
+  }
+}
+
+function addApple() {
+  // TODO: add apple only on clear grass
+  // use do..while
+  const x = Math.floor(Math.random() * GRID_WIDTH);
+  const y = Math.floor(Math.random() * GRID_HEIGHT);
+  grid.setCellClass(x, y, CELL_TYPES.APPLE);
+}
+
+function init() {
+  cycleDelayMs = 200;
+  score = 0;
+  snake = {
+    cells: [
+      { x: 9, y: 5 },
+      { x: 8, y: 5 },
+      { x: 7, y: 5 },
+      { x: 6, y: 5 },
+      { x: 5, y: 5 },
+    ],
+    direction: START_DIRECTION,
+    getHead() {
+      return this.cells[0];
+    },
+    // TODO: добавить getAndTrimTail
+  };
+  grid.createGrid();
+
+  grid.onGridClick(handleClick);
+
+  snake.cells.forEach((cell) => {
+    grid.setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
+  });
+  addApple();
+}
 
 function getNewHeadPosition() {
   const newHeadPosition = {
@@ -49,23 +90,11 @@ function getNewHeadPosition() {
 }
 
 function gameOver() {
+  // eslint-disable-next-line no-alert
   alert('Game over');
-  isPaused = true;
-  // TODO: очистить поле
-  snake.cells.forEach((cell) => {
-    setCellClass(cell.x, cell.y, CELL_TYPES.GRASS);
-  });
-  // заново пересоздать змею.
-  snake.cells = [
-    { x: 9, y: 5 },
-    { x: 8, y: 5 },
-    { x: 7, y: 5 },
-    { x: 6, y: 5 },
-    { x: 5, y: 5 },
-  ];
-  snake.cells.forEach((cell) => {
-    setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
-  });
+
+  grid.removeGrid();
+  init();
 }
 
 function doGameStep() {
@@ -76,10 +105,13 @@ function doGameStep() {
   setTimeout(doGameStep, cycleDelayMs);
 
   const newHeadPosition = getNewHeadPosition();
-  const obstacle = getCellClass(newHeadPosition.x, newHeadPosition.y);
+  const obstacle = grid.getCellClass(newHeadPosition.x, newHeadPosition.y);
 
   switch (obstacle) {
     case CELL_TYPES.GRASS:
+      break;
+    case CELL_TYPES.APPLE:
+      // TODO: Handle apple hit. score
       break;
     default:
       gameOver();
@@ -87,10 +119,10 @@ function doGameStep() {
   }
 
   snake.cells.unshift(newHeadPosition);
-  setCellClass(newHeadPosition.x, newHeadPosition.y, CELL_TYPES.SNAKE);
+  grid.setCellClass(newHeadPosition.x, newHeadPosition.y, CELL_TYPES.SNAKE);
 
-  const tail = snake.getAndTrimTail();
-  setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
+  const tail = snake.cells.pop();
+  grid.setCellClass(tail.x, tail.y, CELL_TYPES.GRASS);
 }
 
 /**
@@ -105,35 +137,8 @@ function handleKeyDown(event) {
   };
 
   const direction = directionsMap[event.key];
-  if (direction) {
-    switch (snake.direction) {
-      case DIRECTION_TYPE.UP:
-        switch (direction) {
-          case DIRECTION_TYPE.DOWN:
-            return;
-        }
-    }
-    switch (snake.direction) {
-      case DIRECTION_TYPE.DOWN:
-        switch (direction) {
-          case DIRECTION_TYPE.UP:
-            return;
-        }
-    }
-    switch (snake.direction) {
-      case DIRECTION_TYPE.LEFT:
-        switch (direction) {
-          case DIRECTION_TYPE.RIGHT:
-            return;
-        }
-    }
-    switch (snake.direction) {
-      case DIRECTION_TYPE.RIGHT:
-        switch (direction) {
-          case DIRECTION_TYPE.LEFT:
-            return;
-        }
-    }
+  if (direction
+      && (isVertical(direction) !== isVertical(snake.direction))) {
     snake.direction = direction;
   }
 
@@ -146,25 +151,11 @@ function handleKeyDown(event) {
   }
 }
 
-/**
- * @param {object} ev
- * @param {HTMLElement} ev.target
- */
-function handleClick({ target }) {
-  console.log(target.dataset.x);
-  console.log(target.dataset.y);
-}
-
 function main() {
-  createGrid();
-
-  snake.cells.forEach((cell) => {
-    setCellClass(cell.x, cell.y, CELL_TYPES.SNAKE);
-  });
+  init();
 
   window.addEventListener('keydown', handleKeyDown);
-  // @ts-ignore
-  document.querySelector('.grid').addEventListener('mousedown', handleClick);
+
   doGameStep();
 }
 
