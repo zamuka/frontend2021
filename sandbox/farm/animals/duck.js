@@ -1,8 +1,9 @@
-import { baseAnimal } from './animal.js';
+import { Animal } from './animal.js';
 
-const Duck = function (canvas) {
-  this.color = 'yellow';
-  this.pixels = [
+class Duck extends Animal {
+  color = 'yellow';
+
+  pixels = [
     { x: -4, y: -2 },
     { x: -3, y: -3 },
     { x: -3, y: -2 },
@@ -29,12 +30,7 @@ const Duck = function (canvas) {
     { x: 4, y: -1 },
     { x: 4, y: 0 },
   ];
-
-  // @ts-ignore
-  this.init(canvas);
-};
-
-Object.setPrototypeOf(Duck.prototype, baseAnimal);
+}
 
 export {
   Duck,

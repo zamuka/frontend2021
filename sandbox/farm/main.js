@@ -16,7 +16,6 @@ const animals = [];
 
 function gameStep() {
   canvas.clear('green');
-  canvas.setColor('white');
   animals.forEach((animal) => animal.move());
   animals.forEach((animal) => animal.draw());
 }
@@ -35,10 +34,10 @@ function startUp() {
 
   for (let i = 0; i < PIG_COUNT; i = i + 1) {
     animals.push(new Pig(canvas));
+  }
 
   for (let i = 0; i < DUCK_COUNT; i = i + 1) {
     animals.push(new Duck(canvas));
-
   }
 
   setInterval(gameStep, 50);
