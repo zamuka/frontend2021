@@ -13,7 +13,12 @@ class Animal {
 
   draw() {
     this._canvas.setColor(this.color);
-    this.pixels.forEach(({ x, y }) => this._canvas.setPixel(this.x + x, this.y + y));
+    this.pixels.forEach(({ x, y, color }) => {
+      if (color) {
+        this._canvas.setColor(color);
+      }
+      this._canvas.setPixel(this.x + x, this.y + y);
+    });
   }
 
   move() {
