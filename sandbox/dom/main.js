@@ -40,7 +40,6 @@ function addApple() {
   do {
     x = Math.floor(Math.random() * GRID_WIDTH);
     y = Math.floor(Math.random() * GRID_HEIGHT);
-    grid.getCellClass(x, y);
   } while (grid.getCellClass(x, y) !== CELL_TYPES.GRASS);
   grid.setCellClass(x, y, CELL_TYPES.APPLE);
 }
