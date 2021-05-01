@@ -33,11 +33,14 @@ function startUp() {
   for (let i = 0; i < CHICKEN_COUNT; i = i + 1) {
     animals.push(new Chicken(canvas));
   }
+
   for (let i = 0; i < COW_COUNT; i = i + 1) {
     animals.push(new Cow(canvas));
   }
+
   for (let i = 0; i < CAMEL_COUNT; i = i + 1) {
     animals.push(new Camel(canvas));
+  }
 
   for (let i = 0; i < PIG_COUNT; i = i + 1) {
     animals.push(new Pig(canvas));

@@ -1,4 +1,4 @@
-import { baseAnimal } from './animal.js';
+import { Animal } from './animal.js';
 // -----1-1----------
 // ----1111--1-1-----
 // -----111-11111----
@@ -7,9 +7,14 @@ import { baseAnimal } from './animal.js';
 // -------1-1-1-1----
 // -------1-1-1-1----
 
-const Camel = function (canvas) {
-  this.color = 'yellow';
-  this.pixels = [
+class Camel extends Animal{
+  constructor(canvas) {
+    super(canvas)
+  }
+
+  direction = Math.random() * 2 * Math.PI;
+  color = 'yellow'
+  pixels = [
     { x: -6, y: -3 },
     { x: -4, y: -3 },
     { x: -7, y: -2 },
@@ -51,14 +56,14 @@ const Camel = function (canvas) {
     { x: -2, y: 3 },
     { x: 0, y: 3 },
     { x: 2, y: 3 },
-
   ];
 
-  // @ts-ignore
-  this.init(canvas);
-};
-
-Object.setPrototypeOf(Camel.prototype, baseAnimal);
+  move() {
+    this.direction = this.direction + 0.1;
+    this.x = this.x + Math.cos(this.direction);
+    this.y = this.y + Math.sin(this.direction);
+  }
+}
 
 export {
   Camel,
