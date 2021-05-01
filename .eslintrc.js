@@ -9,6 +9,24 @@ module.exports = {
 		sourceType: 'module',
 	},
 	rules: {
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: [
+    'airbnb-base',
+  ],
+  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaVersion: 12,
+    sourceType: 'module',
+  },
+  rules: {
+    'linebreak-style': ['off'],
+    'no-console': ['off'],
+    'operator-assignment': ['error', 'never'],
+    'prefer-object-spread': ['off'],
+    'no-restricted-syntax': ['off'],
     strict: ['off'],
 		indent: ['off'],
 		'no-tabs': ['off'],
