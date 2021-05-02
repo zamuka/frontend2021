@@ -10,7 +10,6 @@ import {
 
 const CHICKEN_COUNT = 10;
 const COW_COUNT = 3;
-const GOAT_COUNT = 4;
 const PIG_COUNT = 5;
 const DUCK_COUNT = 7;
 const RABBIT_COUNT = 5;
@@ -35,22 +34,26 @@ function startUp() {
   for (let i = 0; i < COW_COUNT; i = i + 1) {
     animals.push(new Cow(canvas));
   }
-  for (let i = 0; i < GOAT_COUNT; i = i + 1) {
-    animals.push(new Goat(canvas));
-  }
-
+  
   for (let i = 0; i < PIG_COUNT; i = i + 1) {
     animals.push(new Pig(canvas));
   }
-
+  
   for (let i = 0; i < DUCK_COUNT; i = i + 1) {
     animals.push(new Duck(canvas));
   }
-
+  
   for (let i = 0; i < RABBIT_COUNT; i = i + 1) {
     animals.push(new Rabbit(canvas));
   }
 
+  animals.push(new Goat(canvas, 230, 85));
+  animals.push(new Goat(canvas, 220, 90));
+  animals.push(new Goat(canvas, 247, 80));
+  animals.push(new Goat(canvas, 243, 90));
+
+ 
+  
   setInterval(gameStep, 50);
 }
 
