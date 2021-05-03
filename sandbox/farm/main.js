@@ -2,6 +2,7 @@ import { CanvasLib } from '../libs/canvas-lib.js';
 import {
   Chicken,
   Cow,
+  Goat,
   Pig,
   Duck,
   OrangeDuck,
@@ -37,25 +38,30 @@ function startUp() {
   for (let i = 0; i < COW_COUNT; i = i + 1) {
     animals.push(new Cow(canvas));
   }
-
+  
   for (let i = 0; i < PIG_COUNT; i = i + 1) {
     animals.push(new Pig(canvas));
   }
-
+  
   for (let i = 0; i < DUCK_COUNT; i = i + 1) {
     animals.push(new Duck(canvas));
   }
-
+  
   for (let i = 0; i < ORANGEDUCK_COUNT; i = i + 1) {
     animals.push(new OrangeDuck(canvas));
   }
-
+  
   for (let i = 0; i < RABBIT_COUNT; i = i + 1) {
     animals.push(new Rabbit(canvas));
   }
   for (let i = 0; i < CAMEL_COUNT; i = i + 1) {
     animals.push(new Camel(canvas));
   }
+
+  animals.push(new Goat(canvas, 230, 85));
+  animals.push(new Goat(canvas, 220, 90));
+  animals.push(new Goat(canvas, 247, 80));
+  animals.push(new Goat(canvas, 243, 90));
 
   setInterval(gameStep, 50);
 }
