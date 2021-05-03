@@ -33,3 +33,4 @@ class Pig extends Animal {
 export {
   Pig,
 };
+
