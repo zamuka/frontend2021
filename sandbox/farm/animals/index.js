@@ -1,5 +1,6 @@
 export * from './chicken.js';
 export * from './cow.js';
+export * from './orangeduck.js';
 export * from './duck.js';
 export * from './animal.js';
 export * from './pig.js';
