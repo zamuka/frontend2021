@@ -5,14 +5,18 @@ import {
   Goat,
   Pig,
   Duck,
+  OrangeDuck,
   Rabbit,
+  Camel,
 } from './animals/index.js';
 
 const CHICKEN_COUNT = 10;
 const COW_COUNT = 3;
 const PIG_COUNT = 5;
 const DUCK_COUNT = 7;
+const ORANGEDUCK_COUNT = 3;
 const RABBIT_COUNT = 5;
+const CAMEL_COUNT = 5;
 
 let canvas = null;
 const animals = [];
@@ -43,8 +47,15 @@ function startUp() {
     animals.push(new Duck(canvas));
   }
   
+  for (let i = 0; i < ORANGEDUCK_COUNT; i = i + 1) {
+    animals.push(new OrangeDuck(canvas));
+  }
+  
   for (let i = 0; i < RABBIT_COUNT; i = i + 1) {
     animals.push(new Rabbit(canvas));
+  }
+  for (let i = 0; i < CAMEL_COUNT; i = i + 1) {
+    animals.push(new Camel(canvas));
   }
 
   animals.push(new Goat(canvas, 230, 85));
