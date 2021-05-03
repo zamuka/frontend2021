@@ -15,11 +15,11 @@
   margin: auto;
   background: #fff;
   border-radius: 50%;
-  transition: 0.1s;
+  transition: 0.5s;
 }
 
 .gear:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50px;
   left: 50px;
@@ -37,7 +37,7 @@
   z-index: 1;
   width: 45px;
   height: 250px;
-  background:#fff;
+  background: #fff;
 }
 
 .tooth:nth-child(2) {
@@ -51,4 +51,3 @@
 .tooth:nth-child(4) {
   transform: rotate(-45deg);
 }
-
