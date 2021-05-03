@@ -5,10 +5,14 @@ const TANK_FULL = 'tankFull';
  * @param {Element} node
  */
 class Mechanic {
+  static countWheelInstalled = 0;
+  static isTankFull = false;
+
   constructor(node) {
     this.node = node;
     this.isWheelman = this.node.classList.contains('wheelman');
     this.eventName = TANK_FULL;
+
     if (this.isWheelman) {
       this.eventName = WHEEL_INSTALLED;
       this.wheel = document.querySelector('.wheel:not(.taken)');
@@ -37,8 +41,20 @@ function createMechanics() {
 
 function main() {
   createMechanics();
-
-  /** YOUR CODE HERE */
+  let pitStop = document.querySelector('#pit-stop');
+  function eventHandler (event) {
+    if (event.type === WHEEL_INSTALLED) {
+      Mechanic.countWheelInstalled = Mechanic.countWheelInstalled + 1;
+    } else if (event.type === TANK_FULL) {
+      Mechanic.isTankFull = true;
+    }
+  
+    if (Mechanic.isTankFull && Mechanic.countWheelInstalled === 4) {
+      pitStop.classList.add('go');
+    }
+  }
+  pitStop.addEventListener(WHEEL_INSTALLED, eventHandler);
+  pitStop.addEventListener(TANK_FULL, eventHandler);
 }
 
 window.addEventListener('load', main);
