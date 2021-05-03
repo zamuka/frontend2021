@@ -1,56 +1,69 @@
 import { CanvasLib } from '../libs/canvas-lib.js';
+import {
+  Chicken,
+  Cow,
+  Goat,
+  Pig,
+  Duck,
+  OrangeDuck,
+  Rabbit,
+  Camel,
+} from './animals/index.js';
+
+const CHICKEN_COUNT = 10;
+const COW_COUNT = 3;
+const PIG_COUNT = 5;
+const DUCK_COUNT = 7;
+const ORANGEDUCK_COUNT = 3;
+const RABBIT_COUNT = 5;
+const CAMEL_COUNT = 5;
+
+let canvas = null;
+const animals = [];
+
+function gameStep() {
+  canvas.clear('green');
+  animals.forEach((animal) => animal.move());
+  animals.forEach((animal) => animal.draw());
+}
 
 function startUp() {
-  const canvas = new CanvasLib('canvas');
+  canvas = new CanvasLib('canvas');
 
   canvas.init({ zoom: 5 });
-  canvas.clear('green');
 
-  canvas.setColor('white');
-
-  function createChicken(startX, startY) {
-    const chicken = {
-      x: startX,
-      y: startY,
-      pixels: [
-        { x: -1, y: -2 }, { x: -2, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 },
-        { x: 0, y: 0 }, { x: 1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 },
-        { x: 1, y: 1 }, { x: 0, y: 2 }, { x: 2, y: -1 },
-      ],
-
-      draw() {
-        this.pixels
-          .forEach(({ x, y }) => canvas.setPixel(this.x + x, this.y + y));
-      },
-    };
-    return chicken;
+  for (let i = 0; i < CHICKEN_COUNT; i = i + 1) {
+    animals.push(new Chicken(canvas));
+  }
+  for (let i = 0; i < COW_COUNT; i = i + 1) {
+    animals.push(new Cow(canvas));
+  }
+  
+  for (let i = 0; i < PIG_COUNT; i = i + 1) {
+    animals.push(new Pig(canvas));
+  }
+  
+  for (let i = 0; i < DUCK_COUNT; i = i + 1) {
+    animals.push(new Duck(canvas));
+  }
+  
+  for (let i = 0; i < ORANGEDUCK_COUNT; i = i + 1) {
+    animals.push(new OrangeDuck(canvas));
+  }
+  
+  for (let i = 0; i < RABBIT_COUNT; i = i + 1) {
+    animals.push(new Rabbit(canvas));
+  }
+  for (let i = 0; i < CAMEL_COUNT; i = i + 1) {
+    animals.push(new Camel(canvas));
   }
 
-  // почти то же самое, но с помощью функции-контруктора
-  function Chicken(startX, startY) {
-    const pixels = [
-      { x: -1, y: -2 }, { x: -2, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 },
-      { x: 0, y: 0 }, { x: 1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 },
-      { x: 1, y: 1 }, { x: 0, y: 2 }, { x: 2, y: -1 },
-    ];
+  animals.push(new Goat(canvas, 230, 85));
+  animals.push(new Goat(canvas, 220, 90));
+  animals.push(new Goat(canvas, 247, 80));
+  animals.push(new Goat(canvas, 243, 90));
 
-    this.x = startX;
-    this.y = startY;
-
-    this.draw = function () {
-      pixels.forEach(({ x, y }) => canvas.setPixel(this.x + x, this.y + y));
-    };
-  }
-
-  const chicken = new Chicken(130, 65);
-
-  const animals = [
-    chicken,
-    new Chicken(120, 60),
-    createChicken(110, 70),
-  ];
-
-  animals.forEach((animal) => animal.draw());
+  setInterval(gameStep, 50);
 }
 
 window.addEventListener('load', startUp);
