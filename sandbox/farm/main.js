@@ -5,6 +5,7 @@ import {
   Pig,
   Duck,
   Rabbit,
+  Butterfly,
 } from './animals/index.js';
 
 const CHICKEN_COUNT = 10;
@@ -12,6 +13,7 @@ const COW_COUNT = 3;
 const PIG_COUNT = 5;
 const DUCK_COUNT = 7;
 const RABBIT_COUNT = 5;
+const BUTTERFLY_COUNT = 5;
 
 let canvas = null;
 const animals = [];
@@ -32,6 +34,9 @@ function startUp() {
   }
   for (let i = 0; i < COW_COUNT; i = i + 1) {
     animals.push(new Cow(canvas));
+  }
+  for (let i = 0; i < BUTTERFLY_COUNT; i = i + 1) {
+    animals.push(new Butterfly(canvas));
   }
 
   for (let i = 0; i < PIG_COUNT; i = i + 1) {
