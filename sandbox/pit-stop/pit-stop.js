@@ -5,6 +5,8 @@ const TANK_FULL = 'tankFull';
  * @param {Element} node
  */
 class Mechanic {
+  
+
   constructor(node) {
     this.node = node;
     this.isWheelman = this.node.classList.contains('wheelman');
@@ -24,7 +26,7 @@ class Mechanic {
     }
     const event = new CustomEvent(this.eventName, { bubbles: true });
     this.node.dispatchEvent(event);
-    if (!this.node.closest('.go')) {
+    if (!this.node.closest('go')) {
       this.node.classList.add('ready');
     }
   }
@@ -36,9 +38,26 @@ function createMechanics() {
 }
 
 function main() {
+  let installedWheelCounter = 0;
+  let tankFull = false;
+  const pitStop = document.querySelector('#pit-stop');
+  
   createMechanics();
 
-  /** YOUR CODE HERE */
+  function hendler(event) {
+    if (event.type === WHEEL_INSTALLED) {
+      installedWheelCounter = installedWheelCounter + 1;
+    }
+    if (event.type === TANK_FULL) {
+      tankFull = true;
+    }
+    if (tankFull && installedWheelCounter === 4) {
+      pitStop.classList.add('go');
+    }
+  } 
+
+  pitStop.addEventListener(WHEEL_INSTALLED, hendler);
+  pitStop.addEventListener(TANK_FULL, hendler)
 }
 
 window.addEventListener('load', main);
