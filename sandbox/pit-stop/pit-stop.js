@@ -17,17 +17,19 @@ class Mechanic {
     const timeoutMs = 1000 + Math.random() * 6000;
     setTimeout(() => this.ready(), timeoutMs);
   }
-
+  
   ready() {
     if (this.isWheelman) {
       this.wheel.classList.add('installed');
     }
     const event = new CustomEvent(this.eventName, { bubbles: true });
-    this.node.dispatchEvent(event);
+    
     if (!this.node.closest('.go')) {
       this.node.classList.add('ready');
     }
+    this.node.dispatchEvent(event);
   }
+
 }
 
 function createMechanics() {
@@ -38,7 +40,18 @@ function createMechanics() {
 function main() {
   createMechanics();
 
-  /** YOUR CODE HERE */
+  const pitStop = document.querySelector('#pit-stop');
+  let countOfReadyMechanics = 0;
+
+  function start() {
+    countOfReadyMechanics = countOfReadyMechanics + 1;
+    if (countOfReadyMechanics === 5) {
+        pitStop.classList.add('go');
+    }
+  }
+  
+  document.addEventListener(WHEEL_INSTALLED, start);
+  document.addEventListener(TANK_FULL, start);
 }
 
 window.addEventListener('load', main);
