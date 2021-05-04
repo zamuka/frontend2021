@@ -7,3 +7,4 @@ export * from './goat.js';
 export * from './pig.js';
 export * from './rabbit.js';
 export * from './camel.js';
+export * from './fish.js';
