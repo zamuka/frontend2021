@@ -1,8 +1,8 @@
-import { baseAnimal } from './animal.js';
+import { Animal } from './animal.js';
 
-const Butterfly = function (canvas) {
-  this.color = 'Plum';
-  this.pixels = [
+class Butterfly extends Animal {
+  color = 'Plum';
+  pixels = [
     { x: -6, y: -4 },
     { x: -5, y: -4 },
     { x: -4, y: -4 },
@@ -93,20 +93,8 @@ const Butterfly = function (canvas) {
     { x: -2, y: 4 },
     { x: 2, y: 4 },
     { x: 3, y: 4 },
-
   ];
-
-  // @ts-ignore
-  this.init(canvas);
-};
-
-Butterfly.prototype.move = function () {
-  this.x = this.x + Math.random() - 0.2;
-  this.y = this.y + Math.random() - 0.2;
-};
-
-Butterfly.prototype = baseAnimal;
-
+}
 
 export {
   Butterfly,

@@ -13,7 +13,7 @@ const COW_COUNT = 3;
 const PIG_COUNT = 5;
 const DUCK_COUNT = 7;
 const RABBIT_COUNT = 5;
-const BUTTERFLY_COUNT = 5;
+const BUTTERFLY_COUNT = 3;
 
 let canvas = null;
 const animals = [];
