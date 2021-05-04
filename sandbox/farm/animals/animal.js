@@ -25,6 +25,12 @@ class Animal {
     this.x = this.x + Math.random() - 0.5;
     this.y = this.y + Math.random() - 0.5;
   }
+  
+  setPosition(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  
 }
 
 export {
