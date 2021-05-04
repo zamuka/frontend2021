@@ -1,5 +1,6 @@
 const WHEEL_INSTALLED = 'wheelInstalled';
 const TANK_FULL = 'tankFull';
+const MECHANIC_COUNT = document.querySelectorAll('.mechanic');
 
 /**
  * @param {Element} node
@@ -33,8 +34,7 @@ class Mechanic {
 }
 
 function createMechanics() {
-  document.querySelectorAll('.mechanic')
-    .forEach((node) => new Mechanic(node));
+  MECHANIC_COUNT.forEach((node) => new Mechanic(node));
 }
 
 function main() {
@@ -45,7 +45,7 @@ function main() {
 
   function start() {
     countOfReadyMechanics = countOfReadyMechanics + 1;
-    if (countOfReadyMechanics === 5) {
+    if (countOfReadyMechanics === MECHANIC_COUNT.length) {
         pitStop.classList.add('go');
     }
   }
