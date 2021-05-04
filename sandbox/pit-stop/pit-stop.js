@@ -37,8 +37,26 @@ function createMechanics() {
 
 function main() {
   createMechanics();
+  let weel = 0;
+  let readyTank = false;
+  let pitStop = document.querySelector('#pit-stop');
+  function ready (event) {
+    if (event.type === WHEEL_INSTALLED) {
+      weel = weel + 1;
+      console.log(weel);
+    } 
+    if (event.type === TANK_FULL){
+      readyTank = true;
+      console.log(readyTank);
+    }
+    if (readyTank && weel === 4) {
+      pitStop.classList.add('go');
+    }
+  }
+  
+  pitStop.addEventListener(WHEEL_INSTALLED, ready);
+  pitStop.addEventListener(TANK_FULL, ready);
 
-  /** YOUR CODE HERE */
 }
 
 window.addEventListener('load', main);
