@@ -22,11 +22,13 @@ class Mechanic {
     if (this.isWheelman) {
       this.wheel.classList.add('installed');
     }
-    const event = new CustomEvent(this.eventName, { bubbles: true });
-    this.node.dispatchEvent(event);
+
     if (!this.node.closest('.go')) {
       this.node.classList.add('ready');
     }
+
+    const event = new CustomEvent(this.eventName, { bubbles: true });
+    this.node.dispatchEvent(event);
   }
 }
 
@@ -35,10 +37,23 @@ function createMechanics() {
     .forEach((node) => new Mechanic(node));
 }
 
+function isReady({currentTarget}){
+  const ready = document.querySelectorAll('.ready')
+  const mechanics = document.querySelectorAll('.mechanic')
+
+  if(ready.length === mechanics.length){
+    currentTarget.classList.add('go')
+  }
+}
+
 function main() {
+  const events = ['wheelInstalled', 'tankFull']
+  const pit_stop = document.querySelector('#pit-stop')
   createMechanics();
 
-  /** YOUR CODE HERE */
+  for(let event of events){
+    pit_stop.addEventListener(event, isReady)
+  }
 }
 
 window.addEventListener('load', main);
