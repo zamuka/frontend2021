@@ -5,8 +5,6 @@ const TANK_FULL = 'tankFull';
  * @param {Element} node
  */
 class Mechanic {
-  
-
   constructor(node) {
     this.node = node;
     this.isWheelman = this.node.classList.contains('wheelman');
