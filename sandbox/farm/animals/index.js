@@ -6,4 +6,5 @@ export * from './animal.js';
 export * from './goat.js';
 export * from './pig.js';
 export * from './rabbit.js';
+export * from './drake.js';
 export * from './camel.js';

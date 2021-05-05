@@ -7,6 +7,7 @@ import {
   Duck,
   OrangeDuck,
   Rabbit,
+  Drake,
   Camel,
 } from './animals/index.js';
 
@@ -16,6 +17,7 @@ const PIG_COUNT = 5;
 const DUCK_COUNT = 7;
 const ORANGEDUCK_COUNT = 3;
 const RABBIT_COUNT = 5;
+const DRAKE_COUNT = 3;
 const CAMEL_COUNT = 5;
 
 let canvas = null;
@@ -62,6 +64,10 @@ function startUp() {
   animals.push(new Goat(canvas, 220, 90));
   animals.push(new Goat(canvas, 247, 80));
   animals.push(new Goat(canvas, 243, 90));
+
+  for (let i = 0; i < DRAKE_COUNT; i = i + 1) {
+    animals.push(new Drake(canvas));
+  }
 
   setInterval(gameStep, 50);
 }
