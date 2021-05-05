@@ -8,3 +8,4 @@ export * from './pig.js';
 export * from './rabbit.js';
 export * from './drake.js';
 export * from './camel.js';
+export * from './fish.js';
