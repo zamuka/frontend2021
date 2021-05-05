@@ -15,7 +15,16 @@
  * @return {object}
  */
 function omit(input, props) {
-  /** YOUR CODE HERE */
+  const copyObj = {};
+
+  for (const key in input) {
+    if (Object.hasOwnProperty.call(input, key)) {
+      if (props.indexOf(key) < 0) {
+        copyObj[key] = input[key];
+      }
+    }
+  }
+  return copyObj;
 }
 
 const object = { a: 1, b: '2', c: 3 };
@@ -40,7 +49,16 @@ console.log(omit(object, ['a', 'c']));
  * @return {object}
  */
 function pick(input, props) {
-  /** YOUR CODE HERE */
+  const copyObj = {};
+
+  for (const key in input) {
+    if (Object.hasOwnProperty.call(input, key)) {
+      if (props.indexOf(key) > -1) {
+        copyObj[key] = input[key];
+      }
+    }
+  }
+  return copyObj;
 }
 
 // { 'a': 1, 'c': 3 }
