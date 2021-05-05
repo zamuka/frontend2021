@@ -3,18 +3,28 @@ import {
   Chicken,
   Cow,
   Bug,
+  Goat,
+  Pig,
+  Duck,
+  OrangeDuck,
+  Rabbit,
+  Camel,
 } from './animals/index.js';
 
 const CHICKEN_COUNT = 10;
 const COW_COUNT = 3;
 const BUG_COUNT = 5;
+const PIG_COUNT = 5;
+const DUCK_COUNT = 7;
+const ORANGEDUCK_COUNT = 3;
+const RABBIT_COUNT = 5;
+const CAMEL_COUNT = 5;
 
 let canvas = null;
 const animals = [];
 
 function gameStep() {
   canvas.clear('green');
-  canvas.setColor('white');
   animals.forEach((animal) => animal.move());
   animals.forEach((animal) => animal.draw());
 }
@@ -30,11 +40,39 @@ function startUp() {
   for (let i = 0; i < COW_COUNT; i = i + 1) {
     animals.push(new Cow(canvas));
   }
+
   for (let i = 0; i < BUG_COUNT; i = i + 1) {
     animals.push(new Bug(canvas));
   }
+
+  
+  for (let i = 0; i < PIG_COUNT; i = i + 1) {
+    animals.push(new Pig(canvas));
+  }
+  
+  for (let i = 0; i < DUCK_COUNT; i = i + 1) {
+    animals.push(new Duck(canvas));
+  }
+  
+  for (let i = 0; i < ORANGEDUCK_COUNT; i = i + 1) {
+    animals.push(new OrangeDuck(canvas));
+  }
+  
+  for (let i = 0; i < RABBIT_COUNT; i = i + 1) {
+    animals.push(new Rabbit(canvas));
+  }
+  for (let i = 0; i < CAMEL_COUNT; i = i + 1) {
+    animals.push(new Camel(canvas));
+  }
+
+  animals.push(new Goat(canvas, 230, 85));
+  animals.push(new Goat(canvas, 220, 90));
+  animals.push(new Goat(canvas, 247, 80));
+  animals.push(new Goat(canvas, 243, 90));
+
 
   setInterval(gameStep, 50);
 }
 
 window.addEventListener('load', startUp);
+

@@ -1,8 +1,11 @@
-import { baseAnimal } from './animal.js';
+import { Animal } from './animal.js';
 
-const Cow = function (canvas) {
-  this.color = 'brown';
-  this.pixels = [
+class Cow extends Animal {
+  direction = Math.random() * 2 * Math.PI;
+
+  color = 'brown';
+
+  pixels = [
     { x: -3, y: -2 },
     { x: -3, y: -1 },
     { x: -2, y: -2 },
@@ -30,11 +33,11 @@ const Cow = function (canvas) {
     { x: 3, y: 3 },
   ];
 
-  // @ts-ignore
-  this.init(canvas);
-};
-
-Object.setPrototypeOf(Cow.prototype, baseAnimal);
+  move() {
+    this.direction = this.direction + 0.1;
+    this.x = this.x + Math.cos(this.direction);
+  }
+}
 
 export {
   Cow,
