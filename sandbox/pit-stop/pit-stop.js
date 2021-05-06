@@ -23,10 +23,10 @@ class Mechanic {
       this.wheel.classList.add('installed');
     }
     const event = new CustomEvent(this.eventName, { bubbles: true });
-    this.node.dispatchEvent(event);
     if (!this.node.closest('.go')) {
       this.node.classList.add('ready');
     }
+    this.node.dispatchEvent(event);
   }
 }
 
