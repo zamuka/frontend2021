@@ -36,9 +36,25 @@ function createMechanics() {
 }
 
 function main() {
+  const pitStop = document.querySelector('#pit-stop');
+  let tankFull = false;
+  let counterInstalledWheel = 0;
+  
   createMechanics();
 
-  /** YOUR CODE HERE */
+  function readyHandler(event) {
+    if (event.type === TANK_FULL) {
+      tankFull = true;
+    }
+    if (event.type === WHEEL_INSTALLED) {
+      counterInstalledWheel = counterInstalledWheel + 1;
+    }
+    if (tankFull && counterInstalledWheel === 4) {
+      pitStop.classList.add('go');
+    }
+  }
+  pitStop.addEventListener(TANK_FULL, readyHandler);
+  pitStop.addEventListener(WHEEL_INSTALLED, readyHandler)
 }
 
 window.addEventListener('load', main);
