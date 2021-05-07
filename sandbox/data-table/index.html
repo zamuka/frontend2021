@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +10,27 @@
   <script src="./main.js" type="module"></script>
   <title>DataTable</title>
 </head>
-<body>
+
+<body class="container">
+  <form onsubmit="return false" class="d-flex justify-content-end p-2" autocomplete="off">
+    <input name="symbols" type="text" placeholder="Search by name...">
+
+    <select name="status" class="ml-3">
+      <option value="" selected disabled hidden>Status</option>
+      <option value="">All</option>
+      <option value="true">Active</option>
+      <option value="false">Not Active</option>
+    </select>
+
+    <select name="gender" class="ml-3">
+      <option value="" selected disabled hidden>Gender</option>
+      <option value="">All</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+  </form>
+
   <table class="table">
     <thead>
       <tr>
@@ -20,4 +41,5 @@
     </tbody>
   </table>
 </body>
+
 </html>
