@@ -11,6 +11,7 @@ import {
   Drake,
   Camel,
   Fish,
+  Bug,
 } from './animals/index.js';
 
 const CHICKEN_COUNT = 10;
@@ -23,6 +24,7 @@ const BUTTERFLY_COUNT = 3;
 const DRAKE_COUNT = 3;
 const CAMEL_COUNT = 5;
 const FISH_COUNT = 5;
+const BUG_COUNT = 15;
 
 let canvas = null;
 const animals = [];
@@ -70,7 +72,10 @@ function startUp() {
   for (let i = 0; i < FISH_COUNT; i = i + 1) {
     animals.push(new Fish(canvas));
   }
-  
+
+  for (let i = 0; i < BUG_COUNT; i = i + 1) {
+    animals.push(new Bug(canvas));
+  }
 
   animals.push(new Goat(canvas, 230, 85));
   animals.push(new Goat(canvas, 220, 90));
