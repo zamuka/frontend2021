@@ -23,10 +23,10 @@ class Mechanic {
       this.wheel.classList.add('installed');
     }
     const event = new CustomEvent(this.eventName, { bubbles: true });
-    this.node.dispatchEvent(event);
     if (!this.node.closest('.go')) {
       this.node.classList.add('ready');
     }
+    this.node.dispatchEvent(event);
   }
 }
 
@@ -36,9 +36,25 @@ function createMechanics() {
 }
 
 function main() {
+  const pitStopBox = document.querySelector('#pit-stop');
+  let fullTank = false;
+  let readyWheel = 0;
+  
   createMechanics();
 
-  /** YOUR CODE HERE */
+  function readyHandler(event) {
+    if (event.type === TANK_FULL) {
+      fullTank = true;
+    }
+    if (event.type === WHEEL_INSTALLED) {
+      readyWheel = readyWheel + 1;
+    }
+    if (fullTank && readyWheel === 4) {
+      pitStopBox.classList.add('go');
+    }
+  }
+  pitStopBox.addEventListener(TANK_FULL, readyHandler);
+  pitStopBox.addEventListener(WHEEL_INSTALLED, readyHandler)
 }
 
 window.addEventListener('load', main);
