@@ -21,6 +21,10 @@ const columns = [
     title: 'email',
     field: 'email',
   },
+  {
+    title: 'Activity',
+    field: 'isActive',
+  },
 ];
 
 function redrawUsers(event) {
@@ -56,6 +60,22 @@ function handleTableClick(event) {
   userService.delete(id);
 }
 
+function handleFormSelection({ target }) {
+  const checkbox = document.querySelector('#active-users');
+  const textSearchInput = document.querySelector('#search');
+
+  if (target === checkbox) {
+    userService.getListOfActiveUsers();
+  }
+
+  if (target === textSearchInput) {
+    userService.findUserByRequest();
+  }
+}
+
 window.addEventListener('load', startUp);
 const tbody = document.querySelector('tbody');
 tbody.addEventListener('click', handleTableClick);
+
+const form = document.querySelector('.selection-form');
+form.addEventListener('input', handleFormSelection);
