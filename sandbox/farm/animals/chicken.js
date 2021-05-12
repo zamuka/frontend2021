@@ -11,7 +11,7 @@ function Chicken(canvas) {
    *   __proto__: Chicken.prototype,
    * }
    */
-
+  this.color = 'yellow';
   this.pixels = [
     { x: -1, y: -2 }, { x: -2, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 },
     { x: 0, y: 0 }, { x: 1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 },
