@@ -35,6 +35,7 @@ function redrawUsers(event) {
   const userToRow = (user) => columns.map(({ field }) => `<td>${user[field]}</td>`).join('\n');
 
   tbody.innerHTML = users.map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
+  console.log(users);
 }
 
 function startUp() {
@@ -56,6 +57,13 @@ function handleTableClick(event) {
   userService.delete(id);
 }
 
+
 window.addEventListener('load', startUp);
 const tbody = document.querySelector('tbody');
 tbody.addEventListener('click', handleTableClick);
+const checkActive = document.querySelector('.checkbox-active');
+checkActive.addEventListener('click', function (){
+  userService.filterCheckboxIsActive();
+});
+
+

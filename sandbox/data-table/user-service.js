@@ -20,6 +20,16 @@ class UserService extends EventTarget {
     const event = new CustomEvent('change', { detail: this.users });
     this.dispatchEvent(event);
   }
+  filterCheckboxIsActive() {
+    this.users = this.users.filter(({isActive}) =>{
+     if(isActive) {
+        return isActive;
+      } else {
+      }
+    })
+    this.sendUpdateNotification(this.users);
+  }
+  
 }
 
 export const userService = new UserService();
