@@ -59,3 +59,11 @@ function handleTableClick(event) {
 window.addEventListener('load', startUp);
 const tbody = document.querySelector('tbody');
 tbody.addEventListener('click', handleTableClick);
+
+const activeUsers = document.querySelector('#isActive');
+activeUsers.addEventListener('click', function() { 
+  userService.filterActiveUsers() 
+});
+const allUsers = document.querySelector('#all');
+allUsers.addEventListener('click', startUp);
+

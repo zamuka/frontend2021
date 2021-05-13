@@ -1,6 +1,8 @@
 class UserService extends EventTarget {
   users = [];
 
+  searchResult = [];
+
   load(url) {
     const req = new XMLHttpRequest();
     req.addEventListener('load', () => {
@@ -9,6 +11,15 @@ class UserService extends EventTarget {
     });
     req.open('GET', url);
     req.send();
+  }
+
+  filterActiveUsers() {
+    this.users = this.users.filter (({isActive}) => {
+      if (isActive) {
+        return isActive
+      }
+    })
+    this.sendUpdateNotification(this.users)
   }
 
   delete(id) {
