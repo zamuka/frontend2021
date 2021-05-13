@@ -56,6 +56,20 @@ function handleTableClick(event) {
   userService.delete(id);
 }
 
+function search({ currentTarget }) {
+  const values = {};
+  const input = Array.from(currentTarget.children);
+
+  input.forEach((child) => {
+    values[child.name] = child.value;
+  });
+
+  userService.searchFilter(values);
+}
+
 window.addEventListener('load', startUp);
 const tbody = document.querySelector('tbody');
 tbody.addEventListener('click', handleTableClick);
+
+const searchForm = document.querySelector('form');
+searchForm.addEventListener('input', search);
