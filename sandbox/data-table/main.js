@@ -23,8 +23,7 @@ const columns = [
   },
 ];
 
-function redrawUsers(event) {
-  const users = event.detail;
+function redrawUsers() {
 
   const headerRow = document.querySelector('thead > tr');
   const headerRowContent = columns.map(({ title }) => `<th>${title}</th>`).join('');
@@ -33,8 +32,14 @@ function redrawUsers(event) {
   const tbody = document.querySelector('tbody');
 
   const userToRow = (user) => columns.map(({ field }) => `<td>${user[field]}</td>`).join('\n');
+  
+  if (activeUsers.checked) {
+    tbody.innerHTML = userService.users.filter(({ isActive }) => isActive).map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
+  }
 
-  tbody.innerHTML = users.map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
+  if (!activeUsers.checked) {
+    tbody.innerHTML = userService.users.map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
+  }
 }
 
 function startUp() {
@@ -56,20 +61,9 @@ function handleTableClick(event) {
   userService.delete(id);
 }
 
-function search({ currentTarget }) {
-  const values = {};
-  const input = Array.from(currentTarget.children);
-
-  input.forEach((child) => {
-    values[child.name] = child.value;
-  });
-
-  userService.searchFilter(values);
-}
-
 window.addEventListener('load', startUp);
 const tbody = document.querySelector('tbody');
 tbody.addEventListener('click', handleTableClick);
 
-const searchForm = document.querySelector('form');
-searchForm.addEventListener('input', search);
+const activeUsers = document.querySelector('#activeUsers');
+activeUsers.addEventListener('click', redrawUsers);
