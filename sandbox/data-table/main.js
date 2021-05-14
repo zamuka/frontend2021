@@ -22,24 +22,51 @@ const columns = [
     field: 'email',
   },
 ];
+const tbody = document.querySelector('tbody');
+const filterForm = document.querySelector('form');
+
+function filterRules(data) {
+  const inputValues = {};
+  const inputs = Array.from(filterForm.children);
+
+  inputs.forEach((input) => {
+    inputValues[input.name] = input.value;
+  });
+
+  let filterResult = data;
+
+  if (inputValues.symbols) {
+    filterResult = filterResult.filter(({ name }) => {
+      const sybols = inputValues.symbols.toLowerCase();
+      return name.toLowerCase().includes(sybols);
+    });
+  }
+
+  if (inputValues.status) {
+    filterResult = filterResult.filter(({ isActive }) => {
+      return String(isActive) === inputValues.status;
+    });
+  }
+
+  if (inputValues.gender) {
+    filterResult = filterResult.filter(({ gender }) => {
+      return gender === inputValues.gender;
+    });
+  }
+
+  return filterResult;
+}
 
 function redrawUsers(event) {
-  const users = event.detail;
+  const users = filterRules(event.detail);
 
   const headerRow = document.querySelector('thead > tr');
   const headerRowContent = columns.map(({ title }) => `<th>${title}</th>`).join('');
   headerRow.innerHTML = headerRowContent;
 
-  const tbody = document.querySelector('tbody');
-
   const userToRow = (user) => columns.map(({ field }) => `<td>${user[field]}</td>`).join('\n');
 
   tbody.innerHTML = users.map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
-}
-
-function startUp() {
-  userService.addEventListener('change', redrawUsers);
-  userService.load('http://www.json-generator.com/api/json/get/ceyrBcxPOq');
 }
 
 function handleTableClick(event) {
@@ -56,20 +83,15 @@ function handleTableClick(event) {
   userService.delete(id);
 }
 
-function searchForElements({ currentTarget }) {
-  const values = {};
-  const inputs = Array.from(currentTarget.children);
+function startUp() {
+  userService.addEventListener('change', redrawUsers);
+  userService.load('http://www.json-generator.com/api/json/get/ceyrBcxPOq');
 
-  inputs.forEach((child) => {
-    values[child.name] = child.value;
+  tbody.addEventListener('click', handleTableClick);
+
+  filterForm.addEventListener('input', () => {
+    userService.sendUpdateNotification();
   });
-
-  userService.search(values);
 }
 
 window.addEventListener('load', startUp);
-const tbody = document.querySelector('tbody');
-tbody.addEventListener('click', handleTableClick);
-
-const searchForm = document.querySelector('form');
-searchForm.addEventListener('input', searchForElements);
