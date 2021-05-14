@@ -24,6 +24,7 @@ const columns = [
 ];
 
 function redrawUsers() {
+  let { users } = userService;
 
   const headerRow = document.querySelector('thead > tr');
   const headerRowContent = columns.map(({ title }) => `<th>${title}</th>`).join('');
@@ -34,12 +35,11 @@ function redrawUsers() {
   const userToRow = (user) => columns.map(({ field }) => `<td>${user[field]}</td>`).join('\n');
   
   if (activeUsers.checked) {
-    tbody.innerHTML = userService.users.filter(({ isActive }) => isActive).map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
+    users = users.filter(({ isActive }) => isActive);
   }
 
-  if (!activeUsers.checked) {
-    tbody.innerHTML = userService.users.map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
-  }
+  tbody.innerHTML = users.map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
+
 }
 
 function startUp() {
