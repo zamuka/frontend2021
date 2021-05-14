@@ -24,7 +24,16 @@ const columns = [
 ];
 
 function redrawUsers(event) {
-  const users = event.detail;
+  let users;
+  if (checkActive.checked) {
+    users = event.detail.filter(({isActive}) =>{
+      if (isActive) {
+      return isActive;
+      } 
+    })} else {
+      users = event.detail;
+    }
+
 
   const headerRow = document.querySelector('thead > tr');
   const headerRowContent = columns.map(({ title }) => `<th>${title}</th>`).join('');
@@ -35,9 +44,16 @@ function redrawUsers(event) {
   const userToRow = (user) => columns.map(({ field }) => `<td>${user[field]}</td>`).join('\n');
 
   tbody.innerHTML = users.map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
-  console.log(users);
+  
 }
-
+function filterCheckbox (){
+  const users = userService.users.filter(({isActive}) =>{
+    if(isActive) {
+      return isActive;
+      } 
+    })
+    userService.sendUpdateNotification();
+}
 function startUp() {
   userService.addEventListener('change', redrawUsers);
   userService.load('http://www.json-generator.com/api/json/get/ceyrBcxPOq');
@@ -63,7 +79,7 @@ const tbody = document.querySelector('tbody');
 tbody.addEventListener('click', handleTableClick);
 const checkActive = document.querySelector('.checkbox-active');
 checkActive.addEventListener('click', function (){
-  userService.filterCheckboxIsActive();
+  filterCheckbox();
 });
 
 
