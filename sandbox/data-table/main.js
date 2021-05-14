@@ -24,13 +24,31 @@ const columns = [
 ];
 
 function redrawUsers(event) {
-  const users = event.detail;
+  let { users } = userService;
 
   const headerRow = document.querySelector('thead > tr');
   const headerRowContent = columns.map(({ title }) => `<th>${title}</th>`).join('');
   headerRow.innerHTML = headerRowContent;
 
   const tbody = document.querySelector('tbody');
+
+  const checkbox = document.querySelector('#active-users');
+  const textSearchInput = document.querySelector('#search');
+  const hasRequest = users.some((user) => Object.values(user).includes(textSearchInput.value));
+
+  switch (event.target) {
+    case checkbox:
+      if (checkbox.checked) {
+        users = users.filter(({ isActive }) => isActive);
+      }
+      break;
+    case textSearchInput:
+      if (hasRequest) {
+        users = users.filter((user) => Object.values(user).includes(textSearchInput.value));
+      }
+      break;
+    default:
+  }
 
   const userToRow = (user) => columns.map(({ field }) => `<td>${user[field]}</td>`).join('\n');
 
@@ -59,3 +77,6 @@ function handleTableClick(event) {
 window.addEventListener('load', startUp);
 const tbody = document.querySelector('tbody');
 tbody.addEventListener('click', handleTableClick);
+
+const form = document.querySelector('.selection-form');
+form.addEventListener('input', redrawUsers);
