@@ -21,7 +21,13 @@ const columns = [
     title: 'email',
     field: 'email',
   },
+  {
+    title: 'Active',
+    field: 'isActive',
+  },
 ];
+
+let filteredUsers = [];
 
 function redrawUsers(event) {
   const users = event.detail;
@@ -56,6 +62,24 @@ function handleTableClick(event) {
   userService.delete(id);
 }
 
+function handleSelectClick() {
+  const selectBox = document.querySelector('#selectActive');
+  const selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+  filteredUsers = userService.users.filter(({ isActive }) => {
+    if(selectedValue === 'active') {
+      return isActive;
+    } else {
+      return true;
+    }
+  })
+  const event = new CustomEvent('change', { detail: filteredUsers });
+  redrawUsers(event);
+}
+
 window.addEventListener('load', startUp);
 const tbody = document.querySelector('tbody');
 tbody.addEventListener('click', handleTableClick);
+
+const selectBox = document.querySelector('#selectActive');
+selectBox.addEventListener('click', handleSelectClick);
