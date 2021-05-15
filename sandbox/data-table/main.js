@@ -1,5 +1,7 @@
 import { userService } from './user-service.js';
 
+let users = [];
+
 const columns = [
   {
     title: '#',
@@ -25,7 +27,11 @@ const columns = [
 const tbody = document.querySelector('tbody');
 const filterForm = document.querySelector('form');
 
-function filterRules(data) {
+function saveUsersGlobally(data) {
+  users = [...data];
+}
+
+function filterUsers(data) {
   const inputValues = {};
   const inputs = Array.from(filterForm.children);
 
@@ -57,16 +63,14 @@ function filterRules(data) {
   return filterResult;
 }
 
-function redrawUsers(event) {
-  const users = filterRules(event.detail);
-
+function redrawUsers(data) {
   const headerRow = document.querySelector('thead > tr');
   const headerRowContent = columns.map(({ title }) => `<th>${title}</th>`).join('');
   headerRow.innerHTML = headerRowContent;
 
   const userToRow = (user) => columns.map(({ field }) => `<td>${user[field]}</td>`).join('\n');
 
-  tbody.innerHTML = users.map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
+  tbody.innerHTML = data.map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
 }
 
 function handleTableClick(event) {
@@ -84,13 +88,17 @@ function handleTableClick(event) {
 }
 
 function startUp() {
-  userService.addEventListener('change', redrawUsers);
+  userService.addEventListener('change', (event) => {
+    saveUsersGlobally(event.detail);
+    redrawUsers(users);
+  });
+
   userService.load('http://www.json-generator.com/api/json/get/ceyrBcxPOq');
 
   tbody.addEventListener('click', handleTableClick);
 
   filterForm.addEventListener('input', () => {
-    userService.sendUpdateNotification();
+    redrawUsers(filterUsers(users));
   });
 }
 
