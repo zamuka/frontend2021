@@ -7,4 +7,12 @@ export const CELL_TYPES = {
   WALL: 'wall',
   GRASS: 'grass',
   SNAKE: 'snake',
+  APPLE: 'apple',
+};
+
+export const DIRECTION_TYPE = {
+  RIGHT: 'right',
+  DOWN: 'down',
+  LEFT: 'left',
+  UP: 'up',
 };
