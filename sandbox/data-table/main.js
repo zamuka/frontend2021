@@ -27,11 +27,17 @@ const columns = [
 const tbody = document.querySelector('tbody');
 const filterForm = document.querySelector('form');
 
+function drawHeaderRow() {
+  const headerRow = document.querySelector('thead > tr');
+  const headerRowContent = columns.map(({ title }) => `<th>${title}</th>`).join('');
+  headerRow.innerHTML = headerRowContent;
+}
+
 function saveUsersGlobally(data) {
   users = [...data];
 }
 
-function filterUsers(data) {
+function filterUsers() {
   const inputValues = {};
   const inputs = Array.from(filterForm.children);
 
@@ -39,7 +45,7 @@ function filterUsers(data) {
     inputValues[input.name] = input.value;
   });
 
-  let filterResult = data;
+  let filterResult = users;
 
   if (inputValues.symbols) {
     filterResult = filterResult.filter(({ name }) => {
@@ -63,14 +69,12 @@ function filterUsers(data) {
   return filterResult;
 }
 
-function redrawUsers(data) {
-  const headerRow = document.querySelector('thead > tr');
-  const headerRowContent = columns.map(({ title }) => `<th>${title}</th>`).join('');
-  headerRow.innerHTML = headerRowContent;
+function redrawUsers() {
+  const usersData = filterUsers();
 
   const userToRow = (user) => columns.map(({ field }) => `<td>${user[field]}</td>`).join('\n');
 
-  tbody.innerHTML = data.map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
+  tbody.innerHTML = usersData.map((user) => `<tr data-id="${user._id}">${userToRow(user)}</tr>`).join('\n');
 }
 
 function handleTableClick(event) {
@@ -88,9 +92,11 @@ function handleTableClick(event) {
 }
 
 function startUp() {
+  drawHeaderRow();
+
   userService.addEventListener('change', (event) => {
     saveUsersGlobally(event.detail);
-    redrawUsers(users);
+    redrawUsers();
   });
 
   userService.load('http://www.json-generator.com/api/json/get/ceyrBcxPOq');
@@ -98,7 +104,7 @@ function startUp() {
   tbody.addEventListener('click', handleTableClick);
 
   filterForm.addEventListener('input', () => {
-    redrawUsers(filterUsers(users));
+    redrawUsers();
   });
 }
 

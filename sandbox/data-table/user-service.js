@@ -4,8 +4,10 @@ class UserService extends EventTarget {
   load(url) {
     const req = new XMLHttpRequest();
     req.addEventListener('load', () => {
-      this.users = JSON.parse(req.responseText);
-      this.sendUpdateNotification();
+      setTimeout(() => {
+        this.users = JSON.parse(req.responseText);
+        this.sendUpdateNotification();
+      }, 3000);
     });
     req.open('GET', url);
     req.send();
