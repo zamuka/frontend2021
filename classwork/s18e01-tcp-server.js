@@ -22,11 +22,26 @@ server.on('connection', function (socket) {
       return;
     }
 
-    console.log(reqLine);
+    if (path === '/') {
+      socket.write('HTTP/1.1 200 OK\n');
+      socket.write('\n');
+      socket.write('<html><body><h1>Hello world</h1></body></html>\n');
 
-    socket.write('HTTP/1.1 200 OK\n');
-    socket.write('\n'); // пустая строка
-    socket.write('<html><body><h1>Hello world</h1></body></html>\n');
+      socket.end();
+      return;
+    }
+
+    if (method !== 'GET') {
+      socket.write('HTTP/1.1 400 Bad Request\n');
+      socket.write('\n');
+
+      socket.end();
+      return;
+    }
+
+    socket.write('HTTP/1.1 404 Not Found\n');
+    socket.write('\n');
+    socket.write(`<html><body><h1>Error 404. The requested URL ${path} was not found on this server.</h1></body></html>\n`);
 
     socket.end();
   });
