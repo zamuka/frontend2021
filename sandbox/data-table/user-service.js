@@ -12,11 +12,13 @@ class UserService extends EventTarget {
   }
 
   delete(id) {
+    debugger
     this.users = this.users.filter(({ _id }) => _id !== id);
     this.sendUpdateNotification();
   }
 
   sendUpdateNotification() {
+    debugger
     const event = new CustomEvent('change', { detail: this.users });
     this.dispatchEvent(event);
   }

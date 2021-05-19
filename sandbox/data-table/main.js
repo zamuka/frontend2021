@@ -21,6 +21,10 @@ const columns = [
     title: 'email',
     field: 'email',
   },
+  {
+    title: 'Is active',
+    field: 'isActive',
+  }
 ];
 
 function redrawUsers(event) {
@@ -38,11 +42,14 @@ function redrawUsers(event) {
 }
 
 function startUp() {
+  debugger;
+
   userService.addEventListener('change', redrawUsers);
   userService.load('http://www.json-generator.com/api/json/get/ceyrBcxPOq');
 }
 
 function handleTableClick(event) {
+  debugger;
   const row = event.target.closest('tr');
   if (!row) {
     return;
@@ -56,6 +63,16 @@ function handleTableClick(event) {
   userService.delete(id);
 }
 
+const filterByIsActiveField = function () {
+  if (this.checked){
+
+  }
+  debugger;
+
+}
+
 window.addEventListener('load', startUp);
 const tbody = document.querySelector('tbody');
 tbody.addEventListener('click', handleTableClick);
+const checkboxIsActive = document.getElementById('checkboxIsActive');
+checkboxIsActive.addEventListener('click', filterByIsActiveField)
