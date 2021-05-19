@@ -1,3 +1,4 @@
+const { error } = require('console');
 const fs = require('fs');
 const net = require('net');
 
@@ -12,6 +13,24 @@ server.on('connection', function (socket) {
 
     const [reqLine, otherLines] = reqText.split('\n');
     const [method, path, protocol] = reqLine.split(' ');
+
+    if (method !== 'GET') {
+      socket.write('HTTP/1.1 405 Method Not Allowed\n');
+      socket.write('\n');
+
+      socket.end();      
+      error(method + ' ' + path + ' Method Not Allowed');
+      return;
+    }
+
+    if ( !(path === '/' || path === '') ) {
+      socket.write('HTTP/1.1 400 Bad Request\n');
+      socket.write('\n');
+
+      socket.end();
+      error(method + ' ' + path + ' Bad Request');
+      return;
+    }
 
     if (path === '/favicon.ico') {
       socket.write('HTTP/1.1 200 FINE\n');
@@ -29,6 +48,10 @@ server.on('connection', function (socket) {
     socket.write('<html><body><h1>Hello world</h1></body></html>\n');
 
     socket.end();
+  });
+
+  socket.on('error', function (error) {
+    console.log('Error : ' + error);
   });
 });
 
