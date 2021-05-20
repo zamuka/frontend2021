@@ -35,9 +35,7 @@ function redrawUsers(event) {
     if (event) {
         notFilteredUsers = event.detail;
     }
-    debugger;
     let users = notFilteredUsers.filter(user => {
-        debugger;
         if (inputValue === '' || inputValue === null) {
             return user.isActive === checkboxChecked;
         } else {
