@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "live-server sandbox",
+    "sandbox": "live-server sandbox",
     "start": "npm run server",
-    "lint": "eslint {sandbox/**/*,homework/**/*,classwork/**/*}"
+    "lint": "eslint {sandbox/**/*,homework/**/*,classwork/**/*}",
+    "server": "node ./classwork/server/main.js"
   },
   "repository": {
     "type": "git",
