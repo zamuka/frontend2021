@@ -15,7 +15,15 @@
  * @return {object}
  */
 function omit(input, props) {
-  /** YOUR CODE HERE */
+  let result = {};
+  for (let key in input) {
+    if (!props.includes(key)) {
+      result[key] = input[key];
+    }
+     
+  }
+    
+  return result;
 }
 
 const object = { a: 1, b: '2', c: 3 };
@@ -40,7 +48,15 @@ console.log(omit(object, ['a', 'c']));
  * @return {object}
  */
 function pick(input, props) {
-  /** YOUR CODE HERE */
+  let result = {};
+  for (let key in input) {
+    if (props.includes(key)) {
+      result[key] = input[key];
+    }
+     
+  }
+    
+  return result;
 }
 
 // { 'a': 1, 'c': 3 }
