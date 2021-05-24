@@ -1,20 +1,32 @@
-import { readFile, start, writeFile} from 'fs';
+import { readFile, stat, writeFile} from 'fs';
 
-function fileHandler() {
+function copyFile() {
     const path = process.argv[2];
-    const copyFile = `${arg}.copy`;
+    const copy = `${path}.copy`;
 
     readFile(path, 'utf8', function (err, data) {
         if (err) {
-            return
+            return;
         }
-    });
+        stat(path, function (err, file) {
+            if (err) {
+                return;
+            }
+            console.log(`The size of the source file is ${file.size} bytes`)
+        });
 
-    writeFile(copyFile, data, function(err) {
+    writeFile(copy, data, function(err) {
         if (err) {
-            return
+            return;
         }
-    })
-}
+        stat(copy, function (err, file) {
+            if (err) {
+                return;
+            }
+            console.log(`The size of the copied file is ${file.size} bytes`)
+        });
+    });
+});
+};
 
-fileHandler();
+copyFile();
