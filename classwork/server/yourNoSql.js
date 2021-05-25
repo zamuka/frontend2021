@@ -1,15 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const dataFileName = path.join(__dirname, 'users.json');
-
 class YourNoSql {
+  dataFileName = path.join(__dirname, 'users.json');
+
   getList() {
-    return JSON.parse(fs.readFileSync(dataFileName, 'utf-8'));
+    return JSON.parse(fs.readFileSync(this.dataFileName, 'utf-8'));
   }
 }
 
-
 module.exports = {
   dbClient: new YourNoSql(),
-}
+};
