@@ -22,7 +22,9 @@
   },
   "homepage": "https://github.com/zamuka/frontend2021#readme",
   "dependencies": {
-    "live-server": "1.2.1"
+    "live-server": "1.2.1",
+    "lodash": "^4.17.21",
+    "mustache": "4.2.0"
   },
   "devDependencies": {
     "babel-eslint": "10.1.0",
