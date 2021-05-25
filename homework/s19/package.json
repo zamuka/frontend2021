@@ -1,0 +1,15 @@
+{
+  "name": "homework",
+  "version": "1.0.0",
+  "main": "s19e01-copy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yulia Khitrukhina <yulyashenkaa@gmail.com>",
+  "license": "ISC",
+  "keywords": [
+    "node",
+    "copy"
+  ],
+  "description": ""
+}
