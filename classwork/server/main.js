@@ -1,13 +1,16 @@
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
+const Mustache = require('mustache');
 const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
-const Mustache = require('mustache');
 
 const templates = {
-  userList: fs.readFileSync(path.join(__dirname, 'templates/userList.html'), 'utf-8'),
-}
+  userList: fs.readFileSync(
+    path.join(__dirname, 'templates/userList.html'),
+    'utf-8',
+  ),
+};
 
 /**
  * @param {http.IncomingMessage} req
@@ -24,10 +27,12 @@ function listener(req, res) {
     const users = dbClient.getList();
     res.statusCode = 200;
 
-    const content = Mustache.render(templates.userList, { title: 'User List from data', users });
+    const content = Mustache.render(templates.userList, {
+      title: 'User List from data',
+      users,
+    });
     res.write(content);
     res.end();
-
   }
   serveStatic(req, res);
 }
@@ -35,3 +40,5 @@ function listener(req, res) {
 const server = http.createServer(listener);
 
 server.listen(9090);
+
+console.log('Server running at http://localhost:9090');
