@@ -10,6 +10,10 @@ const templates = {
     path.join(__dirname, 'templates/userList.html'),
     'utf-8',
   ),
+  user: fs.readFileSync(
+    path.join(__dirname, 'templates/user.html'),
+    'utf-8',
+  ),
 };
 
 /**
@@ -23,7 +27,7 @@ function listener(req, res) {
     return;
   }
 
-  if (req.url === '/users.html') {
+  if (req.url === '/users') {
     const users = dbClient.getList();
     res.statusCode = 200;
 
@@ -33,6 +37,13 @@ function listener(req, res) {
     });
     res.write(content);
     res.end();
+  }
+
+  if (req.url.startsWith('/users/')) {
+    const id = req.url.slice(7);
+    res.statusCode = 200;
+    const content = Mustache.render(templates.user, dbClient.findId(id));
+    res.write(content);
   }
   serveStatic(req, res);
 }
