@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{name}}</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container{
+            width: 400px;
+            padding: 24px;
+            margin: 20px auto;
+
+            font-family: sans-serif;
+
+            border-radius: 10px;
+            box-shadow: 1px 1px 10px 0 black;
+        }
+
+        .container h1 {
+            text-align: center;
+        }
+
+        .container hr{
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .flex-form{
+            gap: 8px;
+            display: flex;
+            flex-direction: column;
+
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        input,
+        .btn{
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+        .btn{
+            width: 50%;
+            cursor: pointer;
+        }
+        .btn:hover{
+            transform: translateY(2px);
+        }
+        .buttons{
+            gap: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 14px;
+
+            margin: 15px 0;
+        }
+        .aprove{
+            color: white;
+            background: #4848d8;
+        }
+        .buttons a{
+            display: block;
+            color: #4848d8;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid #4848d8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit User</h1>
+        <hr>
+        
+        <form class="flex-form">
+            <label for="name">Name: </label>
+            <input type="text" value='{{name}}'>
+            
+            <label for="gender">Gender: </label>
+            <input type="text" value='{{gender}}'>
+            
+            <label for="balance">Money: </label>
+            <input type="text" value='{{balance}}'>
+
+            <label for="phone">Phone: </label>
+            <input type="text" value='{{phone}}'>
+
+            <label for="email">Email: </label>
+            <input type="email" value='{{email}}'>
+
+            <div class="buttons">    
+                <a class="btn" href="/users">Cancel</a>
+                <button class="btn aprove" type="submit">Edit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
