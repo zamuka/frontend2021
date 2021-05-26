@@ -15,8 +15,26 @@ server.on('connection', function (socket) {
 
     if (path === '/favicon.ico') {
       socket.write('HTTP/1.1 200 FINE\n');
-      socket.write('\n'); // пустая строка
+      socket.write('\n');
       socket.write(icon);
+
+      socket.end();
+      return;
+    }
+
+    if (path === '/') {
+      socket.write('HTTP/1.1 200 OK\n');
+      socket.write('\n');
+      socket.write('<html><body><h1>Hello World</h1></body></html>\n');
+
+      socket.end();
+      return;
+    }
+
+    if (method !== 'GET') {
+      socket.write('HTTP/1.1 400 Bad Request\n');
+      socket.write('\n');
+      socket.write('<html><body><h1>Eror 400 Bad Request</h1></body></html>\n');
 
       socket.end();
       return;
@@ -24,9 +42,9 @@ server.on('connection', function (socket) {
 
     console.log(reqLine);
 
-    socket.write('HTTP/1.1 200 OK\n');
-    socket.write('\n'); // пустая строка
-    socket.write('<html><body><h1>Hello world</h1></body></html>\n');
+    socket.write('HTTP/1.1 404 ERROR\n');
+    socket.write('\n');
+    socket.write('<html><body><h1>ERROR 404 page not found</h1></body></html>\n');
 
     socket.end();
   });
