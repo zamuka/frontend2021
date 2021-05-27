@@ -14,9 +14,13 @@
         </thead>
         <tbody>
           {{#users}}
-          <tr><td>{{index}}</td><td>{{name}}</td><td>{{gender}}</td><td>{{balance}}<td>
-            {{email}}
-          </td></tr>
+          <tr data-id='{{_id}}'>
+            <td>{{index}}</td>
+            <td><a href="/users/{{_id}}">{{name}}</a></td>
+            <td>{{gender}}</td>
+            <td>{{balance}}<td>
+            <td>{{email}}</td>
+          </tr>
           {{/users}}
         </tbody>
       </table>
