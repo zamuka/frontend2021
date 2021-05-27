@@ -7,6 +7,7 @@ class YourNoSql {
   getList() {
     return JSON.parse(fs.readFileSync(this.dataFileName, 'utf-8'));
   }
+  
 }
 
 module.exports = {
