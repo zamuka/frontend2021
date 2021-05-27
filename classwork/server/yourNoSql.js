@@ -7,6 +7,9 @@ class YourNoSql {
   getList() {
     return JSON.parse(fs.readFileSync(this.dataFileName, 'utf-8'));
   }
+  findUser(id) {
+    return this.getList().find((user) => id === user._id);
+  }
 }
 
 module.exports = {
