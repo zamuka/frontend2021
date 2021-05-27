@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+<body>
+    <form action="">
+        {{#user}}
+        <h4>You can replace the name of <i style="color: brown;">{{name}}</i> and write his(her) balance.</h4>
+        <input type="text" name=name value="{{name}}" autocomplete="off">
+        <input type="text" name="balance" id="" value="{{balance}}" autocomplete="off">
+        <button type="submit" style="height:20px; width:60px">Submit</button>
+        {{/user}}
+    </form>
+</body>
+</html>
