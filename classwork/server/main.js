@@ -4,9 +4,11 @@ const fs = require('fs');
 const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
 const Mustache = require('mustache');
+const { indexOf } = require('lodash');
 
 const templates = {
   userList: fs.readFileSync(path.join(__dirname, 'templates/userList.html'), 'utf-8'),
+  userSolo: fs.readFileSync(path.join(__dirname, 'templates/userSolo.html'), 'utf-8')
 }
 
 /**
@@ -14,6 +16,9 @@ const templates = {
  * @param {http.ServerResponse} res
  */
 function listener(req, res) {
+  const urlId = req.url.slice(7);
+  
+
   if (req.method !== 'GET') {
     res.statusCode = 405;
     res.end();
@@ -24,14 +29,35 @@ function listener(req, res) {
     const users = dbClient.getList();
     res.statusCode = 200;
 
-    const content = Mustache.render(templates.userList, { title: 'User List from data', users });
+    const content = Mustache.render(templates.userList, { 
+      title: 'User List from data',
+      index: users.index ,
+      name: users.name ,
+      gender: users.gender ,
+      balance: users.balance ,
+      email: users.email , 
+      id: users._id ,
+      users,
+      
+    });
     res.write(content);
     res.end();
 
+  }
+  for (let item of dbClient.getList()) {
+    if (urlId === item._id) {
+      const userSolo = Mustache.render(templates.userSolo, {
+        name: item.name ,
+        balance: item.balance ,
+        email: item.email ,
+      });
+      res.write(userSolo);
+      res.end();
+    }
   }
   serveStatic(req, res);
 }
 
 const server = http.createServer(listener);
 
-server.listen(9090);
+server.listen(9190);
