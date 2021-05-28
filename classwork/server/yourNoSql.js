@@ -9,11 +9,8 @@ class YourNoSql {
   }
 
   find (id) {
-    for (let item of this.getList()) {
-      if (id === item._id) {
-      return item
-    }
-    }
+    const userList = this.getList();
+    return userList.find((user) => user._id === id)
   }
 
 }

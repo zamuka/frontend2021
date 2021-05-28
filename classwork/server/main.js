@@ -4,11 +4,10 @@ const fs = require('fs');
 const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
 const Mustache = require('mustache');
-const { indexOf } = require('lodash');
 
 const templates = {
   userList: fs.readFileSync(path.join(__dirname, 'templates/userList.html'), 'utf-8'),
-  userSolo: fs.readFileSync(path.join(__dirname, 'templates/userSolo.html'), 'utf-8')
+  userSolo: fs.readFileSync(path.join(__dirname, 'templates/userSolo.html'), 'utf-8'),
 }
 
 /**
@@ -31,12 +30,6 @@ function listener(req, res) {
 
     const content = Mustache.render(templates.userList, { 
       title: 'User List from data',
-      index: users.index ,
-      name: users.name ,
-      gender: users.gender ,
-      balance: users.balance ,
-      email: users.email , 
-      id: users._id ,
       users,
       
     });
@@ -47,9 +40,7 @@ function listener(req, res) {
   for (let item of dbClient.getList()) {
     if (urlId === item._id) {
       const userSolo = Mustache.render(templates.userSolo, {
-        name: item.name ,
-        balance: item.balance ,
-        email: item.email ,
+        item ,
       });
       res.write(userSolo);
       res.end();
