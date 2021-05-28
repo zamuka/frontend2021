@@ -42,7 +42,7 @@ function listener(req, res) {
   if (req.url.startsWith('/users/')) {
     const id = req.url.slice(7);
     res.statusCode = 200;
-    const content = Mustache.render(templates.user, dbClient.findId(id));
+    const content = Mustache.render(templates.user, dbClient.findItemById(id));
     res.write(content);
   }
   serveStatic(req, res);
@@ -52,4 +52,4 @@ const server = http.createServer(listener);
 
 server.listen(9090);
 
-console.log('Server running at http://localhost:9090');
+console.log('Server running at http://localhost:9090/');

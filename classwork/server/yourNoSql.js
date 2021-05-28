@@ -8,7 +8,7 @@ class YourNoSql {
     return JSON.parse(fs.readFileSync(this.dataFileName, 'utf-8'));
   }
 
-  findId(id) {
+  findItemById(id) {
     return this.getList().find((item) => id === item._id);
   }
 }
