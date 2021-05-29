@@ -23,7 +23,6 @@ class Mechanic {
       this.wheel.classList.add('installed');
     }
     const event = new CustomEvent(this.eventName, { bubbles: true });
-    this.node.dispatchEvent(event);
     if (!this.node.closest('.go')) {
       this.node.classList.add('ready');
     }
@@ -37,8 +36,14 @@ function createMechanics() {
 
 function main() {
   createMechanics();
-
-  /** YOUR CODE HERE */
+  function addListenerMultiplyEvents(element, eventNames, listener) {
+    const events = eventNames.split(' ');
+    for (let i = 0, iLen = events.length; i < iLen; i = i + 1) {
+      element.addEventListener(events[i], listener, false);
+    }
+  }
+  const addClassGo = document.getElementById('pit-stop').classList.add('go');
+  addListenerMultiplyEvents(window, 'WHEEL_INSTALLED TANK_FULL', addClassGo);
 }
 
 window.addEventListener('load', main);
