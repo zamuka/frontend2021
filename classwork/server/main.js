@@ -79,9 +79,6 @@ function createServer() {
   console.log('Server is running at http://localhost:9090/');
 }
 
-let userListLoaded = false;
-let userLoaded = false;
-
 fs.readFile(path.join(__dirname, 'templates/userList.html'), 'utf-8', (err, data) => {
   setTimeout(() => {
     if (err) {
@@ -89,25 +86,20 @@ fs.readFile(path.join(__dirname, 'templates/userList.html'), 'utf-8', (err, data
     }
 
     templates.userList = data;
-    userListLoaded = true;
-    if (userListLoaded && userLoaded) {
-      createServer();
-    }
+
+    // eslint-disable-next-line no-shadow
+    fs.readFile(path.join(__dirname, 'templates/user.html'), 'utf-8', (err, data) => {
+      setTimeout(() => {
+        if (err) {
+          throw err;
+        }
+
+        templates.user = data;
+
+        createServer();
+      }, 2000);
+    });
   }, 3000);
-});
-
-fs.readFile(path.join(__dirname, 'templates/user.html'), 'utf-8', (err, data) => {
-  setTimeout(() => {
-    if (err) {
-      throw err;
-    }
-
-    templates.user = data;
-    userLoaded = true;
-    if (userListLoaded && userLoaded) {
-      createServer();
-    }
-  }, 2000);
 });
 
 let counter = 1;
