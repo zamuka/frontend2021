@@ -7,8 +7,8 @@ const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
 
 const templates = {
-  userList: fs.readFileSync(path.join(__dirname, 'templates/userList.html'), 'utf-8'),
-  user: fs.readFileSync(path.join(__dirname, 'templates/user.html'), 'utf-8'),
+  userList: null,
+  user: null,
 };
 
 /**
@@ -31,12 +31,16 @@ function listener(req, res) {
   }
 
   if (req.url === '/users.html') {
-    const users = dbClient.getList();
     res.statusCode = 200;
-
-    const content = Mustache.render(templates.userList, { title: 'User List from data', users });
-    res.write(content);
-    res.end();
+    dbClient.getList(function (err, data) {
+      if (err) {
+        return;
+      }
+      const users = JSON.parse(data);
+      const content = Mustache.render(templates.userList, { title: 'User List from data', users });
+      res.write(content);
+      res.end();
+    });
     return;
   }
 
@@ -48,10 +52,11 @@ function listener(req, res) {
     const userUpdateData = Object.fromEntries(myURL.searchParams.entries());
 
     if (isEmpty(myURL.search)) {
-      const user = dbClient.findUser(id);
-      const content = Mustache.render(templates.user, user);
-      res.write(content);
-      res.end();
+      dbClient.findUser(id, function (user) {
+        const content = Mustache.render(templates.user, user);
+        res.write(content);
+        res.end();
+      });
       return;
     }
 
@@ -60,6 +65,9 @@ function listener(req, res) {
         Location: '/users.html',
       });
       res.end();
+    },
+    function (users, cb) {
+      dbClient.save(users, cb);
     });
 
     return;
@@ -68,6 +76,18 @@ function listener(req, res) {
   serveStatic(req, res);
 }
 
-const server = http.createServer(listener);
+fs.readFile(path.join(__dirname, 'templates/userList.html'), 'utf-8', function (err, dataList) {
+  if (err) {
+    return;
+  }
+  fs.readFile(path.join(__dirname, 'templates/user.html'), 'utf-8', function (err, dataUser) {
+    if (err) {
+      return;
+    }
+    templates.userList = dataList;
+    templates.user = dataUser;
 
-server.listen(9090);
+    const server = http.createServer(listener);
+    server.listen(9090);
+  });
+});
