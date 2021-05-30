@@ -9,7 +9,6 @@ const server = net.createServer();
 server.on('connection', function (socket) {
   socket.on('data', function (data) {
     const reqText = data.toString('utf8');
-
     const [reqLine, otherLines] = reqText.split('\n');
     const [method, path, protocol] = reqLine.split(' ');
 
@@ -17,11 +16,20 @@ server.on('connection', function (socket) {
       socket.write('HTTP/1.1 200 FINE\n');
       socket.write('\n'); // пустая строка
       socket.write(icon);
-
+      socket.end();
+    }
+    if (path === '/error') {
+      socket.write('HTTP/1.1 404 NOT FOUND \n');
+      socket.write('\n');
       socket.end();
       return;
     }
-
+    if (method !== 'GET') {
+      socket.write('HTTP/1.1 404 NOT FOUND \n');
+      socket.write('\n');
+      socket.end();
+      return;
+    }
     console.log(reqLine);
 
     socket.write('HTTP/1.1 200 OK\n');
