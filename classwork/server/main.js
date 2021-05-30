@@ -74,30 +74,47 @@ function listener(req, res) {
   serveStatic(req, res);
 }
 
-const readFile = (file) => new Promise((resolve, reject) => {
-  fs.readFile(file, 'utf-8', (err, data) => {
-    setTimeout(() => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    }, 3000);
-  });
+function createServer() {
+  http.createServer(listener).listen(9090);
+  console.log('Server is running at http://localhost:9090/');
+}
+
+let userListLoaded = false;
+let userLoaded = false;
+
+fs.readFile(path.join(__dirname, 'templates/userList.html'), 'utf-8', (err, data) => {
+  setTimeout(() => {
+    if (err) {
+      throw err;
+    }
+
+    templates.userList = data;
+    userListLoaded = true;
+    if (userListLoaded && userLoaded) {
+      createServer();
+    }
+  }, 3000);
 });
 
-const promises = [
-  readFile(path.join(__dirname, 'templates/userList.html')),
-  readFile(path.join(__dirname, 'templates/user.html')),
-];
+fs.readFile(path.join(__dirname, 'templates/user.html'), 'utf-8', (err, data) => {
+  setTimeout(() => {
+    if (err) {
+      throw err;
+    }
 
-Promise.all(promises)
-  .then(([userList, user]) => {
-    templates.user = user;
-    templates.userList = userList;
+    templates.user = data;
+    userLoaded = true;
+    if (userListLoaded && userLoaded) {
+      createServer();
+    }
+  }, 2000);
+});
 
-    http.createServer(listener).listen(9090);
-  })
-  .catch((err) => { throw err; });
-
-console.log('Server is running at http://localhost:9090/');
+let counter = 1;
+const timer = setInterval(() => {
+  console.log(counter);
+  counter = counter + 1;
+  if (counter > 10) {
+    clearInterval(timer);
+  }
+}, 1000);
