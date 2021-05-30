@@ -32,7 +32,9 @@ function listener(req, res) {
 
   if (req.url === '/users.html') {
     dbClient.getList((err, data) => {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
 
       res.statusCode = 200;
       const users = JSON.parse(data);
@@ -72,22 +74,30 @@ function listener(req, res) {
   serveStatic(req, res);
 }
 
-fs.readFile(path.join(__dirname, 'templates/userList.html'), 'utf-8', (err, list) => {
-  if (err) {
-    throw err;
-  }
-
-  templates.userList = list;
-
-  fs.readFile(path.join(__dirname, 'templates/user.html'), 'utf-8', (err, user) => {
-    if (err) {
-      throw err;
-    }
-
-    templates.user = user;
-
-    http.createServer(listener).listen(9090);
+const readFile = (file) => new Promise((resolve, reject) => {
+  fs.readFile(file, 'utf-8', (err, data) => {
+    setTimeout(() => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    }, 3000);
   });
 });
+
+const promises = [
+  readFile(path.join(__dirname, 'templates/userList.html')),
+  readFile(path.join(__dirname, 'templates/user.html')),
+];
+
+Promise.all(promises)
+  .then(([userList, user]) => {
+    templates.user = user;
+    templates.userList = userList;
+
+    http.createServer(listener).listen(9090);
+  })
+  .catch((err) => { throw err; });
 
 console.log('Server is running at http://localhost:9090/');
