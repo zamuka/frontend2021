@@ -7,7 +7,12 @@ class YourNoSql {
   getList() {
     return JSON.parse(fs.readFileSync(this.dataFileName, 'utf-8'));
   }
-  
+
+  findUsers(id) {
+    const users = this.getList();
+    const foundUser = users.find((item) => item._id === id);
+    return foundUser;
+  }
 }
 
 module.exports = {
