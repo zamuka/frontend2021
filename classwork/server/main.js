@@ -7,8 +7,8 @@ const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
 
 const templates = {
-  userList: fs.readFileSync(path.join(__dirname, 'templates/userList.html'), 'utf-8'),
-  user: fs.readFileSync(path.join(__dirname, 'templates/user.html'), 'utf-8'),
+  userList: null,
+  user: null,
 };
 
 /**
@@ -31,12 +31,15 @@ function listener(req, res) {
   }
 
   if (req.url === '/users.html') {
-    const users = dbClient.getList();
-    res.statusCode = 200;
+    dbClient.getList((err, data) => {
+      if (err) throw err;
 
-    const content = Mustache.render(templates.userList, { title: 'User List from data', users });
-    res.write(content);
-    res.end();
+      res.statusCode = 200;
+      const users = JSON.parse(data);
+      const content = Mustache.render(templates.userList, { title: 'User List from data', users });
+      res.write(content);
+      res.end();
+    });
     return;
   }
 
@@ -48,10 +51,11 @@ function listener(req, res) {
     const userUpdateData = Object.fromEntries(myURL.searchParams.entries());
 
     if (isEmpty(myURL.search)) {
-      const user = dbClient.findUser(id);
-      const content = Mustache.render(templates.user, user);
-      res.write(content);
-      res.end();
+      dbClient.findUser(id, (user) => {
+        const content = Mustache.render(templates.user, user);
+        res.write(content);
+        res.end();
+      });
       return;
     }
 
@@ -68,6 +72,22 @@ function listener(req, res) {
   serveStatic(req, res);
 }
 
-const server = http.createServer(listener);
+fs.readFile(path.join(__dirname, 'templates/userList.html'), 'utf-8', (err, list) => {
+  if (err) {
+    throw err;
+  }
 
-server.listen(9090);
+  templates.userList = list;
+
+  fs.readFile(path.join(__dirname, 'templates/user.html'), 'utf-8', (err, user) => {
+    if (err) {
+      throw err;
+    }
+
+    templates.user = user;
+
+    http.createServer(listener).listen(9090);
+  });
+});
+
+console.log('Server is running at http://localhost:9090/');
