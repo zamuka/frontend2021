@@ -1,13 +1,14 @@
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
+const Mustache = require('mustache');
 const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
-const Mustache = require('mustache');
 
 const templates = {
   userList: fs.readFileSync(path.join(__dirname, 'templates/userList.html'), 'utf-8'),
-}
+  users: fs.readFileSync(path.join(__dirname, 'templates/user.html'), 'utf-8'),
+};
 
 /**
  * @param {http.IncomingMessage} req
@@ -27,7 +28,15 @@ function listener(req, res) {
     const content = Mustache.render(templates.userList, { title: 'User List from data', users });
     res.write(content);
     res.end();
+  }
 
+  if (req.url.startsWith('/users/')) {
+    const id = req.url.slice(7);
+    res.statusCode = 200;
+    const content = Mustache.render(templates.users, dbClient.findUsers(id));
+    res.write(content);
+    res.end();
+    return;
   }
   serveStatic(req, res);
 }

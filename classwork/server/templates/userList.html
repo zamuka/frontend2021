@@ -14,14 +14,14 @@
         </thead>
         <tbody>
           <!-- TODO: change -->
-          <tr><td></td></tr>
+          {{#users}}
+          <tr>
+            <td>{{index}}</td>
+            <td><a href="http://localhost:9090/users/{{_id}}">{{name}}</a></td>
+            <td>{{gender}}</td><td>{{balance}}</td><td>{{email}}</td>
+          </tr>
+          {{/users}}
         </tbody>
       </table>
-
-
-      <!-- TODO: remove -->
-      {{#users}}
-      <b>{{name}}</b>
-      {{/users}}
     </body>
 </html>
