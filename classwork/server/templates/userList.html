@@ -1,27 +1,31 @@
 <html lang="en">
   <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" type="text/css" href="../styles/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="./styles.css">
-      <script src="./main.js" type="module"></script>
-      <title>{{title}}</title>
-    <body>
-      <table class="table">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>{{title}}</title>
+  </head>
+  <body>
+      <table class="table table-striped">
         <thead>
-          <tr><th>#</th><th>Name</th><th>Gender</th><th>Money</th><th>email</th></tr>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Money</th>
+            <th scope="col">email</th>
+          </tr>
         </thead>
-        <tbody>
-          <!-- TODO: change -->
-          <tr><td></td></tr>
-        </tbody>
+        {{#users}}
+          <tr>
+            <td>{{index}}</td>
+            <td><a href="/users/{{_id}}">{{name}}</a></td>
+            <td>{{gender}}</td>
+            <td>{{balance}}</td>
+            <td>{{email}}</td>
+          </tr>
+          {{/users}}
       </table>
-
-
-      <!-- TODO: remove -->
-      {{#users}}
-      <b>{{name}}</b>
-      {{/users}}
     </body>
 </html>
