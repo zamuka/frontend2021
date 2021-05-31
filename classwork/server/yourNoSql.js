@@ -5,31 +5,42 @@ const path = require('path');
 class YourNoSql {
   dataFileName = path.join(__dirname, 'users.json');
 
-  getList() {
-    return JSON.parse(fs.readFileSync(this.dataFileName, 'utf-8'));
+  getList(cb) {
+    fs.fileParse(this.dataFileName, 'utf-8', cb);
   }
 
-  findUser(id) {
-    return find(this.getList(), { _id: id });
-  }
-
-  update(id, userData, cb) {
-    const originalUsers = this.getList();
-    const users = originalUsers.map((user) => {
-      if (user._id === id) {
-        return {
-          ...user,
-          ...userData,
-        };
+  findUser(id, enterUser) {
+    this.getList(function (err, data) {
+      if (err) {
+        return;
       }
-      return user;
+      const users = JSON.parse(data);
+      const separateUser = find(users, { _id: id });
+      enterUser(separateUser);
     });
+  }
 
-    this.save(users, cb);
+  update(id, userData, cb, storeUsers) {
+    this.getList(function (err, data) {
+      if (err) {
+        return;
+      }
+      const originalUsers = JSON.parse(data);
+      const users = originalUsers.map((user) => {
+        if (user._id === id) {
+          return {
+            ...user,
+            ...userData,
+          };
+        }
+        return user;
+      });
+      storeUsers(users, cb);
+    });
   }
 
   save(data, cb) {
-    fs.writeFile(this.dataFileName, JSON.stringify(data), cb);
+    fs.writeFile(this.dataFileName, JSON.stringify(data, null, 2), cb);
   }
 }
 

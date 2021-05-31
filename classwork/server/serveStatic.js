@@ -52,5 +52,5 @@ function serveStatic(req, res) {
 }
 
 module.exports = {
-  serveStatic
-}
+  serveStatic,
+};
