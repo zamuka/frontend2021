@@ -2,12 +2,13 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const Mustache = require('mustache');
+const { isEmpty } = require('lodash');
 const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
 
 const templates = {
   userList: fs.readFileSync(path.join(__dirname, 'templates/userList.html'), 'utf-8'),
-  users: fs.readFileSync(path.join(__dirname, 'templates/user.html'), 'utf-8'),
+  user: fs.readFileSync(path.join(__dirname, 'templates/user.html'), 'utf-8'),
 };
 
 /**
@@ -21,6 +22,14 @@ function listener(req, res) {
     return;
   }
 
+  if (req.url === '/' || req.url === '/users' || req.url === '/users/') {
+    res.writeHead(302, {
+      Location: '/users.html',
+    });
+    res.end();
+    return;
+  }
+
   if (req.url === '/users.html') {
     const users = dbClient.getList();
     res.statusCode = 200;
@@ -30,17 +39,24 @@ function listener(req, res) {
     res.end();
     return;
   }
-  if (req.url.startsWith('/users/')) {
-    const id = req.url.slice(7);
-    res.statusCode = 200;
-    const content = Mustache.render(templates.users, dbClient.findUsers(id));
+  if (isEmpty(myURL.search)) {
+    const user = dbClient.findUser(id);
+    const content = Mustache.render(templates.user, user);
     res.write(content);
     res.end();
     return;
   }
+
+    dbClient.update(id, userUpdateData, () => {
+      res.writeHead(302, {
+        Location: '/users.html',
+      });
+      res.end();
+    return;
+  });
+
   serveStatic(req, res);
 }
 
 const server = http.createServer(listener);
 
-server.listen(9090);

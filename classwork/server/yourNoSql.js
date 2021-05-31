@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { find } = require('lodash');
 const path = require('path');
 
 class YourNoSql {
@@ -8,10 +9,27 @@ class YourNoSql {
     return JSON.parse(fs.readFileSync(this.dataFileName, 'utf-8'));
   }
 
-  findUsers(id) {
-    const users = this.getList();
-    const foundUser = users.find((item) => item._id === id);
-    return foundUser;
+  findUser(id) {
+    return find(this.getList(), { _id: id });
+  }
+
+  update(id, userData, cb) {
+    const originalUsers = this.getList();
+    const users = originalUsers.map((user) => {
+      if (user._id === id) {
+        return {
+          ...user,
+          ...userData,
+        };
+      }
+      return user;
+    });
+
+    this.save(users, cb);
+  }
+
+  save(data, cb) {
+    fs.writeFile(this.dataFileName, JSON.stringify(data), cb);
   }
 }
 

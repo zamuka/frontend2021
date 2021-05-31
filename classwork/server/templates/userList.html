@@ -4,8 +4,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" type="text/css" href="../styles/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="./styles.css">
-      <script src="./main.js" type="module"></script>
+      <!-- <link rel="stylesheet" type="text/css" href="./styles.css"> -->
       <title>{{title}}</title>
     <body>
       <table class="table">
@@ -14,10 +13,12 @@
         </thead>
         <tbody>
           {{#users}}
-          <tr>
+          <tr data-id='{{_id}}'>
             <td>{{index}}</td>
             <td><a href="/users/{{_id}}">{{name}}</a></td>
-            <td>{{gender}}</td><td>{{balance}}</td><td>{{email}}</td>
+            <td>{{gender}}</td>
+            <td>{{balance}}</td>
+            <td>{{email}}</td>
           </tr>
           {{/users}}
         </tbody>
