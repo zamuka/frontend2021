@@ -6,10 +6,18 @@ const { isEmpty } = require('lodash');
 const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
 
-const templates = {
-  userList: null,
-  user: null,
-};
+const templates = {};
+
+const filesToLoadBeforeStart = [
+  {
+    path: path.join(__dirname, 'templates/userList.html'),
+    templateName: 'userList',
+  },
+  {
+    path: path.join(__dirname, 'templates/user.html'),
+    templateName: 'user',
+  },
+];
 
 /**
  * @param {http.IncomingMessage} req
@@ -75,38 +83,21 @@ function listener(req, res) {
 }
 
 function createServer() {
-  http.createServer(listener).listen(9090);
-  console.log('Server is running at http://localhost:9090/');
+  if (Object.keys(templates).length === filesToLoadBeforeStart.length) {
+    http.createServer(listener).listen(9090);
+    console.log('Server is running at http://localhost:9090/');
+  }
 }
 
-fs.readFile(path.join(__dirname, 'templates/userList.html'), 'utf-8', (err, data) => {
-  setTimeout(() => {
-    if (err) {
-      throw err;
-    }
+filesToLoadBeforeStart.forEach((file) => {
+  fs.readFile(file.path, 'utf-8', (err, data) => {
+    setTimeout(() => {
+      if (err) {
+        throw err;
+      }
+      templates[file.templateName] = data;
 
-    templates.userList = data;
-
-    // eslint-disable-next-line no-shadow
-    fs.readFile(path.join(__dirname, 'templates/user.html'), 'utf-8', (err, data) => {
-      setTimeout(() => {
-        if (err) {
-          throw err;
-        }
-
-        templates.user = data;
-
-        createServer();
-      }, 2000);
-    });
-  }, 3000);
+      createServer();
+    }, 3000);
+  });
 });
-
-let counter = 1;
-const timer = setInterval(() => {
-  console.log(counter);
-  counter = counter + 1;
-  if (counter > 10) {
-    clearInterval(timer);
-  }
-}, 1000);
