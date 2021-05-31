@@ -91,13 +91,11 @@ function createServer() {
 
 filesToLoadBeforeStart.forEach((file) => {
   fs.readFile(file.path, 'utf-8', (err, data) => {
-    setTimeout(() => {
-      if (err) {
-        throw err;
-      }
-      templates[file.templateName] = data;
+    if (err) {
+      throw err;
+    }
+    templates[file.templateName] = data;
 
-      createServer();
-    }, 3000);
+    createServer();
   });
 });
