@@ -6,26 +6,26 @@ class YourNoSql {
   dataFileName = path.join(__dirname, 'users.json');
 
   getList(callback) {
-    fs.readFile(this.dataFileName, 'utf-8', callback);
-  }
-
-  findUser(id, foundUser) {
-    this.getList(function (err, data) {
+    fs.readFile(this.dataFileName, 'utf-8', function(err, data) {
       if (err) {
         throw err;
       }
       const users = JSON.parse(data);
+      callback(users);
+    });
+  }
+
+  findUser(id, foundUser) {
+    this.getList(function (data) {
+      const users = data;
       const listUser = find(users, { _id: id });
       foundUser(listUser);
     });
   }
 
   update(id, userData, cb) {
-    this.getList(function (err, data) {
-      if (err) {
-        throw err;
-      }
-      const originalUsers = JSON.parse(data);
+    this.getList(function (data) {
+      const originalUsers = data;
       const users = originalUsers.map((user) => {
         if (user._id === id) {
           return {

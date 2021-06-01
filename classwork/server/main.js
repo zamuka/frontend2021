@@ -31,12 +31,9 @@ function listener(req, res) {
   }
 
   if (req.url === '/users.html') {
-    res.statusCode = 200;
-    dbClient.getList(function (err, data) {
-      if (err) {
-        throw err;
-      }
-      const users = JSON.parse(data);
+    dbClient.getList(function (data) {
+      res.statusCode = 200;
+      const users = data;
 
       const content = Mustache.render(templates.userList, { title: 'User List from data', users });
       res.write(content);
