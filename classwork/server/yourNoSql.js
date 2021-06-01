@@ -5,8 +5,11 @@ const path = require('path');
 class YourNoSql {
   dataFileName = path.join(__dirname, 'users.json');
 
-  getList() {
-    return JSON.parse(fs.readFileSync(this.dataFileName, 'utf-8'));
+  getList(cb) {
+    fs.readFile(this.dataFileName, 'utf-8', (err, data) => {
+      const list = JSON.parse(data);
+      cb(list);
+    });
   }
 
   findUser(id) {
