@@ -7,8 +7,8 @@ const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
 
 const templates = {
-  userList: fs.readFileSync(path.join(__dirname, 'templates/userList.html'), 'utf-8'),
-  user: fs.readFileSync(path.join(__dirname, 'templates/user.html'), 'utf-8'),
+  userList: null,
+  user: null,
 };
 
 /**
@@ -31,12 +31,17 @@ function listener(req, res) {
   }
 
   if (req.url === '/users.html') {
-    const users = dbClient.getList();
     res.statusCode = 200;
+    dbClient.getList(function (err, data) {
+      if (err) {
+        throw err;
+      }
+      const users = JSON.parse(data);
 
-    const content = Mustache.render(templates.userList, { title: 'User List from data', users });
-    res.write(content);
-    res.end();
+      const content = Mustache.render(templates.userList, { title: 'User List from data', users });
+      res.write(content);
+      res.end();
+    });
     return;
   }
 
@@ -48,10 +53,11 @@ function listener(req, res) {
     const userUpdateData = Object.fromEntries(myURL.searchParams.entries());
 
     if (isEmpty(myURL.search)) {
-      const user = dbClient.findUser(id);
-      const content = Mustache.render(templates.user, user);
-      res.write(content);
-      res.end();
+      dbClient.findUser(id, function (user) {
+        const content = Mustache.render(templates.user, user);
+        res.write(content);
+        res.end();
+      });
       return;
     }
 
@@ -68,6 +74,20 @@ function listener(req, res) {
   serveStatic(req, res);
 }
 
-const server = http.createServer(listener);
+function createServer() {
+  http.createServer(listener).listen(9090);
+}
 
-server.listen(9090);
+fs.readFile(path.join(__dirname, 'templates/userList.html'), 'utf-8', function (err, contentUserList) {
+  if (err) {
+    throw err;
+  }
+  fs.readFile(path.join(__dirname, 'templates/user.html'), 'utf-8', function (err, contentUser) {
+    if (err) {
+      throw err;
+    }
+    templates.userList = contentUserList;
+    templates.user = contentUser;
+    createServer();
+  });
+});
