@@ -12,27 +12,32 @@ class YourNoSql {
     });
   }
 
-  findUser(id) {
-    return find(this.getList(), { _id: id });
+  findUser(id, currentUser) {
+    this.getList(function (data) {
+      const user = data;
+      const userCard = find(user, { _id: id });
+      currentUser (userCard);
+    });
   }
 
-  update(id, userData, cb) {
-    const originalUsers = this.getList();
-    const users = originalUsers.map((user) => {
-      if (user._id === id) {
-        return {
-          ...user,
-          ...userData,
-        };
-      }
-      return user;
+  update(id, userData, cb, changedUser) {
+    this.getList(function (data) {
+      const originalUsers = data;
+      const users = originalUsers.map((user) => {
+        if (user._id === id) {
+          return {
+            ...user,
+            ...userData,
+          };
+        }
+        return user;
+      });
+      changedUser(users, cb);
     });
-
-    this.save(users, cb);
   }
 
   save(data, cb) {
-    fs.writeFile(this.dataFileName, JSON.stringify(data), cb);
+    fs.writeFile(this.dataFileName, JSON.stringify(data, null, 2), cb);
   }
 }
 
