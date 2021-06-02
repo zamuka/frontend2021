@@ -6,15 +6,26 @@ const { serveStatic } = require("./serveStatic");
 const Mustache = require("mustache");
 
 const templates = {
-  userList: fs.readFileSync(
-    path.join(__dirname, "templates/userList.html"),
-    "utf-8"
-  ),
-  userSelected: fs.readFileSync(
-    path.join(__dirname, "templates/userSelected.html"),
-    "utf-8"
-  ),
+  userList: "",
+  userSelected: "",
 };
+
+fs.readFile(
+  path.join(__dirname, "templates/userList.html"),
+  "utf-8",
+  (err, data) => {
+    if (err) throw err;
+    templates.userList = data;
+  }
+);
+fs.readFile(
+  path.join(__dirname, "templates/userSelected.html"),
+  "utf-8",
+  (err, data) => {
+    if (err) throw err;
+    templates.userSelected = data;
+  }
+);
 
 /**
  * @param {http.IncomingMessage} req
@@ -52,6 +63,12 @@ function listener(req, res) {
   serveStatic(req, res);
 }
 
-const server = http.createServer(listener);
+let timer = setInterval(checkTemplates, 1);
 
-server.listen(9090);
+function checkTemplates() {
+  if (templates.userList !== "" && templates.userSelected !== "") {
+    const server = http.createServer(listener);
+    server.listen(9090);
+    clearInterval(timer);
+  }
+}
