@@ -21,3 +21,73 @@
  */
 
 /** YOUR CODE HERE */
+
+function myFunction() {
+    function trafficXallowed(){
+        var crosswalkX = document.getElementById("crosswalkX");
+        crosswalkX.classList.add("red");
+        crosswalkX.classList.remove("green");
+
+        var roadX = document.getElementById("roadX");
+        roadX.classList.add("green");
+        roadX.classList.remove("red");
+    
+        var crosswalkY = document.getElementById("crosswalkY");
+        crosswalkY.classList.add("green");
+        crosswalkY.classList.remove("red");
+    
+        var roadY = document.getElementById("roadY");
+        roadY.classList.add("red");
+        roadY.classList.remove("green");
+    };
+    setTimeout(trafficXallowed,0);
+
+    function trafficXprohibited(){
+        var crosswalkX = document.getElementById("crosswalkX");
+        crosswalkX.classList.remove("red");
+        crosswalkX.classList.add("green");
+    
+        var roadX = document.getElementById("roadX");
+        roadX.classList.remove("green");
+        roadX.classList.add("red");
+    
+        var crosswalkY = document.getElementById("crosswalkY");
+        crosswalkY.classList.remove("green");
+        crosswalkY.classList.add("red");
+    
+        var roadY = document.getElementById("roadY");
+        roadY.classList.remove("red");
+        roadY.classList.add("green");
+    }
+    setTimeout(trafficXprohibited,6000);
+
+    function yellow() {
+        function yellowOn() {
+            var roadX = document.getElementById("roadX");
+            roadX.classList.add("yellow");
+    
+            var roadX = document.getElementById("roadY");
+            roadX.classList.add("yellow");
+        }
+        setTimeout(yellowOn, 3000);
+    
+        function yellowOff() {
+            var roadX = document.getElementById("roadX");
+            roadX.classList.remove("yellow");
+    
+            var roadX = document.getElementById("roadY");
+            roadX.classList.remove("yellow");
+        }
+        setTimeout(yellowOff, 6000);
+        setTimeout(yellowOn, 9000);
+        setTimeout(yellowOff, 12000);
+    }
+        yellow();
+};
+myFunction();
+
+setInterval(myFunction, 12000);
+
+
+
+

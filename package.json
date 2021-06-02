@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sandbox": "live-server sandbox",
-    "start": "npm run server",
+    "start": "npm run sandbox",
     "lint": "eslint {sandbox/**/*,homework/**/*,classwork/**/*}",
     "server": "node ./classwork/server/main.js",
     "server-watch": "nodemon ./classwork/server/main.js"
