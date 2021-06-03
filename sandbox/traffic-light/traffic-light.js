@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * Светофоры находятся в полном беспорядке.
  * Ваша здача починить их и заставить работать как надо с помощью
@@ -19,5 +20,24 @@
  * 3. Добавьте жетлый вместе с красным перед зеленым
  * 4. Обратный отсчет - конечно, задание со звездочкой
  */
+import { iterationTime } from './modules/_config.js';
+import { x_side_green, y_side_green } from './modules/_toggle_green.js';
 
-/** YOUR CODE HERE */
+const startUp = () => {
+  let toggler = false;
+  x_side_green();
+
+  setInterval(() => {
+    if (toggler) {
+      x_side_green();
+      toggler = false;
+      return;
+    }
+
+    y_side_green();
+
+    toggler = true;
+  }, iterationTime);
+};
+
+window.addEventListener('DOMContentLoaded', startUp);
