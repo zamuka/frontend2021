@@ -6,7 +6,7 @@ import { LIGHT_COLORS } from './_config.js';
  * @param {HTMLDivEelement} element
  * @param  {...string} color
  */
-const set_color = (element, ...color) => {
+const setColor = (element, ...color) => {
   const colors = Object.values(LIGHT_COLORS);
 
   colors.forEach((value) => {
@@ -16,4 +16,4 @@ const set_color = (element, ...color) => {
   element.classList.add(...color);
 };
 
-export default set_color;
+export default setColor;

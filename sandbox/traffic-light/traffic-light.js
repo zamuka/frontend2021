@@ -20,22 +20,25 @@
  * 3. Добавьте жетлый вместе с красным перед зеленым
  * 4. Обратный отсчет - конечно, задание со звездочкой
  */
+import {
+  streetXGreen,
+  streetYGreen,
+} from './modules/_toggleGreen.js';
+
 import { iterationTime } from './modules/_config.js';
-import { x_side_green, y_side_green } from './modules/_toggle_green.js';
 
 const startUp = () => {
   let toggler = false;
-  x_side_green();
+  streetXGreen();
 
   setInterval(() => {
     if (toggler) {
-      x_side_green();
+      streetXGreen();
       toggler = false;
       return;
     }
 
-    y_side_green();
-
+    streetYGreen();
     toggler = true;
   }, iterationTime);
 };

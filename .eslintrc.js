@@ -24,6 +24,5 @@ module.exports = {
     'import/extensions': ['off'],
     'no-underscore-dangle': ['off'],
     'no-shadow': ['error', { allow: ['err'] }],
-    camelcase: 'off',
   },
 };
