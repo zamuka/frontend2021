@@ -19,5 +19,78 @@
  * 3. Добавьте жетлый вместе с красным перед зеленым
  * 4. Обратный отсчет - конечно, задание со звездочкой
  */
+const arrayLights = Array.from(document.querySelectorAll(".light"));
+const delaySec = 10;
 
-/** YOUR CODE HERE */
+function majorRoad () {
+  arrayLights.forEach((light, index) => {
+    if (index === 0) {
+      light.classList.add("red");
+      light.classList.remove("green");
+      
+    }
+    if (index === 1) {
+      light.classList.remove("red");
+      light.classList.add("green");
+      light.classList.remove("yellow");
+    }
+    if (index === 2) {
+      light.classList.add("red");
+      light.classList.remove("green");
+      light.classList.remove("yellow");
+      setTimeout(() => {
+        light.classList.add("yellow");
+      }, ((delaySec - 3) * 1000));
+    }
+    if (index === 3) {
+      light.classList.remove("red");
+      light.classList.add("green");
+    }
+  })
+  yellowColor(minorRoad);
+};
+
+function minorRoad () {
+  arrayLights.forEach((light, index) => {
+    if (index === 0) {
+      light.classList.remove("red");
+      light.classList.add("green");
+    }
+    if (index === 1) {
+      light.classList.add("red");
+      light.classList.remove("green");
+      light.classList.remove("yellow");
+    }
+    if (index === 2) {
+      light.classList.remove("red");
+      light.classList.add("green");
+      light.classList.remove("yellow");
+    }
+    if (index === 3) {
+      light.classList.add("red");
+      light.classList.remove("green");
+    }
+  })
+  yellowColor(majorRoad);
+};
+
+function yellowColor (fn) {
+
+  setTimeout(() => {
+    arrayLights.forEach ((light, index) => {
+      if (index === 1 || index === 2) {
+        light.classList.remove("green");
+        light.classList.remove("red");
+        light.classList.add("yellow");
+        setTimeout(() => {
+          fn();
+        }, 1000);
+      }
+    })
+  }, (delaySec * 1000));
+};
+
+
+
+
+document.addEventListener('load', majorRoad());
