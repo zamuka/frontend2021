@@ -89,3 +89,25 @@
   background-color: yellow;
   box-shadow: 0 0 40px 10px yellow;
 }
+
+.red-light {
+  background-color: red;
+  box-shadow: 0 0 40px 10px red;
+}
+
+.yellow-light {
+  background-color: yellow;
+  box-shadow: 0 0 40px 10px yellow;
+}
+
+.green-light {
+  background-color: lime;
+  box-shadow: 0 0 40px 10px #00dd00;
+}
+
+.counterColor1 {
+  color: red;
+}
+.counterColor2 {
+  color: #00dd00;
+}
