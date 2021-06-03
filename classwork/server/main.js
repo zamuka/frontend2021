@@ -32,15 +32,12 @@ function listener(req, res) {
 
   if (req.url === '/users.html') {
     res.statusCode = 200;
-    dbClient.getList(function (err, data) {
-      if (err) {
-        return;
-      }
-      const users = JSON.parse(data);
-      const content = Mustache.render(templates.userList, { title: 'User List from data', users });
-      res.write(content);
-      res.end();
-    });
+    const users = dbClient.getList();
+    res.statusCode = 200;
+
+    const content = Mustache.render(templates.userList, { title: 'User List from data', users });
+    res.write(content);
+    res.end();
     return;
   }
 
@@ -52,11 +49,10 @@ function listener(req, res) {
     const userUpdateData = Object.fromEntries(myURL.searchParams.entries());
 
     if (isEmpty(myURL.search)) {
-      dbClient.findUser(id, function (user) {
-        const content = Mustache.render(templates.user, user);
-        res.write(content);
-        res.end();
-      });
+      const user = dbClient.findUser(id);
+      const content = Mustache.render(templates.user, user);
+      res.write(content);
+      res.end();
       return;
     }
 
@@ -65,9 +61,6 @@ function listener(req, res) {
         Location: '/users.html',
       });
       res.end();
-    },
-    function (users, cb) {
-      dbClient.save(users, cb);
     });
 
     return;
