@@ -1,20 +1,14 @@
+const fs = require('fs');
 const http = require('http');
 const path = require('path');
-const fs = require('fs');
 const Mustache = require('mustache');
 const { isEmpty } = require('lodash');
 const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
 
-const templateList = {
-  userList: {
-    content: null,
-    fileName: path.join(__dirname, 'templates/userList.html'),
-  },
-  user: {
-    content: null,
-    fileName: path.join(__dirname, 'templates/user.html'),
-  },
+const templates = {
+  userList: null,
+  user: null,
 };
 
 /**
@@ -45,7 +39,7 @@ function listener(req, res) {
 
     usersPromise.then(function (users) {
       res.statusCode = 200;
-      const content = Mustache.render(templateList.userList.content, { title: 'User List from data', users });
+      const content = Mustache.render(templates.userList, { title: 'User List from data', users });
       res.write(content);
       res.end();
     });
@@ -62,7 +56,7 @@ function listener(req, res) {
 
     if (isEmpty(myURL.search)) {
       dbClient.findUser(id).then((user) => {
-        const content = Mustache.render(templateList.user.content, user);
+        const content = Mustache.render(templates.user, user);
         res.write(content);
         res.end();
       });
@@ -81,18 +75,30 @@ function listener(req, res) {
   serveStatic(req, res);
 }
 
-const server = http.createServer(listener);
-
-function listenIfReady() {
-  const allLoaded = Object.values(templateList).every((template) => template.content);
-  if (allLoaded) {
-    server.listen(9090);
-  }
+function getTemplate(url) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(url, 'utf8', (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
 }
 
-Object.entries(templateList).forEach(([templateName, template]) => {
-  fs.readFile(template.fileName, 'utf-8', (err, userListContent) => {
-    templateList[templateName].content = userListContent;
-    listenIfReady();
-  });
-});
+const server = http.createServer(listener);
+
+// I know those are not URLs but...)
+const templatesURLs = [
+  path.join(__dirname, '/templates/userList.html'),
+  path.join(__dirname, '/templates/user.html'),
+];
+
+Promise.all(templatesURLs.map((url) => getTemplate(url)))
+  .then(([userList, user]) => {
+    templates.userList = userList;
+    templates.user = user;
+  })
+  .then(() => server.listen(9090))
+  .catch((err) => console.log(err));
