@@ -5,6 +5,14 @@ const TANK_FULL = 'tankFull';
  * @param {Element} node
  */
 class Mechanic {
+  _resolve = null;
+
+  // saving "resolve" function for future use
+  promise = new Promise((resolve) => { this._resolve = resolve; });
+
+  /**
+   * @param {Element} node
+   */
   constructor(node) {
     this.node = node;
     this.isWheelman = this.node.classList.contains('wheelman');
@@ -23,10 +31,11 @@ class Mechanic {
       this.wheel.classList.add('installed');
     }
     const event = new CustomEvent(this.eventName, { bubbles: true });
-    this.node.dispatchEvent(event);
     if (!this.node.closest('.go')) {
       this.node.classList.add('ready');
     }
+    this.node.dispatchEvent(event);
+    this._resolve();
   }
 }
 
@@ -38,7 +47,10 @@ function createMechanics() {
 function main() {
   createMechanics();
 
-  /** YOUR CODE HERE */
+  /**
+   * YOUR CODE HERE
+   * Add a "go" class to an element with "#pit-stop"
+   * */
 }
 
 window.addEventListener('load', main);
