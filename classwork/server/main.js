@@ -1,6 +1,6 @@
-const fs = require('fs');
 const http = require('http');
 const path = require('path');
+const fs = require('fs').promises;
 const Mustache = require('mustache');
 const { isEmpty } = require('lodash');
 const { dbClient } = require('./yourNoSql');
@@ -75,18 +75,6 @@ function listener(req, res) {
   serveStatic(req, res);
 }
 
-function getTemplate(url) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(url, 'utf8', (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
-  });
-}
-
 const server = http.createServer(listener);
 
 // I know those are not URLs but...)
@@ -95,7 +83,7 @@ const templatesURLs = [
   path.join(__dirname, '/templates/user.html'),
 ];
 
-Promise.all(templatesURLs.map((url) => getTemplate(url)))
+Promise.all(templatesURLs.map((url) => fs.readFile(url, 'utf8')))
   .then(([userList, user]) => {
     templates.userList = userList;
     templates.user = user;
