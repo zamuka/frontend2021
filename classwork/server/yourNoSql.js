@@ -1,4 +1,5 @@
-const fs = require('fs');
+// const fs = require('fs');
+const fsp = require('fs').promises;
 const { find } = require('lodash');
 const path = require('path');
 
@@ -6,39 +7,46 @@ class YourNoSql {
   dataFileName = path.join(__dirname, 'users.json');
 
   getList() {
-    return JSON.parse(fs.readFileSync(this.dataFileName, 'utf-8'));
+    // const listPromise = new Promise((resolve) => {
+    //   fs.readFile(this.dataFileName, 'utf-8', (err, data) => {
+    //     resolve(data);
+    //   });
+    // });
+
+    const listPromise = fsp.readFile(this.dataFileName, 'utf-8');
+
+    return listPromise.then((data) => JSON.parse(data));
   }
 
-  getListAsPromised() {
-    return new Promise((resolve) => {
-      fs.readFile(this.dataFileName, 'utf-8', (err, data) => {
-        const list = JSON.parse(data);
-        resolve(list);
-      });
-    });
-  }
-
+  /**
+   *
+   * @param {string} id
+   * @returns Promise<object>
+   */
   findUser(id) {
-    return find(this.getList(), { _id: id });
+    return this.getList()
+      .then((list) => find(list, { _id: id }));
   }
 
-  update(id, userData, cb) {
-    const originalUsers = this.getList();
-    const users = originalUsers.map((user) => {
-      if (user._id === id) {
-        return {
-          ...user,
-          ...userData,
-        };
-      }
-      return user;
-    });
-
-    this.save(users, cb);
+  update(id, userData) {
+    return this.getList()
+      .then((originalUsers) => {
+        const users = originalUsers.map((user) => {
+          if (user._id === id) {
+            return {
+              ...user,
+              ...userData,
+            };
+          }
+          return user;
+        });
+        return users;
+      })
+      .then((users) => this.save(users));
   }
 
-  save(data, cb) {
-    fs.writeFile(this.dataFileName, JSON.stringify(data), cb);
+  save(data) {
+    return fsp.writeFile(this.dataFileName, JSON.stringify(data));
   }
 }
 
