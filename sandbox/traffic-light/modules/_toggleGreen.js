@@ -5,10 +5,12 @@ import {
   streetY3Bulbs,
 } from './_config.js';
 
-import greenRed from './_greenRed.js';
-import greenYellowRed from './_greenYellowRed.js';
-import redGreen from './_redGreen.js';
-import redYellowGreen from './_redYellowGreen.js';
+import {
+  redGreen,
+  greenRed,
+  redYellowGreen,
+  greenYellowRed,
+} from './_colorSequences.js';
 
 const streetXGreen = () => {
   greenRed(streetX2Bulbs);
