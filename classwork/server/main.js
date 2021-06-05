@@ -1,6 +1,6 @@
 const http = require('http');
 const path = require('path');
-const fs = require('fs');
+const fs = require('fs').promises;
 const Mustache = require('mustache');
 const { isEmpty } = require('lodash');
 const { dbClient } = require('./yourNoSql');
@@ -9,13 +9,17 @@ const { serveStatic } = require('./serveStatic');
 const templateList = {
   userList: {
     content: null,
-    fileName: path.join(__dirname, 'templates/userList.html'),
+    fileName: path.join(__dirname, '/templates/userList.html'),
   },
   user: {
     content: null,
-    fileName: path.join(__dirname, 'templates/user.html'),
-  },
+    fileName: path.join(__dirname, '/templates/user.html'),
+  }
 };
+let arrayContent = [];
+for (let element in templateLists) {
+  arrayContent.push(element.fileName)
+}
 
 /**
  * @param {http.IncomingMessage} req
@@ -83,16 +87,14 @@ function listener(req, res) {
 
 const server = http.createServer(listener);
 
-function listenIfReady() {
-  const allLoaded = Object.values(templateList).every((template) => template.content);
-  if (allLoaded) {
-    server.listen(9090);
-  }
-}
 
-Object.entries(templateList).forEach(([templateName, template]) => {
-  fs.readFile(template.fileName, 'utf-8', (err, userListContent) => {
-    templateList[templateName].content = userListContent;
-    listenIfReady();
-  });
-});
+
+Promise.all(arrayContent.map((url) => fs.readFile(url, 'utf8')))
+  .then((arr) => {
+    arr = [];
+    templatesURLs.forEach((element) => {
+      arr.push(element.content)
+    })
+  })
+  .then(() => server.listen(9090))
+  .catch((err) => console.log(err));
