@@ -22,7 +22,8 @@ class Mechanic {
     if (this.isWheelman) {
       this.wheel.classList.add('installed');
     }
-    const event = new CustomEvent(this.eventName, { bubbles: true });
+    const event = new CustomEvent(this.eventName, { bubbles: true, detail: { node: this.node } });
+    window.dispatchEvent(event);
     if (!this.node.closest('.go')) {
       this.node.classList.add('ready');
     }
@@ -36,14 +37,21 @@ function createMechanics() {
 
 function main() {
   createMechanics();
-  function addListenerMultiplyEvents(element, eventNames, listener) {
-    const events = eventNames.split(' ');
-    for (let i = 0, iLen = events.length; i < iLen; i = i + 1) {
-      element.addEventListener(events[i], listener, false);
+  function checkIfAllReady() {
+    if (Array.from(document.querySelectorAll('.wheelman ,.refueller')).every((el) => el.classList.contains('ready'))) {
+      document.getElementById('pit-stop').classList.add('go');
     }
   }
-  const addClassGo = document.getElementById('pit-stop').classList.add('go');
-  addListenerMultiplyEvents(window, 'WHEEL_INSTALLED TANK_FULL', addClassGo);
+
+  window.addEventListener(TANK_FULL, (event) => {
+    event.detail.node.classList.add('ready');
+    checkIfAllReady();
+  });
+
+  window.addEventListener(WHEEL_INSTALLED, (event) => {
+    event.detail.node.classList.add('ready');
+    checkIfAllReady();
+  });
 }
 
 window.addEventListener('load', main);
