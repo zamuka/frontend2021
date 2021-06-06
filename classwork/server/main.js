@@ -1,6 +1,7 @@
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
+const fsp = require('fs').promises;
 const Mustache = require('mustache');
 const { isEmpty } = require('lodash');
 const { dbClient } = require('./yourNoSql');
@@ -83,16 +84,23 @@ function listener(req, res) {
 
 const server = http.createServer(listener);
 
-function listenIfReady() {
-  const allLoaded = Object.values(templateList).every((template) => template.content);
-  if (allLoaded) {
-    server.listen(9090);
-  }
-}
+const arrOfPromises = [];
+Object.values(templateList).forEach((template) => {
+  arrOfPromises.push(new Promise((resolve) => {
+    fs.readFile(template.fileName, 'utf-8', (err, userListContent) => {
+      resolve(userListContent);
+    });
+  }));
+});
 
-Object.entries(templateList).forEach(([templateName, template]) => {
-  fs.readFile(template.fileName, 'utf-8', (err, userListContent) => {
-    templateList[templateName].content = userListContent;
-    listenIfReady();
-  });
+// second variant:
+Object.values(templateList).forEach((template) => {
+  arrOfPromises.push(fsp.readFile(template.fileName, 'utf-8'));
+});
+// ------------
+// for both:
+Promise.all(arrOfPromises).then(([userList, user]) => {
+  templateList.userList.content = userList;
+  templateList.user.content = user;
+  server.listen(9090);
 });
