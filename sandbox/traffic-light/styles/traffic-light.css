@@ -68,24 +68,17 @@
   color: black;
 }
 
-/** color for numbers */
-.light.green .bulb {
-  color: lime;
-}
-.light.red .bulb {
-  color: red;
-}
-
-.light.red .bulb:first-child {
+.red {
   background-color: red;
   box-shadow: 0 0 40px 10px red;
 }
-.light.green .bulb:last-child {
-  background-color: lime;
-  box-shadow: 0 0 40px 10px #00dd00;
-}
 
-.light.yellow .bulb:not(:first-child):not(:last-child) {
+.yellow {
   background-color: yellow;
   box-shadow: 0 0 40px 10px yellow;
+}
+
+.green {
+  background-color: lime;
+  box-shadow: 0 0 40px 10px #00dd00;
 }

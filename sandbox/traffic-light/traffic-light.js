@@ -1,23 +1,203 @@
-/**
- * Светофоры находятся в полном беспорядке.
- * Ваша здача починить их и заставить работать как надо с помощью
- * setInterval и setTimeout
- *
- * Для включения и выключения лампочек достаточно добавить или убрать
- * класс red, yellow или green у нужного светофора.
- * С помощью текста внутри елементов с классом "bulb" можно отображать
- * оставшееся количество секунд.
- *
- * Сейчас классы и значения установлены только для демонстрации возможностей.
- * Все значения можно очистить перед реализацией.
- *
- * Реализуйте переключение светофора настолько детализировано, насколько у вас получится.
- *
- * 0. Если необходимо, добавьте id или классы светофорам
- * 1. Начните с установки только красного и зеленого
- * 2. Добавьте желтый между зеленым и красным
- * 3. Добавьте жетлый вместе с красным перед зеленым
- * 4. Обратный отсчет - конечно, задание со звездочкой
- */
+const redDuration = 20000;
+const yellowDuration = 3000;
+const greenDuration = 20000;
+const nightModeDuration = 700;
 
-/** YOUR CODE HERE */
+const leftTraffic = {
+  red: {
+    element: document.querySelector('.light.left.tall .bulb:first-child'),
+    class: 'red',
+    duration: redDuration,
+    changeColor(cb) {
+      this.element.classList.add(this.class);
+      setTimeout(() => {
+        this.element.classList.remove(this.class);
+        cb();
+      }, this.duration);
+    },
+  },
+
+  yellow: {
+    element: document.querySelector(
+      '.light.left.tall .bulb:not(:first-child):not(:last-child)'
+    ),
+    class: 'yellow',
+    duration: yellowDuration,
+    changeColor(cb) {
+      this.element.classList.add(this.class);
+      setTimeout(() => {
+        this.element.classList.remove(this.class);
+        cb();
+      }, this.duration);
+    },
+    nightMode() {
+      setInterval(() => {
+        this.element.classList.toggle(this.class);
+      }, nightModeDuration);
+    },
+  },
+
+  green: {
+    element: document.querySelector('.light.left.tall .bulb:last-child'),
+    class: 'green',
+    duration: greenDuration,
+    changeColor(cb) {
+      this.element.classList.add(this.class);
+      setTimeout(() => {
+        this.element.classList.remove(this.class);
+        cb();
+      }, this.duration);
+    },
+  },
+};
+
+const rightTraffic = {
+  red: {
+    element: document.querySelector('.light.right.tall .bulb:first-child'),
+    class: 'red',
+    duration: redDuration,
+    changeColor(cb) {
+      this.element.classList.add(this.class);
+      setTimeout(() => {
+        this.element.classList.remove(this.class);
+        cb();
+      }, this.duration);
+    },
+  },
+
+  yellow: {
+    element: document.querySelector(
+      '.light.right.tall .bulb:not(:first-child):not(:last-child)'
+    ),
+    class: 'yellow',
+    duration: yellowDuration,
+    changeColor(cb) {
+      this.element.classList.add(this.class);
+      setTimeout(() => {
+        this.element.classList.remove(this.class);
+        cb();
+      }, this.duration);
+    },
+    nightMode() {
+      setInterval(() => {
+        this.element.classList.toggle(this.class);
+      }, nightModeDuration);
+    },
+  },
+
+  green: {
+    element: document.querySelector('.light.right.tall .bulb:last-child'),
+    class: 'green',
+    duration: greenDuration,
+    changeColor(cb) {
+      this.element.classList.add(this.class);
+      setTimeout(() => {
+        this.element.classList.remove(this.class);
+        cb();
+      }, this.duration);
+    },
+  },
+};
+
+const leftVertical = {
+  red: document.querySelector('.light.vertical.right .bulb:first-child'),
+  green: document.querySelector('.light.vertical.right .bulb:last-child'),
+  toGreen(countdown) {
+    this.green.innerHTML = countdown / 1000;
+    let timer = setInterval(() => {
+      countdown = countdown - 1000;
+      this.green.innerHTML = countdown / 1000;
+      if (countdown === 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+    this.green.classList.add('green');
+    this.red.classList.remove('red');
+  },
+  toRed(countdown) {
+    this.red.innerHTML = countdown / 1000;
+    let timer = setInterval(() => {
+      countdown = countdown - 1000;
+      this.red.innerHTML = countdown / 1000;
+      if (countdown === 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+    this.red.classList.add('red');
+    this.green.classList.remove('green');
+  },
+};
+
+const rightVertical = {
+  red: document.querySelector('.light.vertical.left .bulb:first-child'),
+  green: document.querySelector('.light.vertical.left .bulb:last-child'),
+  toGreen(countdown) {
+    this.green.innerHTML = countdown / 1000;
+    let timer = setInterval(() => {
+      countdown = countdown - 1000;
+      this.green.innerHTML = countdown / 1000;
+      if (countdown === 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+    this.green.classList.add('green');
+    this.red.classList.remove('red');
+  },
+  toRed(countdown) {
+    this.red.innerHTML = countdown / 1000;
+    let timer = setInterval(() => {
+      countdown = countdown - 1000;
+      this.red.innerHTML = countdown / 1000;
+      if (countdown === 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+    this.red.classList.add('red');
+    this.green.classList.remove('green');
+  },
+};
+
+function leftTrafficLight() {
+  leftTraffic.red.changeColor(function () {
+    leftTraffic.yellow.changeColor(function () {
+      leftTraffic.green.changeColor(function () {
+        leftTraffic.yellow.changeColor(function () {
+          leftTrafficLight();
+        });
+      });
+    });
+    leftVertical.toRed(greenDuration + yellowDuration + yellowDuration);
+  });
+  leftVertical.toGreen(redDuration);
+}
+
+function rightTrafficLight() {
+  rightTraffic.green.changeColor(function () {
+    rightTraffic.yellow.changeColor(function () {
+      rightTraffic.red.changeColor(function () {
+        rightTraffic.yellow.changeColor(function () {
+          rightTrafficLight();
+        });
+        rightVertical.toRed(greenDuration + yellowDuration + yellowDuration);
+      });
+      rightVertical.toGreen(redDuration);
+    });
+  });
+  rightVertical.toRed(greenDuration + yellowDuration);
+}
+
+function trafficLight() {
+  let date = new Date();
+  let hours = date.getHours();
+  if (hours > 4 && hours < 23) {
+    leftTrafficLight();
+    rightTrafficLight();
+    setInterval(trafficLight, 2.16e7);
+  } else {
+    leftTraffic.yellow.nightMode();
+    rightTraffic.yellow.nightMode();
+    setInterval(trafficLight, 2.16e7);
+  }
+}
+
+trafficLight();
