@@ -66,7 +66,7 @@ function counter(count1, count2, light) {
     indLeftCros1.classList.add('green-light');
     indLeftCros0.innerHTML = setCount1;
     indLeftCros0.classList.remove('red-light');
-    indLeftCros0.classList.add('counterColor1');
+    indLeftCros0.classList.add('counterColor2');
     indRightCros0.classList.add('red-light');
     indRightCros0.classList.remove('counterColor1');
     indRightCros0.innerHTML = '';
