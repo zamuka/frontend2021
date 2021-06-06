@@ -9,16 +9,16 @@ const { serveStatic } = require('./serveStatic');
 const templateList = {
   userList: {
     content: null,
-    fileName: path.join(__dirname, '/templates/userList.html'),
+    fileName: path.join(__dirname, 'templates/userList.html'),
   },
   user: {
     content: null,
-    fileName: path.join(__dirname, '/templates/user.html'),
+    fileName: path.join(__dirname, 'templates/user.html'),
   }
 };
 let arrayContent = [];
-for (let element in templateLists) {
-  arrayContent.push(element.fileName)
+for (let element in templateList) {
+  arrayContent.push(templateList[element].fileName)
 }
 
 /**
@@ -89,12 +89,11 @@ const server = http.createServer(listener);
 
 
 
-Promise.all(arrayContent.map((url) => fs.readFile(url, 'utf8')))
-  .then((arr) => {
-    arr = [];
-    templatesURLs.forEach((element) => {
-      arr.push(element.content)
-    })
+Promise.all(arrayContent.map((url) => fs.
+readFile(url, 'utf8')))
+  .then(([userList, user]) => {
+    templateList.userList.content = userList;
+    templateList.user.content = user;
   })
   .then(() => server.listen(9090))
   .catch((err) => console.log(err));
