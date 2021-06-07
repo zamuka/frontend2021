@@ -1,6 +1,6 @@
 const http = require('http');
 const path = require('path');
-const fs = require('fs').promises;
+const fs = require('fs');
 const Mustache = require('mustache');
 const { isEmpty } = require('lodash');
 const { dbClient } = require('./yourNoSql');
@@ -86,11 +86,22 @@ function listener(req, res) {
 }
 
 const server = http.createServer(listener);
+function allTemplates (url) {
+  return new Promise ((res, rej) => {
+    fs.readFile(url, "utf-8", (err, data) => {
+      if (err) {
+        rej(err)
+      }
+      if (data) {
+        res(data)
+      }
+    })
+  })
+}
 
 
 
-Promise.all(arrayContent.map((url) => fs.
-readFile(url, 'utf8')))
+Promise.all(arrayContent.map((url) => allTemplates(url)))
   .then(([userList, user]) => {
     templateList.userList.content = userList;
     templateList.user.content = user;
