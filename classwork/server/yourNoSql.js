@@ -6,7 +6,7 @@ class YourNoSql {
   dataFileName = path.join(__dirname, 'users.json');
 
   getList(cb) {
-    fs.fileParse(this.dataFileName, 'utf-8', cb);
+    fs.readFile(this.dataFileName, 'utf-8', cb);
   }
 
   findUser(id, enterUser) {

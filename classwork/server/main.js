@@ -31,12 +31,7 @@ function listener(req, res) {
   }
 
   if (req.url === '/users.html') {
-    // const users = dbClient.getList();
     res.statusCode = 200;
-
-    // const content = Mustache.render(templates.userList, { title: 'User List from data', users });
-    // res.write(content);
-    // res.end();
 
     dbClient.getList(function (err, data) {
       if (err) {
@@ -45,7 +40,7 @@ function listener(req, res) {
       const users = JSON.parse(data);
       const innerContent = Mustache.render(templates.userList, {
         title: 'User List from data',
-        users
+        users,
       });
       res.write(innerContent);
       res.end();
@@ -61,10 +56,6 @@ function listener(req, res) {
     const userUpdateData = Object.fromEntries(myURL.searchParams.entries());
 
     if (isEmpty(myURL.search)) {
-      // const user = dbClient.findUser(id);
-      // const content = Mustache.render(templates.user, user);
-      // res.write(content);
-      // res.end();
       dbClient.findUser(id, function (user) {
         const innerContent = Mustache.render(templates.user, user);
         res.write(innerContent);
@@ -88,10 +79,6 @@ function listener(req, res) {
 
   serveStatic(req, res);
 }
-
-// const server = http.createServer(listener);
-
-// server.listen(9090);
 
 fs.readFile(path.join(__dirname, 'templates/userList.html'), 'utf-8', function (err, dataList) {
   if (err) {
