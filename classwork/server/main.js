@@ -1,10 +1,13 @@
 const http = require('http');
 const path = require('path');
-const fs = require('fs');
+// const fs = require('fs');
+const fsp = require('fs/promises');
 const Mustache = require('mustache');
 const { isEmpty } = require('lodash');
+// const { resolve } = require('path');
 const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
+// const { url } = require('inspector');
 
 const templateList = {
   userList: {
@@ -16,6 +19,11 @@ const templateList = {
     fileName: path.join(__dirname, 'templates/user.html'),
   },
 };
+const arrPromiseList = [];
+
+Object.values(templateList).forEach((item) => {
+  arrPromiseList.push(fsp.readFile(item.fileName, 'utf-8'));
+});
 
 /**
  * @param {http.IncomingMessage} req
@@ -83,16 +91,10 @@ function listener(req, res) {
 
 const server = http.createServer(listener);
 
-function listenIfReady() {
-  const allLoaded = Object.values(templateList).every((template) => template.content);
-  if (allLoaded) {
-    server.listen(9090);
-  }
-}
-
-Object.entries(templateList).forEach(([templateName, template]) => {
-  fs.readFile(template.fileName, 'utf-8', (err, userListContent) => {
-    templateList[templateName].content = userListContent;
-    listenIfReady();
-  });
-});
+Promise.all(arrPromiseList)
+  .then(([userList, user]) => {
+    templateList.userList.content = userList;
+    templateList.user.content = user;
+  })
+  .then(() => server.listen(9090))
+  .catch((err) => console.log(err));

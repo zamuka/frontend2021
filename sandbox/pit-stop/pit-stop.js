@@ -38,15 +38,16 @@ class Mechanic {
     this._resolve();
   }
 }
-
+const promiseMechanics = [];
 function createMechanics() {
   document.querySelectorAll('.mechanic')
-    .forEach((node) => new Mechanic(node));
+    .forEach((node) => promiseMechanics.push(new Mechanic(node).promise));
 }
 
 function main() {
   createMechanics();
-
+  const pitStop = document.querySelector('#pit-stop');
+  Promise.all(promiseMechanics).then(() => pitStop.classList.add('go'));
   /**
    * YOUR CODE HERE
    * Add a "go" class to an element with "#pit-stop"
