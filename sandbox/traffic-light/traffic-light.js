@@ -20,4 +20,48 @@
  * 4. Обратный отсчет - конечно, задание со звездочкой
  */
 
-/** YOUR CODE HERE */
+function clear() {
+    for (const node of document.querySelectorAll('.light')) {
+        node.classList.remove('red', 'green', 'yellow');
+    }
+}
+
+const crosswalkX = document.querySelectorAll('.light')[0];
+const crosswalkY = document.querySelectorAll('.light')[3];
+const roadX = document.querySelectorAll('.light')[1];
+const roadY = document.querySelectorAll('.light')[2];
+
+function setColor(colorRoadX, colorRoadY, colorCrosswalkX, colorCrosswalkY) {
+    clear();
+    roadX.classList.add(colorRoadX);
+    roadY.classList.add(colorRoadY);
+    crosswalkX.classList.add(colorCrosswalkX);
+    crosswalkY.classList.add(colorCrosswalkY);
+}
+
+function attentionYellow(color) {
+    roadX.classList.add(color);
+    roadY.classList.add(color);
+}
+
+function delay(ms) {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(), ms);
+    });
+}
+
+Promise.resolve()
+    .then(() => clear())
+    .then(() => setColor('green', 'red', 'red', 'green'))
+    .then(() => delay(3000))
+    .then(() => attentionYellow('yellow'))
+    .then(() => delay(2000))
+    .then(() => clear())
+    .then(() => setColor('red', 'green', 'green', 'red'))
+    .then(() => delay(3000))
+    .then(() => attentionYellow('yellow'))
+    .then(() => delay(2000))
+    .then(() => clear())
+    .then(() => setColor('green', 'red', 'red', 'green'))
+
+
