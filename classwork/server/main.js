@@ -1,8 +1,9 @@
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
+const fsp = require('fs').promises;
 const Mustache = require('mustache');
-const { isEmpty } = require('lodash');
+const { isEmpty, template } = require('lodash');
 const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
 
@@ -83,16 +84,16 @@ function listener(req, res) {
 
 const server = http.createServer(listener);
 
-function listenIfReady() {
-  const allLoaded = Object.values(templateList).every((template) => template.content);
-  if (allLoaded) {
-    server.listen(9090);
-  }
-}
+const arrOfPromises = [];
 
 Object.entries(templateList).forEach(([templateName, template]) => {
-  fs.readFile(template.fileName, 'utf-8', (err, userListContent) => {
-    templateList[templateName].content = userListContent;
-    listenIfReady();
+  const promise = fsp.readFile(template.fileName, 'utf-8')
+    .then((templateContent) => {
+      templateList[templateName].content = templateContent;
+    });
+  arrOfPromises.push(promise);
   });
-});
+
+Promise.all(arrOfPromises).then(() => {
+  server.listen(9090);
+})
