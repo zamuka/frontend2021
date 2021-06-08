@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "live-server sandbox",
+    "sandbox": "live-server sandbox",
     "start": "npm run server",
-    "lint": "eslint {sandbox/**/*,homework/**/*,classwork/**/*}"
+    "lint": "eslint {sandbox/**/*,homework/**/*,classwork/**/*}",
+    "server": "node ./classwork/server/main.js",
+    "server-watch": "nodemon ./classwork/server/main.js"
   },
   "repository": {
     "type": "git",
@@ -21,12 +23,15 @@
   },
   "homepage": "https://github.com/zamuka/frontend2021#readme",
   "dependencies": {
-    "live-server": "1.2.1"
+    "live-server": "1.2.1",
+    "lodash": "^4.17.21",
+    "mustache": "4.2.0"
   },
   "devDependencies": {
     "babel-eslint": "10.1.0",
     "eslint": "7.23.0",
     "eslint-config-airbnb-base": "14.2.1",
-    "eslint-plugin-import": "2.22.1"
+    "eslint-plugin-import": "2.22.1",
+    "nodemon": "2.0.7"
   }
 }

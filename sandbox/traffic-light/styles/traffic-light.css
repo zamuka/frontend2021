@@ -1,0 +1,91 @@
+.light {
+  z-index: 20;
+  position: absolute;
+  background-color: lightgray;
+
+  transform: skewY(25deg);
+  box-shadow: 10px -10px 0px 0px black;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1px;
+  border-radius: 1px;
+  flex-direction: row;
+}
+
+.light.vertical {
+  flex-direction: column;
+}
+
+.light.left {
+  transform: skewY(-25deg);
+  box-shadow: -10px -10px 0px 0px black;
+}
+
+.light.left-handed::after {
+  border-right: none;
+  border-left: 3px solid lightgray;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 20px;
+  left: -20px;
+  right: unset;
+}
+
+.light.tall::after {
+  height: 240px;
+}
+
+/** stand */
+.light::after {
+  content: '';
+  border-top: 3px solid lightgray;
+  border-right: 3px solid lightgray;
+  border-radius: 0;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 0px;
+  width: 20px;
+  display: block;
+  height: 150px;
+  top: 40%;
+  position: absolute;
+  box-sizing: border-box;
+  right: -20px;
+}
+
+.bulb {
+  margin: 1px;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: monospace;
+  font-size: 16px;
+  color: black;
+}
+
+/** color for numbers */
+.light.green .bulb {
+  color: lime;
+}
+.light.red .bulb {
+  color: red;
+}
+
+.light.red .bulb:first-child {
+  background-color: red;
+  box-shadow: 0 0 40px 10px red;
+}
+.light.green .bulb:last-child {
+  background-color: lime;
+  box-shadow: 0 0 40px 10px #00dd00;
+}
+
+.light.yellow .bulb:not(:first-child):not(:last-child) {
+  background-color: yellow;
+  box-shadow: 0 0 40px 10px yellow;
+}
