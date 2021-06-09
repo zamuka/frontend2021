@@ -21,3 +21,66 @@
  */
 
 /** YOUR CODE HERE */
+
+const carLeft = document.querySelectorAll('.light')[2];
+const carRight = document.querySelectorAll('.light')[1];
+const footerLeft = document.querySelectorAll('.light')[3];
+const footerRight = document.querySelectorAll('.light')[0];
+
+function clear() {
+    for (const node of document.querySelectorAll ('.light')) {
+        node.classList.remove('red', 'green', 'yellow');
+    }
+}
+
+function setColor(firstPhaseColor, secondPhaseColor) {
+    carLeft.classList.add(firstPhaseColor);
+    carRight.classList.add(secondPhaseColor);
+    footerLeft.classList.add(secondPhaseColor);
+    footerRight.classList.add(firstPhaseColor);
+}
+
+function setLeftYellow(color) {
+    carLeft.classList.add(color);
+}
+
+function setRightYellow(color) {
+    carRight.classList.add(color);
+}
+
+function carLeftGreenOff(color) {
+    carLeft.classList.remove(color);
+}
+
+function carRightGreenOff(color) {
+    carRight.classList.remove(color);
+}
+
+function delay(ms) {
+    return new Promise ((resolve) => {
+        setTimeout(() => resolve(), ms);
+    });
+}
+
+function motionControl() {
+    Promise.resolve()
+    .then(() => clear())
+    .then(() => setColor('green', 'red'))
+    .then(() => delay(5000))
+    .then(() => setRightYellow('yellow'))
+    .then(() => delay(2000))
+    .then(() => carLeftGreenOff('green'))
+    .then(() => setLeftYellow('yellow'))
+    .then(() => delay(1000))
+    .then(() => clear())
+    .then(() => setColor('red', 'green'))
+    .then(() => delay(5000))
+    .then(() => setLeftYellow('yellow'))
+    .then(() => delay(2000))
+    .then(() => carRightGreenOff('green'))
+    .then(() => setRightYellow('yellow'))
+    .then(() => delay(1000))
+    .then(() => motionControl());
+}
+
+motionControl();
