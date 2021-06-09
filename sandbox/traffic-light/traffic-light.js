@@ -1,23 +1,48 @@
-/**
- * Светофоры находятся в полном беспорядке.
- * Ваша здача починить их и заставить работать как надо с помощью
- * setInterval и setTimeout
- *
- * Для включения и выключения лампочек достаточно добавить или убрать
- * класс red, yellow или green у нужного светофора.
- * С помощью текста внутри елементов с классом "bulb" можно отображать
- * оставшееся количество секунд.
- *
- * Сейчас классы и значения установлены только для демонстрации возможностей.
- * Все значения можно очистить перед реализацией.
- *
- * Реализуйте переключение светофора настолько детализировано, насколько у вас получится.
- *
- * 0. Если необходимо, добавьте id или классы светофорам
- * 1. Начните с установки только красного и зеленого
- * 2. Добавьте желтый между зеленым и красным
- * 3. Добавьте жетлый вместе с красным перед зеленым
- * 4. Обратный отсчет - конечно, задание со звездочкой
- */
+import { LeftHorisontal } from './lights/left-horisontal.js';
+import { RightHorisontal } from './lights/right-horisontal.js';
+import { LeftVertical } from './lights/left-vertical.js';
+import { RightVertical } from './lights/right-vertical.js';
+import { DELAY } from './lights/index.js';
 
-/** YOUR CODE HERE */
+const lights = {
+  leftHor: new LeftHorisontal(),
+  rightHor: new RightHorisontal(),
+  leftVer: new LeftVertical(),
+  rightVer: new RightVertical(),
+};
+
+const horisontalLights = [lights.leftHor, lights.rightHor];
+
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), ms);
+  });
+}
+
+function main() {
+  Promise.resolve()
+    .then(() => Object.values(lights).forEach((light) => light.start()))
+    .then(() => delay(DELAY.LONG))
+    .then(() => {
+      lights.leftHor.doGreenBlink();
+    })
+    .then(() => delay(DELAY.SHORT))
+    .then(() => {
+      horisontalLights.forEach((light) => light.changeColor());
+    })
+    .then(() => delay(DELAY.MEDIUM))
+    .then(() => {
+      Object.values(lights).forEach((light) => light.changeYellow());
+    })
+    .then(() => delay(DELAY.LONG))
+    .then(() => lights.rightHor.doGreenBlink())
+    .then(() => delay(DELAY.SHORT))
+    .then(() => {
+      horisontalLights.forEach((light) => light.changeColor());
+    })
+    .then(() => delay(DELAY.MEDIUM))
+    .then(() => Object.values(lights).forEach((light) => light.changeYellow()))
+    .then(() => main());
+}
+
+main();
