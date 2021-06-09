@@ -1,23 +1,98 @@
-/**
- * Светофоры находятся в полном беспорядке.
- * Ваша здача починить их и заставить работать как надо с помощью
- * setInterval и setTimeout
- *
- * Для включения и выключения лампочек достаточно добавить или убрать
- * класс red, yellow или green у нужного светофора.
- * С помощью текста внутри елементов с классом "bulb" можно отображать
- * оставшееся количество секунд.
- *
- * Сейчас классы и значения установлены только для демонстрации возможностей.
- * Все значения можно очистить перед реализацией.
- *
- * Реализуйте переключение светофора настолько детализировано, насколько у вас получится.
- *
- * 0. Если необходимо, добавьте id или классы светофорам
- * 1. Начните с установки только красного и зеленого
- * 2. Добавьте желтый между зеленым и красным
- * 3. Добавьте жетлый вместе с красным перед зеленым
- * 4. Обратный отсчет - конечно, задание со звездочкой
- */
+const lights = Array.from(document.querySelectorAll('.light'));
+const majorVer = lights[0];
+const majorHor = lights[1];
+const minorHor = lights[2];
+const minorVer = lights[3];
+const colors = {
+  green: 'green',
+  yellow: 'yellow',
+  red: 'red'
+}
 
-/** YOUR CODE HERE */
+function start () {
+  
+  majorVer.classList.remove(colors.green, colors.red);
+
+  majorHor.classList.remove(colors.red, colors.yellow, colors.green);
+
+  minorHor.classList.remove(colors.green, colors.yellow, colors.red);
+
+  minorVer.classList.remove(colors.red, colors.green);
+}
+
+function firstStage () {
+  majorVer.classList.add(colors.red);
+  majorVer.classList.remove(colors.green);
+
+  majorHor.classList.add(colors.green);
+  majorHor.classList.remove(colors.red, colors.yellow);
+
+  minorHor.classList.remove(colors.green, colors.yellow);
+  minorHor.classList.add(colors.red);
+
+  minorVer.classList.remove(colors.red);
+  minorVer.classList.add(colors.green)
+}
+
+function secondStage () {
+  majorVer.classList.remove(colors.red);
+  majorVer.classList.add(colors.green);
+
+  majorHor.classList.add(colors.red);
+  majorHor.classList.remove(colors.green, colors.yellow);
+
+  minorHor.classList.remove(colors.red, colors.yellow);
+  minorHor.classList.add(colors.green);
+
+  minorVer.classList.remove(colors.green);
+  minorVer.classList.add(colors.red)
+}
+
+function firstTransitionalStage (elem) {
+
+  minorHor.classList.add(colors.yellow);
+  majorHor.classList.add(colors.yellow);
+}
+
+function secondTransitionalStage () {
+
+
+  minorHor.classList.remove(colors.green, colors.red);
+  majorHor.classList.remove(colors.green, colors.red);
+}
+
+function delay (fn, ms) {
+  return new Promise ((resolve) => {
+    setTimeout(() => {
+      fn();
+      resolve();
+    }, ms);
+  })
+}
+function blinking(elem, ms) {
+  setTimeout(() => {
+      const intervalId = setInterval(() => {
+        elem.classList.toggle(colors.green)
+      }, 400);
+      setTimeout(() => {
+          clearInterval(intervalId)
+      }, 3000);
+  }, ms);
+}
+
+function main () {
+  Promise.resolve()
+    .then(() => {start()})
+    .then(() => {delay(firstStage, 0)})
+    .then(() => {delay(firstTransitionalStage, 9000)})
+    .then(() => {blinking(majorHor, 9000)})
+    .then(() => {delay(secondTransitionalStage, 12000)})
+    .then(() => {delay(secondStage, 15000)})
+    .then(() => {delay(firstTransitionalStage, 24000)})
+    .then(() => {blinking(minorHor, 24000)})
+    .then(() => {delay(secondTransitionalStage, 27000)})
+    .then(() => {delay(main, 30000)})
+    
+}
+
+document.addEventListener('load', main())
