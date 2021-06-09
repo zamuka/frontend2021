@@ -50,7 +50,8 @@ function delay(ms) {
     });
 }
 
-Promise.resolve()
+function main () {
+    Promise.resolve()
     .then(() => clear())
     .then(() => setColor('green', 'red', 'red', 'green'))
     .then(() => delay(3000))
@@ -63,5 +64,9 @@ Promise.resolve()
     .then(() => delay(2000))
     .then(() => clear())
     .then(() => setColor('green', 'red', 'red', 'green'))
+}
+
+main()
+setInterval (main, 10000)
 
 
