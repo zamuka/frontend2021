@@ -3,7 +3,7 @@ const path = require('path');
 
 function serveStatic(req, res) {
   // Serve static
-  const filePath = path.join('./sandbox', req.url);
+  const filePath = path.join(__dirname, 'public', req.url);
 
   fs.lstat(filePath, function (err, stat) {
     if (stat && stat.isDirectory()) {
@@ -52,5 +52,5 @@ function serveStatic(req, res) {
 }
 
 module.exports = {
-  serveStatic
-}
+  serveStatic,
+};
