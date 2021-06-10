@@ -37,7 +37,7 @@ function listener(req, res) {
   }
 
   if (req.url === '/users.html') {
-    const usersPromise = dbClient.getListAsPromised();
+    const usersPromise = dbClient.getList();
 
     // pending
     // resolved
@@ -61,14 +61,15 @@ function listener(req, res) {
     const userUpdateData = Object.fromEntries(myURL.searchParams.entries());
 
     if (isEmpty(myURL.search)) {
-      const user = dbClient.findUser(id);
-      const content = Mustache.render(templateList.user.content, user);
-      res.write(content);
-      res.end();
+      dbClient.findUser(id).then((user) => {
+        const content = Mustache.render(templateList.user.content, user);
+        res.write(content);
+        res.end();
+      });
       return;
     }
 
-    dbClient.update(id, userUpdateData, () => {
+    dbClient.update(id, userUpdateData).then(() => {
       res.writeHead(302, {
         Location: '/users.html',
       });
