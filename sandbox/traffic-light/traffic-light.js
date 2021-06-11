@@ -20,106 +20,54 @@
  * 4. Обратный отсчет - конечно, задание со звездочкой
  */
 
-const leftTrafficLight = document.querySelector('#left-traffic-light');
+const leftTrafficLights = document.querySelectorAll('.light')[2];
 const rightTrafficLight = document.querySelector('#right-traffic-light');
-const leftCrosswalk = document.querySelector('#left-crosswalk');
-const rightCrosswalk = document.querySelector('#right-crosswalk');
-rightCrosswalk.classList.remove('green');
-leftCrosswalk.classList.remove('red');
-leftTrafficLight.classList.remove('yellow', 'red');
+const leftCrosswalk = document.querySelectorAll('.light')[3];
+const rightCrosswalk = document.querySelectorAll('.light')[0];
+
+function clear() {
+  for (const node of document.querySelectorAll('.light')) {
+    node.classList.remove('red', 'yellow', 'green');
+  }
+}
+
+function setColor(lightleft, leftcross, rightcross) {
+  clear();
+  leftTrafficLights.classList.add(lightleft);
+  leftCrosswalk.classList.add(leftcross);
+  rightCrosswalk.classList.add(rightcross);
+}
+
+function turnedOnYellow(color) {
+  leftTrafficLights.classList.add(color);
+}
+
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), ms);
+  });
+}
+
+function main() {
+  Promise.resolve()
+    .then(() => clear())
+    .then(() => delay(1000))
+    .then(() => setColor('red', 'green', 'red'))
+    .then(() => delay(5000))
+    .then(() => turnedOnYellow('yellow'))
+    .then(() => delay(3000))
+    .then(() => clear())
+    .then(() => setColor('green', 'red', 'green'))
+    .then(() => delay(5000))
+    .then(() => turnedOnYellow('yellow'))
+    .then(() => delay(3000));
+}
+main();
+setInterval(main, 17000);
+
 setInterval(function () {
   rightTrafficLight.classList.add('yellow');
 }, 1000);
 setInterval(function () {
   rightTrafficLight.classList.remove('yellow');
 }, 2000);
-
-const bulbsLeftTraffic = document.querySelectorAll('#left-traffic-light .bulb');
-const bulbsLeftCros = document.querySelectorAll('#left-crosswalk .bulb');
-const bulbsRightCros = document.querySelectorAll('#right-crosswalk .bulb');
-
-const bulbs = {
-  1: bulbsLeftTraffic[0],
-  2: bulbsLeftTraffic[1],
-  3: bulbsLeftTraffic[2],
-  4: bulbsLeftCros[0],
-  5: bulbsLeftCros[1],
-  6: bulbsRightCros[0],
-  7: bulbsRightCros[1],
-};
-
-function counter(count1, count2, light) {
-  let setCount1 = count1;
-  let setCount2 = count2;
-  const indLeftTraf0 = light[1];
-  const indLeftTraf1 = light[2];
-  const indLeftTraf2 = light[3];
-  const indLeftCros0 = light[4];
-  const indLeftCros1 = light[5];
-  const indRightCros0 = light[6];
-  const indRightCros1 = light[7];
-
-  const timeoutId = setInterval(function () {
-    indLeftTraf0.classList.add('red-light');
-    indLeftTraf1.innerHTML = setCount1;
-    indLeftTraf1.classList.add('counterColor1');
-    indLeftCros1.classList.add('green-light');
-    indLeftCros0.innerHTML = setCount1;
-    indLeftCros0.classList.remove('red-light');
-    indLeftCros0.classList.add('counterColor2');
-    indRightCros0.classList.add('red-light');
-    indRightCros0.classList.remove('counterColor1');
-    indRightCros0.innerHTML = '';
-
-    if (setCount1 <= 3) {
-      indLeftTraf1.innerHTML = '';
-      indLeftTraf1.classList.add('yellow-light');
-    }
-    setCount1 = setCount1 - 1;
-
-    if (setCount1 === 0) {
-      clearInterval(timeoutId);
-      indLeftTraf1.classList.remove('yellow-light', 'counterColor1');
-      indLeftCros1.classList.remove('green-light');
-      indLeftCros0.innerHTML = '';
-      indLeftCros0.classList.remove('counterColor1');
-      indRightCros0.classList.remove('red-light');
-      const timeId = setInterval(function () {
-        indLeftTraf0.classList.remove('red-light');
-        indLeftTraf2.classList.add('green-light');
-        indLeftTraf1.innerHTML = setCount2;
-        indLeftTraf1.classList.add('counterColor2');
-        indLeftCros0.classList.add('red-light');
-        indRightCros0.innerHTML = setCount2;
-        indRightCros0.classList.add('counterColor2');
-        indRightCros1.classList.add('green-light');
-
-        if (setCount2 === 0) {
-          indLeftTraf2.classList.remove('green-light');
-          clearInterval(timeId);
-          indLeftTraf1.innerHTML = '';
-          indLeftTraf1.classList.remove('counterColor2');
-          indLeftCros0.innerHTML = '';
-          indRightCros1.classList.remove('green-light');
-        }
-        setCount2 = setCount2 - 1;
-      }, 1000);
-    }
-  }, 1000);
-}
-
-let totalCounter;
-function sumTimeout(count1, count2) {
-  const sumCounter1 = count1 * 1000;
-  const sumCounter2 = count2 * 1000;
-  totalCounter = (sumCounter1 + sumCounter2) + 1000;
-  return totalCounter;
-}
-
-setTimeout(function restartCounter() {
-  const count1 = 10;
-  const count2 = 10;
-  sumTimeout(count1, count2);
-  counter(count1, count2, bulbs);
-  setTimeout(restartCounter, totalCounter);
-}, 100);
