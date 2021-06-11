@@ -1,8 +1,8 @@
-import { Light } from './light.js';
+// import { Light } from './light.js';
 
-class LeftVertical extends Light {
-    element = document.querySelector('.vertical.right');
-}
-export {
-  LeftVertical,
-};
+// class LeftVertical extends Light {
+//     element = document.querySelector('.vertical.right');
+// }
+// export {
+//   LeftVertical,
+// };

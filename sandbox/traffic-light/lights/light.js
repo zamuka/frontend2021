@@ -1,11 +1,14 @@
-import { COLORS } from './index.js';
+import { COLORS } from './config.js';
 
 class Light {
-  color = COLORS.RED;
+  constructor(options) {
+    this.color = options.color;
+    this.element = options.element;
+  }
 
-  element = null;
+  accessToRed = true;
 
-  flag = false;
+  accessToGreen = true;
 
   start() {
     this.element.classList.remove(COLORS.RED, COLORS.YELLOW, COLORS.GREEN);
@@ -25,23 +28,16 @@ class Light {
   }
 
   changeYellow() {
+    debugger;
+    console.log(this.accessToRed);
     if (this.element.classList.contains(COLORS.YELLOW)) {
-      if (this.flag === false) {
+      if (this.accessToRed) {
         this.replaceColor(COLORS.YELLOW, COLORS.RED);
-        this.flag = true;
+        this.accessToRed = false;
         return;
       }
-      this.element.classList.remove(COLORS.RED);
-      this.replaceColor(COLORS.YELLOW, COLORS.GREEN);
-      this.flag = false;
-      return;
+      console.log('Access to red is false');
     }
-
-    if (this.element.classList.contains(COLORS.RED)) {
-      this.replaceColor(COLORS.RED, COLORS.GREEN);
-      return;
-    }
-    this.replaceColor(COLORS.GREEN, COLORS.RED);
   }
 
   doGreenBlink() {

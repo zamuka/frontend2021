@@ -1,11 +1,11 @@
-import { Light } from './light.js';
-import { COLORS } from './index.js';
+// import { Light } from './light.js';
+// import { COLORS } from './config.js';
 
-class RightVertical extends Light {
-    color = COLORS.GREEN;
+// class RightVertical extends Light {
+//     color = COLORS.GREEN;
 
-    element = document.querySelector('.vertical.left');
-}
-export {
-  RightVertical,
-};
+//     element = document.querySelector('.vertical.left');
+// }
+// export {
+//   RightVertical,
+// };

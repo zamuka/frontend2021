@@ -1,12 +1,12 @@
-import { Light } from './light.js';
-import { COLORS } from './index.js';
+// import { Light } from './light.js';
+// import { COLORS } from './config.js';
 
-class LeftHorisontal extends Light {
-    color = COLORS.GREEN;
+// class LeftHorisontal extends Light {
+//     color = COLORS.GREEN;
 
-    element = document.querySelector('.left.tall');
-}
+//     element = document.querySelector('.left.tall');
+// }
 
-export {
-  LeftHorisontal,
-};
+// export {
+//   LeftHorisontal,
+// };
