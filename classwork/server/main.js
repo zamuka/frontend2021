@@ -21,7 +21,7 @@ const templateList = {
  * @param {http.IncomingMessage} req
  * @param {http.ServerResponse} res
  */
-function listener(req, res) {
+async function listener(req, res) {
   if (req.method !== 'GET') {
     res.statusCode = 405;
     res.end();
@@ -37,18 +37,16 @@ function listener(req, res) {
   }
 
   if (req.url === '/users.html') {
-    const usersPromise = dbClient.getList();
+    const users = await dbClient.getList();
 
     // pending
     // resolved
     // rejected
 
-    usersPromise.then(function (users) {
-      res.statusCode = 200;
-      const content = Mustache.render(templateList.userList.content, { title: 'User List from data', users });
-      res.write(content);
-      res.end();
-    });
+    res.statusCode = 200;
+    const content = Mustache.render(templateList.userList.content, { title: 'User List from data', users });
+    res.write(content);
+    res.end();
 
     return;
   }
