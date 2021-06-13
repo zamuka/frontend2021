@@ -59,21 +59,19 @@ async function listener(req, res) {
     const userUpdateData = Object.fromEntries(myURL.searchParams.entries());
 
     if (isEmpty(myURL.search)) {
-      dbClient.findUser(id).then((user) => {
-        const content = Mustache.render(templateList.user.content, user);
-        res.write(content);
-        res.end();
-      });
+      const user = await dbClient.findUser(id);
+      const content = Mustache.render(templateList.user.content, user);
+      res.write(content);
+      res.end();
       return;
     }
 
-    dbClient.update(id, userUpdateData).then(() => {
+    await dbClient.update(id, userUpdateData);
       res.writeHead(302, {
         Location: '/users.html',
       });
       res.end();
-    });
-    return;
+      return;
   }
 
   serveStatic(req, res);

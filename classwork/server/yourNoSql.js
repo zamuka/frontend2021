@@ -6,7 +6,7 @@ const path = require('path');
 class YourNoSql {
   dataFileName = path.join(__dirname, 'users.json');
 
-  getList() {
+  async getList() {
     // const listPromise = new Promise((resolve) => {
     //   fs.readFile(this.dataFileName, 'utf-8', (err, data) => {
     //     resolve(data);
@@ -15,7 +15,8 @@ class YourNoSql {
 
     const listPromise = fsp.readFile(this.dataFileName, 'utf-8');
 
-    return listPromise.then((data) => JSON.parse(data));
+    const data = await listPromise;
+    return JSON.parse(data);
   }
 
   /**
@@ -23,30 +24,27 @@ class YourNoSql {
    * @param {string} id
    * @returns Promise<object>
    */
-  findUser(id) {
-    return this.getList()
-      .then((list) => find(list, { _id: id }));
+  async findUser(id) {
+    const list = await this.getList();
+    return find(list, { _id: id });
   }
 
-  update(id, userData) {
-    return this.getList()
-      .then((originalUsers) => {
-        const users = originalUsers.map((user) => {
-          if (user._id === id) {
-            return {
-              ...user,
-              ...userData,
-            };
-          }
-          return user;
-        });
-        return users;
-      })
-      .then((users) => this.save(users));
+  async update(id, userData) {
+    const originalUsers = await this.getList();
+    const users = originalUsers.map((user) => {
+      if (user._id === id) {
+        return {
+          ...user,
+          ...userData,
+        };
+      }
+      return user;
+    });
+    await this.save(users);
   }
 
-  save(data) {
-    return fsp.writeFile(this.dataFileName, JSON.stringify(data));
+  async save(data) {
+    await fsp.writeFile(this.dataFileName, JSON.stringify(data));
   }
 }
 
