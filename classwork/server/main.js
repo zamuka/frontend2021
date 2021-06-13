@@ -1,6 +1,6 @@
 const http = require('http');
 const path = require('path');
-const fs = require('fs');
+const fsp = require('fs').promises;
 const Mustache = require('mustache');
 const { isEmpty } = require('lodash');
 const { dbClient } = require('./yourNoSql');
@@ -59,20 +59,16 @@ async function listener(req, res) {
     const userUpdateData = Object.fromEntries(myURL.searchParams.entries());
 
     if (isEmpty(myURL.search)) {
-      dbClient.findUser(id).then((user) => {
-        const content = Mustache.render(templateList.user.content, user);
-        res.write(content);
-        res.end();
-      });
+      const user = await dbClient.findUser(id);
+      const content = Mustache.render(templateList.user.content, user);
+      res.write(content);
+      res.end();
       return;
     }
 
-    dbClient.update(id, userUpdateData).then(() => {
-      res.writeHead(302, {
-        Location: '/users.html',
-      });
-      res.end();
-    });
+    await dbClient.update(id, userUpdateData);
+    res.statusCode = 200;
+    res.end();
     return;
   }
 
@@ -81,16 +77,14 @@ async function listener(req, res) {
 
 const server = http.createServer(listener);
 
-function listenIfReady() {
-  const allLoaded = Object.values(templateList).every((template) => template.content);
-  if (allLoaded) {
-    server.listen(9090);
-  }
+const arrOfPromises = Object.entries(templateList).map(async function ([templateName, template]) {
+  const templateContent = await fsp.readFile(template.fileName, 'utf-8');
+  templateList[templateName].content = templateContent;
+});
+
+async function listenServer() {
+  await Promise.all(arrOfPromises);
+  server.listen(9090);
 }
 
-Object.entries(templateList).forEach(([templateName, template]) => {
-  fs.readFile(template.fileName, 'utf-8', (err, userListContent) => {
-    templateList[templateName].content = userListContent;
-    listenIfReady();
-  });
-});
+listenServer();
