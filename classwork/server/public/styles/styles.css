@@ -1,0 +1,6 @@
+.form-control::placeholder {
+    font-size: 10px;
+    color: red;
+    opacity: 70%;
+
+}
