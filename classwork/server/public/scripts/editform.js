@@ -36,6 +36,9 @@ function main() {
         element.classList.remove('is-invalid');
       }
     })
+
+  await fetch(`/users.html?name=${userName.value}&gender=${userGender.value}`);
+    
     
   });
 }
