@@ -3,201 +3,155 @@ const yellowDuration = 3000;
 const greenDuration = 20000;
 const nightModeDuration = 700;
 
-const leftTraffic = {
-  red: {
-    element: document.querySelector('.light.left.tall .bulb:first-child'),
-    class: 'red',
-    duration: redDuration,
-    changeColor(cb) {
-      this.element.classList.add(this.class);
-      setTimeout(() => {
-        this.element.classList.remove(this.class);
-        cb();
-      }, this.duration);
-    },
-  },
+class TrafficLight {
+  constructor(element) {
+    this.element = document.getElementById(element);
+  }
 
-  yellow: {
-    element: document.querySelector(
-      '.light.left.tall .bulb:not(:first-child):not(:last-child)'
-    ),
-    class: 'yellow',
-    duration: yellowDuration,
-    changeColor(cb) {
-      this.element.classList.add(this.class);
-      setTimeout(() => {
-        this.element.classList.remove(this.class);
-        cb();
-      }, this.duration);
-    },
-    nightMode() {
-      setInterval(() => {
-        this.element.classList.toggle(this.class);
-      }, nightModeDuration);
-    },
-  },
+  switchOn() {
+    this.element.classList.add(this.color);
+  }
 
-  green: {
-    element: document.querySelector('.light.left.tall .bulb:last-child'),
-    class: 'green',
-    duration: greenDuration,
-    changeColor(cb) {
-      this.element.classList.add(this.class);
-      setTimeout(() => {
-        this.element.classList.remove(this.class);
-        cb();
-      }, this.duration);
-    },
-  },
-};
-
-const rightTraffic = {
-  red: {
-    element: document.querySelector('.light.right.tall .bulb:first-child'),
-    class: 'red',
-    duration: redDuration,
-    changeColor(cb) {
-      this.element.classList.add(this.class);
-      setTimeout(() => {
-        this.element.classList.remove(this.class);
-        cb();
-      }, this.duration);
-    },
-  },
-
-  yellow: {
-    element: document.querySelector(
-      '.light.right.tall .bulb:not(:first-child):not(:last-child)'
-    ),
-    class: 'yellow',
-    duration: yellowDuration,
-    changeColor(cb) {
-      this.element.classList.add(this.class);
-      setTimeout(() => {
-        this.element.classList.remove(this.class);
-        cb();
-      }, this.duration);
-    },
-    nightMode() {
-      setInterval(() => {
-        this.element.classList.toggle(this.class);
-      }, nightModeDuration);
-    },
-  },
-
-  green: {
-    element: document.querySelector('.light.right.tall .bulb:last-child'),
-    class: 'green',
-    duration: greenDuration,
-    changeColor(cb) {
-      this.element.classList.add(this.class);
-      setTimeout(() => {
-        this.element.classList.remove(this.class);
-        cb();
-      }, this.duration);
-    },
-  },
-};
-
-const leftVertical = {
-  red: document.querySelector('.light.vertical.right .bulb:first-child'),
-  green: document.querySelector('.light.vertical.right .bulb:last-child'),
-  toGreen(countdown) {
-    this.green.innerHTML = countdown / 1000;
-    let timer = setInterval(() => {
-      countdown = countdown - 1000;
-      this.green.innerHTML = countdown / 1000;
-      if (countdown === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-    this.green.classList.add('green');
-    this.red.classList.remove('red');
-  },
-  toRed(countdown) {
-    this.red.innerHTML = countdown / 1000;
-    let timer = setInterval(() => {
-      countdown = countdown - 1000;
-      this.red.innerHTML = countdown / 1000;
-      if (countdown === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-    this.red.classList.add('red');
-    this.green.classList.remove('green');
-  },
-};
-
-const rightVertical = {
-  red: document.querySelector('.light.vertical.left .bulb:first-child'),
-  green: document.querySelector('.light.vertical.left .bulb:last-child'),
-  toGreen(countdown) {
-    this.green.innerHTML = countdown / 1000;
-    let timer = setInterval(() => {
-      countdown = countdown - 1000;
-      this.green.innerHTML = countdown / 1000;
-      if (countdown === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-    this.green.classList.add('green');
-    this.red.classList.remove('red');
-  },
-  toRed(countdown) {
-    this.red.innerHTML = countdown / 1000;
-    let timer = setInterval(() => {
-      countdown = countdown - 1000;
-      this.red.innerHTML = countdown / 1000;
-      if (countdown === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-    this.red.classList.add('red');
-    this.green.classList.remove('green');
-  },
-};
-
-function leftTrafficLight() {
-  leftTraffic.red.changeColor(function () {
-    leftTraffic.yellow.changeColor(function () {
-      leftTraffic.green.changeColor(function () {
-        leftTraffic.yellow.changeColor(function () {
-          leftTrafficLight();
-        });
-      });
-    });
-    leftVertical.toRed(greenDuration + yellowDuration + yellowDuration);
-  });
-  leftVertical.toGreen(redDuration);
-}
-
-function rightTrafficLight() {
-  rightTraffic.green.changeColor(function () {
-    rightTraffic.yellow.changeColor(function () {
-      rightTraffic.red.changeColor(function () {
-        rightTraffic.yellow.changeColor(function () {
-          rightTrafficLight();
-        });
-        rightVertical.toRed(greenDuration + yellowDuration + yellowDuration);
-      });
-      rightVertical.toGreen(redDuration);
-    });
-  });
-  rightVertical.toRed(greenDuration + yellowDuration);
-}
-
-function trafficLight() {
-  let date = new Date();
-  let hours = date.getHours();
-  if (hours > 4 && hours < 23) {
-    leftTrafficLight();
-    rightTrafficLight();
-    setInterval(trafficLight, 2.16e7);
-  } else {
-    leftTraffic.yellow.nightMode();
-    rightTraffic.yellow.nightMode();
-    setInterval(trafficLight, 2.16e7);
+  switchOff() {
+    this.element.classList.remove(this.color);
   }
 }
 
-trafficLight();
+class RedTrafficLight extends TrafficLight {
+  constructor(element) {
+    super(element);
+  }
+
+  duration = redDuration;
+  color = 'red';
+}
+
+class YellowTrafficLight extends TrafficLight {
+  constructor(element) {
+    super(element);
+  }
+
+  duration = yellowDuration;
+  color = 'yellow';
+
+  nightMode() {
+    setInterval(() => {
+      this.element.classList.toggle(this.color);
+    }, nightModeDuration);
+  }
+}
+
+class GreenTrafficLight extends TrafficLight {
+  constructor(element) {
+    super(element);
+  }
+
+  duration = greenDuration;
+  color = 'green';
+}
+
+const leftHorizontal = {
+  red: new RedTrafficLight('lh1'),
+  yellow: new YellowTrafficLight('lh2'),
+  green: new GreenTrafficLight('lh3'),
+};
+
+const rightHorizontal = {
+  red: new RedTrafficLight('rh1'),
+  yellow: new YellowTrafficLight('rh2'),
+  green: new GreenTrafficLight('rh3'),
+};
+
+const leftVertical = {
+  red: new RedTrafficLight('lv1'),
+  green: new GreenTrafficLight('lv2'),
+};
+
+const rightVertical = {
+  red: new RedTrafficLight('rv1'),
+  green: new GreenTrafficLight('rv2'),
+};
+
+function delay(duration) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), duration);
+  });
+}
+
+function trafficLight() {
+  Promise.resolve()
+    .then(() => {
+      leftHorizontal.red.switchOn();
+      rightHorizontal.green.switchOn();
+
+      leftVertical.green.switchOn();
+      rightVertical.red.switchOn();
+    })
+    .then(() => delay(redDuration))
+    .then(() => {
+      leftHorizontal.red.switchOff();
+      rightHorizontal.green.switchOff();
+    })
+    .then(() => {
+      leftHorizontal.yellow.switchOn();
+      rightHorizontal.yellow.switchOn();
+
+      leftVertical.green.switchOff();
+      leftVertical.red.switchOn();
+    })
+    .then(() => delay(yellowDuration))
+    .then(() => {
+      leftHorizontal.yellow.switchOff();
+      rightHorizontal.yellow.switchOff();
+    })
+    .then(() => {
+      leftHorizontal.green.switchOn();
+      rightHorizontal.red.switchOn();
+
+      leftVertical.red.switchOn();
+
+      rightVertical.red.switchOff();
+      rightVertical.green.switchOn();
+    })
+    .then(() => delay(greenDuration))
+    .then(() => {
+      leftHorizontal.green.switchOff();
+      rightHorizontal.red.switchOff();
+    })
+    .then(() => {
+      leftHorizontal.yellow.switchOn();
+      rightHorizontal.yellow.switchOn();
+
+      rightVertical.red.switchOn();
+      rightVertical.green.switchOff();
+    })
+    .then(() => delay(yellowDuration))
+    .then(() => {
+      leftHorizontal.yellow.switchOff();
+      rightHorizontal.yellow.switchOff();
+
+      leftVertical.red.switchOff();
+
+      rightVertical.red.switchOff();
+    })
+    .then(() => {
+      trafficLight();
+    });
+}
+
+function main() {
+  const date = new Date();
+  const FIVE_HOURS = 1.8e7;
+  const hours = date.getHours();
+  const dayMode = hours > 4 && hours < 23;
+  if (dayMode) {
+    trafficLight();
+    setInterval(main, FIVE_HOURS);
+  } else {
+    leftHorizontal.yellow.nightMode();
+    rightHorizontal.yellow.nightMode();
+    setInterval(main, FIVE_HOURS);
+  }
+}
+
+main();
