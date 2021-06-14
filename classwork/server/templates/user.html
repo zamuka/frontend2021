@@ -7,19 +7,24 @@
     <link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
     <script src="/scripts/editform.js"></script>
     <title>{{name}}</title>
+    <style>
+        .no-validate {
+            border: 1 px solid red;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>User information</h1>
         <div>
-            <form method="GET">
+            <form class="validate-form" method="GET">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input class="form-control" name="name" value='{{name}}'>
+                    <input class="form-control name" name="name" value='{{name}}'>
                 </div>
                 <div class="form-group">
                     <label for="gridHeight">Gender</label>
-                    <input class="form-control" name="gender" value='{{gender}}'>
+                    <input class="form-control gender" name="gender" value='{{gender}}'>
                 </div>
 
                 <!-- <label for="balance">Money: </label>
