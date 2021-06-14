@@ -38,11 +38,6 @@ async function listener(req, res) {
 
   if (req.url === '/users.html') {
     const users = await dbClient.getList();
-
-    // pending
-    // resolved
-    // rejected
-
     res.statusCode = 200;
     const content = Mustache.render(templateList.userList.content, { title: 'User List from data', users });
     res.write(content);

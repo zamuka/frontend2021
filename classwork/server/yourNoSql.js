@@ -7,11 +7,6 @@ class YourNoSql {
   dataFileName = path.join(__dirname, 'users.json');
 
   getList() {
-    // const listPromise = new Promise((resolve) => {
-    //   fs.readFile(this.dataFileName, 'utf-8', (err, data) => {
-    //     resolve(data);
-    //   });
-    // });
 
     const listPromise = fsp.readFile(this.dataFileName, 'utf-8');
 
@@ -49,6 +44,7 @@ class YourNoSql {
     return fsp.writeFile(this.dataFileName, JSON.stringify(data));
   }
 }
+
 
 module.exports = {
   dbClient: new YourNoSql(),
