@@ -28,21 +28,24 @@ class YourNoSql {
       .then((list) => find(list, { _id: id }));
   }
 
-  update(id, userData) {
-    return this.getList()
-      .then((originalUsers) => {
-        const users = originalUsers.map((user) => {
-          if (user._id === id) {
-            return {
-              ...user,
-              ...userData,
-            };
-          }
-          return user;
-        });
-        return users;
-      })
-      .then((users) => this.save(users));
+  async update(id, userData) {
+    let userUpdated = false;
+    const originalUsers = await this.getList();
+    const users = originalUsers.map((user) => {
+      if (user._id === id) {
+        userUpdated = true;
+        return {
+          ...user,
+          ...userData,
+        };
+      }
+      return user;
+    });
+
+    if (!userUpdated) {
+      throw new Error('User not found');
+    }
+    await this.save(users);
   }
 
   save(data) {

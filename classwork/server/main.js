@@ -5,6 +5,7 @@ const Mustache = require('mustache');
 const { isEmpty } = require('lodash');
 const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
+const { handleAPIRequest } = require('./api');
 
 const templateList = {
   userList: {
@@ -22,6 +23,11 @@ const templateList = {
  * @param {http.ServerResponse} res
  */
 async function listener(req, res) {
+  if (req.url.startsWith('/api/')) {
+    handleAPIRequest(req, res);
+    return;
+  }
+
   if (req.method !== 'GET') {
     res.statusCode = 405;
     res.end();
