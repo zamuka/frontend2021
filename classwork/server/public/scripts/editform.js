@@ -1,38 +1,38 @@
 function validateForm() {
   const form = document.querySelector('.validate-form');
-  const inputName = form.querySelector('.name');
-  const inputGender = form.querySelector('.gender');
+  const inputName = form.querySelector('[name = "name"]');
+  const inputGender = form.querySelector('[name = "gender"]');
   const inputs = Array.from(form.querySelectorAll('.form-control'));
 
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
     const regexp = /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/;
-
-    for (let i = 0; i < inputs.length; i = i + 1) {
-      if (inputs[i].value === '') {
-        inputs[i].classList.add('no-valid');
+    inputs.forEach((input) => {
+      if (input.value === '') {
+        input.classList.add('is-invalid');
         return;
       }
-      if (inputs[i] === inputName) {
-        if (!regexp.test(inputs[i])) {
-          inputs[i].classList.add('no-valid');
+      if (input === inputName) {
+        if (!regexp.test(input.value)) {
+          input.classList.add('is-invalid');
           return;
         }
       }
-      if (inputs[i] === inputGender) {
+      if (input === inputGender) {
         if (inputGender.value !== 'male' && inputGender.value !== 'female') {
-          inputGender.classList.add('no-valid');
+          inputGender.classList.add('is-invalid');
           return;
         }
         if (inputGender.value === '') {
-          inputGender.classList.add('no-valid');
+          inputGender.classList.add('is-invalid');
           return;
         }
       }
-      if (inputs[i].value) {
-        inputs[i].classList.remove('no-valid');
+      if (input.value) {
+        input.classList.remove('is-invalid');
       }
-    }
+    });
+
     const search = `?name=${inputName.value}&gender=${inputGender.value}`;
 
     await fetch(`${window.location.pathname}${search}`);
