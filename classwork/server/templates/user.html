@@ -15,11 +15,17 @@
             <form method="GET">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input class="form-control" name="name" value='{{name}}'>
+                    <input class="form-control" name="name" value='{{name}}' autocomplete="off">
+                    <div class="invalid-feedback" id="invalid-feedback-name">
+                        Please, enter your name.
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="gridHeight">Gender</label>
-                    <input class="form-control" name="gender" value='{{gender}}'>
+                    <input class="form-control" name="gender" value='{{gender}}' autocomplete="off" pattern="[Mm]ale|[Ff]emale">
+                    <div class="invalid-feedback" id="invalid-feedback-gender">
+                        Please, enter your gender.
+                    </div>
                 </div>
 
                 <!-- <label for="balance">Money: </label>
