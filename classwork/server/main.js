@@ -50,7 +50,10 @@ async function listener(req, res) {
     // rejected
 
     res.statusCode = 200;
-    const content = Mustache.render(templateList.userList.content, { title: 'User List from data', users });
+    const content = Mustache.render(templateList.userList.content, {
+      title: 'User List from data',
+      users,
+    });
     res.write(content);
     res.end();
 
@@ -60,25 +63,21 @@ async function listener(req, res) {
   if (req.url.startsWith('/users/')) {
     const baseURL = `http://${req.headers.host}/`;
     const myURL = new URL(req.url, baseURL);
-    const [,, id] = myURL.pathname.split('/');
+    const [, , id] = myURL.pathname.split('/');
 
     const userUpdateData = Object.fromEntries(myURL.searchParams.entries());
 
     if (isEmpty(myURL.search)) {
-      dbClient.findUser(id).then((user) => {
-        const content = Mustache.render(templateList.user.content, user);
-        res.write(content);
-        res.end();
-      });
+      const user = await dbClient.findUser(id);
+      const content = Mustache.render(templateList.user.content, user);
+      res.write(content);
+      res.end();
       return;
     }
 
-    dbClient.update(id, userUpdateData).then(() => {
-      res.writeHead(302, {
-        Location: '/users.html',
-      });
-      res.end();
-    });
+    await dbClient.update(id, userUpdateData);
+    res.writeHead(302, { Location: '/users.html' });
+    res.end();
     return;
   }
 
@@ -88,7 +87,9 @@ async function listener(req, res) {
 const server = http.createServer(listener);
 
 function listenIfReady() {
-  const allLoaded = Object.values(templateList).every((template) => template.content);
+  const allLoaded = Object.values(templateList).every(
+    (template) => template.content
+  );
   if (allLoaded) {
     server.listen(9090);
   }
