@@ -37,7 +37,7 @@ function main() {
       }
     })
 
-  await fetch(`/users.html?name=${userName.value}&gender=${userGender.value}`);
+  await fetch(`http://localhost:9090/user.html?name=${userName.value}&gender=${userGender.value}`);
     
     
   });
