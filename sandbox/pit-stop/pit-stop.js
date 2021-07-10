@@ -1,5 +1,6 @@
 const WHEEL_INSTALLED = 'wheelInstalled';
 const TANK_FULL = 'tankFull';
+const mechanicsPromises = [];
 
 /**
  * @param {Element} node
@@ -7,8 +8,9 @@ const TANK_FULL = 'tankFull';
 class Mechanic {
   _resolve = null;
 
-  // saving "resolve" function for future use
-  promise = new Promise((resolve) => { this._resolve = resolve; });
+  promise = new Promise((resolve) => {
+    this._resolve = resolve;
+  });
 
   /**
    * @param {Element} node
@@ -40,17 +42,17 @@ class Mechanic {
 }
 
 function createMechanics() {
-  document.querySelectorAll('.mechanic')
-    .forEach((node) => new Mechanic(node));
+  document
+    .querySelectorAll('.mechanic')
+    .forEach((node) => mechanicsPromises.push(new Mechanic(node).promise));
 }
 
 function main() {
   createMechanics();
-
-  /**
-   * YOUR CODE HERE
-   * Add a "go" class to an element with "#pit-stop"
-   * */
+  const pitstop = document.getElementById('pit-stop');
+  Promise.all(mechanicsPromises)
+    .then(() => pitstop.classList.add('go'))
+    .catch((error) => console.log('Error', error));
 }
 
 window.addEventListener('load', main);
