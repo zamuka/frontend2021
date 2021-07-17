@@ -6,16 +6,10 @@ const path = require('path');
 class YourNoSql {
   dataFileName = path.join(__dirname, 'users.json');
 
-  getList() {
-    // const listPromise = new Promise((resolve) => {
-    //   fs.readFile(this.dataFileName, 'utf-8', (err, data) => {
-    //     resolve(data);
-    //   });
-    // });
+  async getList() {
+    const data = await fsp.readFile(this.dataFileName, 'utf-8');
 
-    const listPromise = fsp.readFile(this.dataFileName, 'utf-8');
-
-    return listPromise.then((data) => JSON.parse(data));
+    return JSON.parse(data);
   }
 
   /**
@@ -23,34 +17,32 @@ class YourNoSql {
    * @param {string} id
    * @returns Promise<object>
    */
-  findUser(id) {
-    return this.getList()
-      .then((list) => find(list, { _id: id }));
+  async findUser(id) {
+    const list = await this.getList();
+    return find(list, { _id: id });
   }
 
-  async update(id, userData) {
-    let userUpdated = false;
-    const originalUsers = await this.getList();
-    const users = originalUsers.map((user) => {
-      if (user._id === id) {
-        userUpdated = true;
-        return {
-          ...user,
-          ...userData,
-        };
-      }
-      return user;
-    });
+11
 
-    if (!userUpdated) {
-      throw new Error('User not found');
+async update(id, userData) {
+  const originalUsers = await this.getList();
+
+  const users = originalUsers.map((user) => {
+    if (user._id === id) {
+      return {
+        ...user,
+        ...userData,
+      };
     }
-    await this.save(users);
-  }
+    return user;
+  });
 
-  save(data) {
-    return fsp.writeFile(this.dataFileName, JSON.stringify(data));
-  }
+  await this.save(users);
+}
+
+async save(data) {
+  await fsp.writeFile(this.dataFileName, JSON.stringify(data));
+}
 }
 
 module.exports = {

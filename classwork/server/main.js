@@ -5,7 +5,6 @@ const Mustache = require('mustache');
 const { isEmpty } = require('lodash');
 const { dbClient } = require('./yourNoSql');
 const { serveStatic } = require('./serveStatic');
-const { handleAPIRequest } = require('./api');
 
 const templateList = {
   userList: {
@@ -23,11 +22,6 @@ const templateList = {
  * @param {http.ServerResponse} res
  */
 async function listener(req, res) {
-  if (req.url.startsWith('/api/')) {
-    handleAPIRequest(req, res);
-    return;
-  }
-
   if (req.method !== 'GET') {
     res.statusCode = 405;
     res.end();
@@ -45,15 +39,15 @@ async function listener(req, res) {
   if (req.url === '/users.html') {
     const users = await dbClient.getList();
 
-    // pending
-    // resolved
-    // rejected
-
     res.statusCode = 200;
-    const content = Mustache.render(templateList.userList.content, { title: 'User List from data', users });
+
+    const content = Mustache.render(
+      templateList.userList.content,
+      { title: 'User List from data', users },
+    );
+
     res.write(content);
     res.end();
-
     return;
   }
 
@@ -65,20 +59,20 @@ async function listener(req, res) {
     const userUpdateData = Object.fromEntries(myURL.searchParams.entries());
 
     if (isEmpty(myURL.search)) {
-      dbClient.findUser(id).then((user) => {
-        const content = Mustache.render(templateList.user.content, user);
-        res.write(content);
-        res.end();
-      });
+      const user = await dbClient.findUser(id);
+
+      const content = Mustache.render(templateList.user.content, user);
+      res.write(content);
+      res.end();
       return;
     }
 
-    dbClient.update(id, userUpdateData).then(() => {
-      res.writeHead(302, {
-        Location: '/users.html',
-      });
-      res.end();
+    await dbClient.update(id, userUpdateData);
+
+    res.writeHead(302, {
+      Location: '/users.html',
     });
+    res.end();
     return;
   }
 
